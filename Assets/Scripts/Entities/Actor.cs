@@ -17,7 +17,7 @@ public class Actor : MonoBehaviour, IDamageable
     #endregion
 
     #region IDAMAGEABLE_METHODS
-    public void Die()
+    public virtual void Die()
     {
         Debug.Log($"{name} died");
         Destroy(gameObject);

@@ -22,6 +22,8 @@ public abstract class RangedRune : MonoBehaviour, IRune
     #region IRANGEDRUNE_METHODS
 
     public virtual void Shoot() => Debug.Log("Shooting");
+
+    public virtual void ShootAtDirection(Vector3 direction) => Debug.Log("Shooting at direection");
     #endregion
 
     #region UNITY_EVENTS

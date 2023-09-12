@@ -10,4 +10,6 @@ public interface IRune
     Character Player { get; }
 
     void Shoot();
+
+    void ShootAtDirection(Vector3 direction);
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 public class Body : MonoBehaviour
 {
     [SerializeField] private Actor _actor;
+
+    public Actor Actor => _actor;
     private void Awake()
     {
         _actor = transform.parent.GetComponent<Actor>();

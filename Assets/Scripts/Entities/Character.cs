@@ -3,79 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(EventQueueManager), typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Character : Actor
 {
-    [SerializeField] private RangedRune _basicAttack;
-    [SerializeField] private CharacterStats _characterStats;
-    [SerializeField] private float _mana;
-    [SerializeField] private ParticleSystem _clickEffect;
-    private NavMeshAgent _agent;
-    private Animator _animator;
-    private RaycastHit _hit;
-    private string groundTag = "Ground";
-    public float Mana => _mana;
+    [SerializeField] protected RangedRune basicAttack;
+    [SerializeField] protected CharacterStats characterStats;
+    [SerializeField] protected float mana;
+    protected NavMeshAgent agent;
+    protected Animator animator;
+    protected bool isDead = false;
+    public float Mana => mana;
 
+    #region UNITY_EVENTS
 
-    #region KEY_BINDINGS
-    [SerializeField] private KeyCode _move = KeyCode.Mouse1;
-    [SerializeField] private KeyCode _shootAttack = KeyCode.Q;
-
-    #endregion
-
-
-    #region UNITY_EVENT
-
-    private void Awake()
+    protected void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = _characterStats.MovementSpeed;
-        _agent.autoBraking = false;
-        _agent.angularSpeed = 0;
-        _agent.acceleration = 99999;
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = characterStats.MovementSpeed;
+        agent.autoBraking = false;
+        agent.angularSpeed = 0;
+        agent.acceleration = 99999;
 
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
     }
     void Start()
     {
-        base.stats = _characterStats;
+        base.stats = characterStats;
         base.Start();
 
-        _mana = _characterStats.MaxMana;
+        mana = characterStats.MaxMana;
 
         StartCoroutine(ManaRegenCoroutine());
     }
 
-    void Update()
+    protected void Update()
     {
-        if (Input.GetKeyDown(_shootAttack)) 
-        {
-            _basicAttack.Shoot(); 
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) EventsManager.instance.EventGameOver(true);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) EventsManager.instance.EventGameOver(false);
-
-        if (Input.GetKeyDown(_move))
-        {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out _hit) && _hit.collider.CompareTag(groundTag))
-            {
-                new CmdMoveToClick(_agent, _hit).Execute();
-                if(_clickEffect != null) {
-                    GameObject effectContainer = new GameObject("ClickEffectContainer");
-
-                    effectContainer.transform.position = _hit.point + new Vector3(0, 0.1f, 0);
-
-                    ParticleSystem effectInstance = Instantiate(_clickEffect, effectContainer.transform);
-
-                    effectInstance.transform.localPosition = Vector3.zero;
-
-                    Destroy(effectContainer, 2.0f);
-                }
-            }
-        }
-
+        if (isDead) return;
         FaceTarget();
         SetAnimations();
     }
@@ -83,29 +47,26 @@ public class Character : Actor
 
     private void FaceTarget()
     {
-        if (_agent.velocity != Vector3.zero)
-        {
-            Vector3 direction = (_agent.destination - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
+        if (agent.velocity != Vector3.zero) new CmdChangeRotation(transform, (agent.destination - transform.position).normalized).Execute();
     }
 
     private void SetAnimations()
     {
-        if (_agent.velocity == Vector3.zero)
-        {
-            _animator.Play("Idle");
-        } else
-        {
-            _animator.Play("Walk");
-        }
+        if (agent.velocity == Vector3.zero) animator.Play("Idle");
+        else animator.Play("Walk");
     }
 
     public void SpendMana(int manaCost)
     {
-        _mana -= manaCost;
-        if (_mana < 0) _mana = 0;
+        mana -= manaCost;
+        if (mana < 0) mana = 0;
+    }
+
+    public override void Die()
+    {
+        animator.Play("Dead");
+        isDead = true;
+        StartCoroutine(RemoveCharacter());
     }
 
     private IEnumerator ManaRegenCoroutine()
@@ -113,11 +74,17 @@ public class Character : Actor
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (_mana < _characterStats.MaxMana)
+            if (mana < characterStats.MaxMana)
             {
-                _mana += _characterStats.ManaRegen;
-                if (_mana >  _characterStats.MaxMana) _mana = _characterStats.MaxMana;
+                mana += characterStats.ManaRegen;
+                if (mana >  characterStats.MaxMana) mana = characterStats.MaxMana;
             }
         }
+    }
+
+    private IEnumerator RemoveCharacter()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 }

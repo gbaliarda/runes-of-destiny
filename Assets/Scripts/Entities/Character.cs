@@ -66,7 +66,7 @@ public class Character : Actor
     {
         animator.Play("Dead");
         isDead = true;
-        StartCoroutine(RemoveCharacter());
+        Destroy(gameObject, 5f);
     }
 
     private IEnumerator ManaRegenCoroutine()
@@ -80,11 +80,5 @@ public class Character : Actor
                 if (mana >  characterStats.MaxMana) mana = characterStats.MaxMana;
             }
         }
-    }
-
-    private IEnumerator RemoveCharacter()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
     }
 }

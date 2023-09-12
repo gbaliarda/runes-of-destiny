@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Collider), typeof(NavMeshAgent))]
-[RequireComponent (typeof(EventQueueManager))]
+[RequireComponent(typeof(EventQueueManager), typeof(NavMeshAgent))]
 public class Character : Actor
 {
     [SerializeField] private RangedRune _basicAttack;

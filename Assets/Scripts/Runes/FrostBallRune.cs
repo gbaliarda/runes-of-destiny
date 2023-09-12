@@ -12,7 +12,9 @@ public class FrostBallRune : RangedRune
         Debug.Log($"{name} mana left {Player.Mana}");
 
         int numberOfProjectiles = RuneStats.Projectiles;
-        float angleBetweenProjectiles = 10f;
+        float angleBetweenProjectiles = 5f;
+
+        if (360 / angleBetweenProjectiles < numberOfProjectiles) numberOfProjectiles = Mathf.RoundToInt(360 / angleBetweenProjectiles);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
@@ -21,9 +23,11 @@ public class FrostBallRune : RangedRune
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(mainDirection.x, 0, mainDirection.z));
         Player.transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1f);
 
-        for (int i = 0; i < numberOfProjectiles && i < 360/angleBetweenProjectiles; i++)
+        float maxRotationAngle = angleBetweenProjectiles*(numberOfProjectiles - 1)/2;
+
+        for (float rotationAngle = -maxRotationAngle; rotationAngle < maxRotationAngle; rotationAngle += angleBetweenProjectiles)
         {
-            Quaternion rotation = Quaternion.Euler(0, i * angleBetweenProjectiles, 0);
+            Quaternion rotation = Quaternion.Euler(0, rotationAngle, 0);
             Vector3 direction = rotation * mainDirection;
 
             GameObject frostBall = Instantiate(RunePrefab, transform.position, Quaternion.LookRotation(direction), RuneContainer);

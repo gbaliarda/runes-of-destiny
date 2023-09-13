@@ -40,10 +40,5 @@ public class Actor : MonoBehaviour, IDamageable
     {
         _life = MaxLife;
     }
-
-    void Update()
-    {
-        
-    }
     #endregion
 }

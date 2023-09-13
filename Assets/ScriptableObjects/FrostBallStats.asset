@@ -15,6 +15,6 @@ MonoBehaviour:
   _runeStats:
     Speed: 40
     Damage: 20
-    ManaCost: 20
+    ManaCost: 5
     Cooldown: 1
     Projectiles: 1

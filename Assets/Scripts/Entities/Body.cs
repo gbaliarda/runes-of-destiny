@@ -8,12 +8,12 @@ public class Body : MonoBehaviour
     [SerializeField] private Actor _actor;
 
     public Actor Actor => _actor;
-    private void Awake()
+    void Awake()
     {
         _actor = transform.parent.GetComponent<Actor>();
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         _actor.TakeDamage(damage);
     }

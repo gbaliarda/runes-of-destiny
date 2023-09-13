@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 442076219}
   m_Layer: 6
   m_Name: FrostBallRune
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -516,6 +516,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2959467708922500008, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
+--- !u!114 &590052849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590052844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a068b45c6aeaaa42a65bc2dc6bd1c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actor: {fileID: 1418581990}
 --- !u!1001 &701725155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -564,8 +577,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 635547659545568360, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
       propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844622625683270731, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
+      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -587,6 +612,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 590052846}
+    - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 590052849}
   m_SourcePrefab: {fileID: 100100000, guid: 6b645df6558e1fe43bfde040aea805e1, type: 3}
 --- !u!1001 &763390526
 PrefabInstance:
@@ -1283,6 +1311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 425fbded0c3c44b428b3ca7902f5ef2b, type: 2}
   _life: 0
+  isDead: 0
   basicAttack: {fileID: 442076219}
   characterStats: {fileID: 11400000, guid: 425fbded0c3c44b428b3ca7902f5ef2b, type: 2}
   mana: 0
@@ -1655,6 +1684,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1503606295}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1503606297}
     - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1689486420}
@@ -1720,12 +1752,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a5ee124830943274bb639b470f0b0e58, type: 2}
   _life: 0
+  isDead: 0
   basicAttack: {fileID: 502142540}
   characterStats: {fileID: 11400000, guid: a5ee124830943274bb639b470f0b0e58, type: 2}
   mana: 0
   _clickEffect: {fileID: 372635409}
   _move: 324
   _shootAttack: 113
+--- !u!114 &1503606297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503606289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0212c4c3939cc43ad87f04b2aae584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1509694600
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class Character : Actor
         animator = GetComponent<Animator>();
 
     }
-    void Start()
+    protected new void Start()
     {
         base.stats = characterStats;
         base.Start();

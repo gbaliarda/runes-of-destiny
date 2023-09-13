@@ -14,6 +14,7 @@ public class Enemy : Character
     {
         base.Awake();
         if (_player == null) _player = GameObject.Find("Player");
+        EventsManager.instance.OnGameOver += OnGameOver;
     } 
 
 
@@ -45,5 +46,16 @@ public class Enemy : Character
 
         agent.SetDestination(transform.position);
         basicAttack.ShootAtDirection(_player.transform.position);
+    }
+
+    private void OnGameOver(bool isVictory)
+    {
+        if (!isVictory) animator.Play("Victory");
+    }
+
+    public override void Die()
+    {
+        EventsManager.instance.EventGameOver(true);
+        base.Die();
     }
 }

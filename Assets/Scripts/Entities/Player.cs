@@ -9,6 +9,7 @@ public class Player : Character
     [SerializeField] private ParticleSystem _clickEffect;
     private RaycastHit _hit;
     private string groundTag = "Ground";
+    private bool _gameOver;
 
 
     #endregion
@@ -19,9 +20,15 @@ public class Player : Character
 
     #endregion
 
-    new void Update()
+    protected new void Start()
     {
-        if (isDead) return;
+        base.Start();
+        EventsManager.instance.OnGameOver += OnGameOver;
+    }
+
+    private new void Update()
+    {
+        if (isDead || _gameOver) return;
         base.Update();
         if (Input.GetKeyDown(_shootAttack))
         {
@@ -50,5 +57,18 @@ public class Player : Character
                 }
             }
         }
+    }
+
+    private void OnGameOver(bool isVictory)
+    {
+        Debug.Log($"Victory: {isVictory}");
+        _gameOver = true;
+        if (isVictory) animator.Play("Victory");
+    }
+
+    public override void Die()
+    {
+        EventsManager.instance.EventGameOver(false);
+        base.Die();
     }
 }

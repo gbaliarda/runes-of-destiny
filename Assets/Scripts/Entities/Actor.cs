@@ -8,18 +8,22 @@ public class Actor : MonoBehaviour, IDamageable
     [SerializeField] protected EntityStats stats;
     public EntityStats Stats => stats;
     [SerializeField] private int _life;
+    [SerializeField] protected bool isDead = false;
     #endregion
 
     #region IDAMAGEABLE_PROPERTIES
     public int MaxLife => stats.MaxLife;
 
     public int Life => _life;
+
+    public bool IsDead => isDead;
     #endregion
 
     #region IDAMAGEABLE_METHODS
     public virtual void Die()
     {
         Debug.Log($"{name} died");
+        isDead = true;
         Destroy(gameObject);
     }
 

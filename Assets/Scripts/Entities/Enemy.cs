@@ -40,7 +40,9 @@ public class Enemy : Character
     }
 
     private void Attack()
-    { 
+    {
+        if (_player.GetComponent<IDamageable>() != null && _player.GetComponent<IDamageable>().IsDead == true) return;
+
         agent.SetDestination(transform.position);
         basicAttack.ShootAtDirection(_player.transform.position);
     }

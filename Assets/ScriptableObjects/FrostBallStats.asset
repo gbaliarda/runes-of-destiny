@@ -16,5 +16,5 @@ MonoBehaviour:
     Speed: 40
     Damage: 20
     ManaCost: 20
-    Cooldown: 0.3
-    Projectiles: 12
+    Cooldown: 1
+    Projectiles: 1

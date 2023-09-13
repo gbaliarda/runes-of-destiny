@@ -11,7 +11,6 @@ public class Character : Actor
     [SerializeField] protected float mana;
     protected NavMeshAgent agent;
     protected Animator animator;
-    protected bool isDead = false;
     public float Mana => mana;
 
     #region UNITY_EVENTS

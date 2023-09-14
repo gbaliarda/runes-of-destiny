@@ -11,7 +11,6 @@ public class Player : Character
     private string groundTag = "Ground";
     private bool _gameOver;
 
-
     #endregion
 
     #region KEY_BINDINGS
@@ -33,33 +32,17 @@ public class Player : Character
     {
         if (isDead || _gameOver) return;
         base.Update();
-        if (Input.GetKeyDown(_shootAttack))
-        {
-            basicAttack.Shoot();
-        }
-
+        if (Input.GetKeyDown(_shootAttack)) attackController.AttackOnMousePosition();
         if (Input.GetKeyDown(_openInventory)) EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) EventsManager.instance.EventGameOver(true);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) EventsManager.instance.EventGameOver(false);
 
         if (Input.GetKeyDown(_move))
         {
             if (Physics.Raycast(UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition), out _hit) && _hit.collider.CompareTag(groundTag))
             {
-                new CmdMoveToClick(agent, _hit).Execute();
-                if (_clickEffect != null)
-                {
-                    GameObject effectContainer = new GameObject("ClickEffectContainer");
+                movementController.Move(_hit.point);
 
-                    effectContainer.transform.position = _hit.point + new Vector3(0, 0.1f, 0);
-
-                    ParticleSystem effectInstance = Instantiate(_clickEffect, effectContainer.transform);
-
-                    effectInstance.transform.localPosition = Vector3.zero;
-
-                    Destroy(effectContainer, 2.0f);
-                }
+                if (_clickEffect != null) ClickEffect();
             }
         }
     }
@@ -80,5 +63,18 @@ public class Player : Character
     {
         EventsManager.instance.EventGameOver(false);
         base.Die();
+    }
+
+    private void ClickEffect()
+    {
+        GameObject effectContainer = new GameObject("ClickEffectContainer");
+
+        effectContainer.transform.position = _hit.point + new Vector3(0, 0.1f, 0);
+
+        ParticleSystem effectInstance = Instantiate(_clickEffect, effectContainer.transform);
+
+        effectInstance.transform.localPosition = Vector3.zero;
+
+        Destroy(effectContainer, 2.0f);
     }
 }

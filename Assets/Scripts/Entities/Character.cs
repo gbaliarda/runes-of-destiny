@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(NavMovementController), typeof(AttackController))]
 public class Character : Actor
 {
-    [SerializeField] protected RangedRune basicAttack;
     [SerializeField] protected CharacterStats characterStats;
     [SerializeField] protected float mana;
     protected NavMeshAgent agent;
+    protected NavMovementController movementController;
+    protected AttackController attackController;
     protected Animator animator;
     public float Mana => mana;
 
@@ -24,6 +25,9 @@ public class Character : Actor
         agent.acceleration = 99999;
 
         animator = GetComponent<Animator>();
+
+        movementController = GetComponent<NavMovementController>();
+        attackController = GetComponent<AttackController>();
 
     }
     protected new void Start()

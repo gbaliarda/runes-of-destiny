@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CmdMoveToClick : ICommand
+public class CmdMoveToPosition : ICommand
 {
     private NavMeshAgent _agent;
-    private RaycastHit _hit;
-    public CmdMoveToClick(NavMeshAgent agent, RaycastHit hit)
+    private Vector3 _position;
+    public CmdMoveToPosition(NavMeshAgent agent, Vector3 position)
     {
         _agent = agent;
-        _hit = hit;
+        _position = position;
     }
 
     public void Execute() 
     { 
-        _agent.destination = _hit.point;
+        _agent.SetDestination(_position);
     }
         
 

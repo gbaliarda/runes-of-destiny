@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrostBallRune : RangedRune
+public class FrostBallRune : Rune
 {
     public override void Shoot()
     {
-        Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
-
-        ShootAtDirection(hit.point);
+        ShootAtDirection(transform.forward);
     }
 
     public override void ShootAtDirection(Vector3 direction)

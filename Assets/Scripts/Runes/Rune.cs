@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RangedRune : MonoBehaviour, IRune
+public abstract class Rune : MonoBehaviour, IRune
 {
     #region PRIVATE_PROPERTIES
     [SerializeField] private GameObject _rangedRunePrefab;

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CmdMoveToPosition : ICommand
+public class CmdMoveTowardsDirection : ICommand
 {
     private Transform _transform;
     private Vector3 _direction;
     private float _distanceToMove = 15f;
     private float _speed;
-    public CmdMoveToPosition(Transform transform, Vector3 direction, float speed)
+    public CmdMoveTowardsDirection(Transform transform, Vector3 direction, float speed)
     {
         _transform = transform;
         _direction = direction;

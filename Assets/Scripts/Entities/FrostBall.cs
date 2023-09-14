@@ -42,7 +42,7 @@ public class FrostBall : MonoBehaviour, IFrostBall
 
     public void Travel()
     {
-        EventQueueManager.instance.AddCommand(new CmdMoveToPosition(transform, transform.forward, Owner.RuneStats.Speed));
+        EventQueueManager.instance.AddCommand(new CmdMoveTowardsDirection(transform, transform.forward, Owner.RuneStats.Speed));
     }
 
     public void Die() => Destroy(this.gameObject);
@@ -64,7 +64,7 @@ public class FrostBall : MonoBehaviour, IFrostBall
             if (other.GetComponent<IDamageable>() != null)
                 EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Actor>(), _owner.RuneStats.Damage));
             else if (other.GetComponent<Body>() != null)
-                new CmdApplyDamage(other.GetComponent<Body>().Actor, _owner.RuneStats.Damage).Execute();
+                EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Body>().Actor, _owner.RuneStats.Damage));
             Die();
         }
     }

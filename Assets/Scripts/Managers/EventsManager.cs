@@ -17,10 +17,16 @@ public class EventsManager : MonoBehaviour
 
     #region GAME_MANAGER_ACTIONS
     public event Action<bool> OnGameOver;
+    public event Action<bool> OnOpenMenu;
     
     public void EventGameOver(bool isVictory)
     {
         if (OnGameOver != null) OnGameOver(isVictory);
+    }
+    
+    public void EventOpenMenu(bool open)
+    {
+        if (OnOpenMenu != null) OnOpenMenu(open);
     }
 
 

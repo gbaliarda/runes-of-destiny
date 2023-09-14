@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EventQueueManager))]
 public class Player : Character
 {
     #region PROPERTIES

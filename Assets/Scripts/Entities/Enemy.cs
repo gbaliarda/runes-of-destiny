@@ -10,9 +10,9 @@ public class Enemy : Character
     [SerializeField] private float _sightRange, _attackRange;
     private bool _playerInSight, _playerInAttack;
 
-    new void Awake()
+    new void Start()
     {
-        base.Awake();
+        base.Start();
         if (_player == null) _player = GameObject.Find("Player");
         EventsManager.instance.OnGameOver += OnGameOver;
     } 

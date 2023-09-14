@@ -6,6 +6,7 @@ public class Player : Character
 {
     #region PROPERTIES
     [SerializeField] private ParticleSystem _clickEffect;
+    [SerializeField] private GameObject _inventory;
     private RaycastHit _hit;
     private string groundTag = "Ground";
     private bool _gameOver;
@@ -16,13 +17,16 @@ public class Player : Character
     #region KEY_BINDINGS
     [SerializeField] private KeyCode _move = KeyCode.Mouse1;
     [SerializeField] private KeyCode _shootAttack = KeyCode.Q;
+    [SerializeField] private KeyCode _openInventory = KeyCode.I;
 
     #endregion
 
     protected new void Start()
     {
         base.Start();
+        if (_inventory == null) _inventory = GameObject.Find("Inventory");
         EventsManager.instance.OnGameOver += OnGameOver;
+        EventsManager.instance.OnOpenInventory += OnOpenInventory;
     }
 
     private new void Update()
@@ -33,6 +37,8 @@ public class Player : Character
         {
             basicAttack.Shoot();
         }
+
+        if (Input.GetKeyDown(_openInventory)) EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) EventsManager.instance.EventGameOver(true);
         if (Input.GetKeyDown(KeyCode.Alpha2)) EventsManager.instance.EventGameOver(false);
@@ -63,6 +69,11 @@ public class Player : Character
         Debug.Log($"Victory: {isVictory}");
         _gameOver = true;
         if (isVictory) animator.Play("Victory");
+    }
+
+    private void OnOpenInventory(bool isOpen)
+    {
+        _inventory.SetActive(isOpen);
     }
 
     public override void Die()

@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
     [SerializeField] private string _mainMenuScene;
+    [SerializeField] private KeyCode _openMenuKeyCode = KeyCode.Escape;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(_openMenuKeyCode))
         {
             EventsManager.instance.EventOpenMenu(!_menu.activeSelf);
         }

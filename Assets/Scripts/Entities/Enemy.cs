@@ -17,7 +17,6 @@ public class Enemy : Character
         EventsManager.instance.OnGameOver += OnGameOver;
     } 
 
-
     new void Update()
     {
         if (isDead) return;
@@ -55,7 +54,6 @@ public class Enemy : Character
 
     public override void Die()
     {
-        EventsManager.instance.EventGameOver(true);
         base.Die();
     }
 }

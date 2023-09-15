@@ -61,7 +61,6 @@ public class Player : Character
 
     public override void Die()
     {
-        EventsManager.instance.EventGameOver(false);
         base.Die();
     }
 

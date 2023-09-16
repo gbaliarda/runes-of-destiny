@@ -8,7 +8,7 @@ public class Player : Character
     [SerializeField] private ParticleSystem _clickEffect;
     [SerializeField] private GameObject _inventory;
     private RaycastHit _hit;
-    private string groundTag = "Ground";
+    [SerializeField] private LayerMask _clickableLayers;
     private bool _gameOver;
 
     #endregion
@@ -38,7 +38,7 @@ public class Player : Character
 
         if (Input.GetKeyDown(_move))
         {
-            if (Physics.Raycast(UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition), out _hit) && _hit.collider.CompareTag(groundTag))
+            if (Physics.Raycast(UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition), out _hit, _clickableLayers) && !_hit.collider.CompareTag("Player"))
             {
                 movementController.Move(_hit.point);
 

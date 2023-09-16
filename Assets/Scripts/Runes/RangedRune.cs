@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrostBallRune : Rune
+public class RangedRune : Rune
 {
+    [SerializeField] private RangedRuneStats _rangedRuneStats;
+
+    public RangedRuneStats RangedRuneStats => _rangedRuneStats;
+
+    protected new void Start()
+    {
+        base.Start();
+        runeStats = _rangedRuneStats;
+    }
+
     public override void Shoot()
     {
         ShootAtDirection(transform.forward);
@@ -16,7 +26,7 @@ public class FrostBallRune : Rune
 
         Debug.Log($"{name} mana left {Player.Mana}");
 
-        int numberOfProjectiles = RuneStats.Projectiles;
+        int numberOfProjectiles = _rangedRuneStats.Projectiles;
         float angleBetweenProjectiles = 5f;
 
         if (360 / angleBetweenProjectiles < numberOfProjectiles) numberOfProjectiles = Mathf.RoundToInt(360 / angleBetweenProjectiles);
@@ -33,8 +43,8 @@ public class FrostBallRune : Rune
             Quaternion rotation = Quaternion.Euler(0, rotationAngle, 0);
             Vector3 auxDirection = rotation * mainDirection;
 
-            GameObject frostBall = Instantiate(RunePrefab, transform.position, Quaternion.LookRotation(auxDirection), RuneContainer);
-            frostBall.GetComponent<FrostBall>()?.SetOwner(this);
+            GameObject spellProjectile = Instantiate(RunePrefab, transform.position, Quaternion.LookRotation(auxDirection), RuneContainer);
+            spellProjectile.GetComponent<SpellProjectile>()?.SetOwner(this);
         }
         _cooldownLeft = RuneStats.Cooldown;
         Player.SpendMana(RuneStats.ManaCost);

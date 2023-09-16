@@ -5,21 +5,21 @@ using UnityEngine;
 public abstract class Rune : MonoBehaviour, IRune
 {
     #region PRIVATE_PROPERTIES
-    [SerializeField] private GameObject _rangedRunePrefab;
-    [SerializeField] private Transform _rangedRuneContainer;
-    [SerializeField] private RuneStats _runeStats;
+    [SerializeField] private GameObject _runePrefab;
+    [SerializeField] private Transform _runeContainer;
+    [SerializeField] protected RuneStats runeStats;
     [SerializeField] private Character _player;
     protected float _cooldownLeft;
     #endregion
 
-    #region IRANGEDRUNE_PROPERTIES
-    public GameObject RunePrefab => _rangedRunePrefab;
-    public Transform RuneContainer => _rangedRuneContainer;
-    public RuneStats RuneStats => _runeStats;
+    #region IRUNE_PROPERTIES
+    public GameObject RunePrefab => _runePrefab;
+    public Transform RuneContainer => _runeContainer;
+    public RuneStats RuneStats => runeStats;
     public Character Player => _player;
     #endregion
 
-    #region IRANGEDRUNE_METHODS
+    #region IRUNE_METHODS
 
     public virtual void Shoot() => Debug.Log("Shooting");
 
@@ -27,12 +27,12 @@ public abstract class Rune : MonoBehaviour, IRune
     #endregion
 
     #region UNITY_EVENTS
-    void Start()
+    protected void Start()
     {
         _cooldownLeft = 0;
     }
 
-    void Update()
+    protected void Update()
     {
         if (_cooldownLeft > 0) _cooldownLeft -= Time.deltaTime;
     }

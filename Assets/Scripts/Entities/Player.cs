@@ -38,7 +38,8 @@ public class Player : Character
 
         if (Input.GetKeyDown(_move))
         {
-            if (Physics.Raycast(UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition), out _hit, _clickableLayers) && !_hit.collider.CompareTag("Player"))
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out _hit, 100f, _clickableLayers))
             {
                 movementController.Move(_hit.point);
 

@@ -153,7 +153,7 @@ MonoBehaviour:
   lifetime: 3
   hittableMask:
     serializedVersion: 2
-    m_Bits: 1783
+    m_Bits: 5879
 --- !u!114 &8006846001607480081
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,19 +28,31 @@ public class EventsManager : MonoBehaviour
     public event Action<bool> OnOpenMenu;
     public event Action<bool> OnOpenInventory;
     public event Action OnItemChanged;
+    public event Action<int> OnPlayerTakeDamage;
+    public event Action<int> OnPlayerSpendMana;
     public void EventOpenMenu(bool open)
     {
-        if (OnOpenMenu != null) OnOpenMenu(open);
+        OnOpenMenu?.Invoke(open);
     }
 
     public void EventOpenInventory(bool open)
     {
-        if (OnOpenInventory != null) OnOpenInventory(open);
+        OnOpenInventory?.Invoke(open);
     }
 
     public void EventItemChanged()
     {
-        if (OnItemChanged != null) OnItemChanged();
+        OnItemChanged?.Invoke();
+    }
+
+    public void EventTakeDamage(int currentHp)
+    {
+        OnPlayerTakeDamage?.Invoke(currentHp);
+
+    }
+    public void EventSpendMana(int currentMana)
+    {
+        OnPlayerSpendMana?.Invoke(currentMana);
     }
     #endregion
 }

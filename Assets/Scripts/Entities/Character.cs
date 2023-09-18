@@ -7,12 +7,12 @@ using UnityEngine.AI;
 public class Character : Actor
 {
     [SerializeField] protected CharacterStats characterStats;
-    [SerializeField] protected float mana;
+    protected int mana;
     protected NavMeshAgent agent;
     protected NavMovementController movementController;
     protected AttackController attackController;
     protected Animator animator;
-    public float Mana => mana;
+    public int Mana => mana;
 
     #region UNITY_EVENTS
 
@@ -59,7 +59,7 @@ public class Character : Actor
         else animator.Play("Walk");
     }
 
-    public void SpendMana(int manaCost)
+    public virtual void SpendMana(int manaCost)
     {
         mana -= manaCost;
         if (mana < 0) mana = 0;
@@ -72,7 +72,7 @@ public class Character : Actor
         Destroy(gameObject, 5f);
     }
 
-    private IEnumerator ManaRegenCoroutine()
+    protected virtual IEnumerator ManaRegenCoroutine()
     {
         while (true)
         {

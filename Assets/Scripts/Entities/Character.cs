@@ -65,6 +65,11 @@ public class Character : Actor
         if (mana < 0) mana = 0;
     }
 
+    public virtual void AbilityCasted(int runeIndex)
+    {
+        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
+    }
+
     public override void Die()
     {
         animator.Play("Dead");

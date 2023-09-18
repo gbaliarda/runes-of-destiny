@@ -30,6 +30,7 @@ public class EventsManager : MonoBehaviour
     public event Action OnItemChanged;
     public event Action<int> OnPlayerTakeDamage;
     public event Action<int> OnPlayerSpendMana;
+    public event Action<int, float> OnAbilityUse;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -54,5 +55,11 @@ public class EventsManager : MonoBehaviour
     {
         OnPlayerSpendMana?.Invoke(currentMana);
     }
+    
+    public void EventAbilityUse(int abilityUsed, float cooldown)
+    {
+        OnAbilityUse?.Invoke(abilityUsed, cooldown);
+    }
+
     #endregion
 }

@@ -9,26 +9,26 @@ public class AttackController : MonoBehaviour, INavMovable, IAttackable
     public NavMeshAgent Agent => _agent;
     private NavMeshAgent _agent;
 
-    public IRune Rune => _rune;
-    [SerializeField] private Rune _rune;
+    public IRune[] Runes => _runes;
+    [SerializeField] private Rune[] _runes;
 
     public void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
     }
 
-    public void Attack(Vector3 direction)
+    public void Attack(int runeIndex, Vector3 direction)
     {
         Move(transform.position);
-        _rune.ShootAtDirection(direction);
+        _runes[runeIndex].ShootAtDirection(direction);
     }
 
-    public void AttackOnMousePosition()
+    public void AttackOnMousePosition(int runeIndex)
     {
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
         Debug.Log(hit.point);
-        Attack(hit.point);
+        Attack(runeIndex, hit.point);
     }
 
     public void Move(Vector3 position)

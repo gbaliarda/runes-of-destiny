@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IAttackable
 {
-    IRune Rune { get; }
-    void Attack(Vector3 direction);
+    IRune[] Runes { get; }
+    void Attack(int runeIndex, Vector3 direction);
 
-    void AttackOnMousePosition();
+    void AttackOnMousePosition(int runeIndex);
 }

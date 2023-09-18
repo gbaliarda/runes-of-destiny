@@ -8,8 +8,11 @@ public interface IRune
     Transform RuneContainer { get; }
     RuneStats RuneStats { get; }
     Character Player { get; }
+    float CooldownLeft { get; }
 
     void Shoot();
 
     void ShootAtDirection(Vector3 direction);
+
+    void SetCooldown(float cooldown);
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Rune : MonoBehaviour, IRune
 {
@@ -9,7 +10,9 @@ public abstract class Rune : MonoBehaviour, IRune
     [SerializeField] private Transform _runeContainer;
     [SerializeField] protected RuneStats runeStats;
     [SerializeField] private Character _player;
+    [SerializeField] private Image _iconSpell;
     protected float _cooldownLeft;
+    public float CooldownLeft => _cooldownLeft;
     #endregion
 
     #region IRUNE_PROPERTIES
@@ -24,6 +27,8 @@ public abstract class Rune : MonoBehaviour, IRune
     public virtual void Shoot() => Debug.Log("Shooting");
 
     public virtual void ShootAtDirection(Vector3 direction) => Debug.Log("Shooting at direection");
+
+    public virtual void SetCooldown(float cooldown) => _cooldownLeft = cooldown;
     #endregion
 
     #region UNITY_EVENTS

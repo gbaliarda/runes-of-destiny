@@ -18,7 +18,6 @@ public class ManaBar : MonoBehaviour
 
     private void OnPlayerSpendMana(int mana)
     {
-        Debug.Log("UI");
         _slider.value = mana / _maxMana;
         _text.text = $"{mana}/{_maxMana}";
     }

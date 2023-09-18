@@ -42,9 +42,15 @@ public class Enemy : Character
     private void Attack()
     {
         if (_player.GetComponent<IDamageable>() != null && _player.GetComponent<IDamageable>().IsDead == true) return;
+        if (attackController.Runes[0].CooldownLeft > 0) return;
+        if (attackController.Runes[0].RuneStats.ManaCost > mana) return;
 
         agent.SetDestination(transform.position);
-        attackController.Attack(_player.transform.position);
+        
+        SpendMana(attackController.Runes[0].RuneStats.ManaCost);
+        attackController.Runes[0].SetCooldown(attackController.Runes[0].RuneStats.Cooldown);
+
+        attackController.Attack(0, _player.transform.position);
     }
 
     private void OnGameOver(bool isVictory)

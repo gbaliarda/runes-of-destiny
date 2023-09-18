@@ -15,7 +15,10 @@ public class Player : Character
 
     #region KEY_BINDINGS
     [SerializeField] private KeyCode _move = KeyCode.Mouse1;
-    [SerializeField] private KeyCode _shootAttack = KeyCode.Q;
+    [SerializeField] private KeyCode _firstAbility = KeyCode.Q;
+    [SerializeField] private KeyCode _secondAbility = KeyCode.W;
+    [SerializeField] private KeyCode _thirdAbility = KeyCode.E;
+    [SerializeField] private KeyCode _fourthAbility = KeyCode.R;
     [SerializeField] private KeyCode _openInventory = KeyCode.I;
 
     #endregion
@@ -28,11 +31,24 @@ public class Player : Character
         EventsManager.instance.OnOpenInventory += OnOpenInventory;
     }
 
+    private void UseRune(int runeIndex)
+    {
+        if (attackController.Runes[runeIndex].CooldownLeft > 0) return;
+        if (attackController.Runes[runeIndex].RuneStats.ManaCost > mana) return;
+        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
+        attackController.Runes[runeIndex].SetCooldown(attackController.Runes[runeIndex].RuneStats.Cooldown);
+        attackController.AttackOnMousePosition(runeIndex);
+        EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
+    }
+
     private new void Update()
     {
         if (isDead || _gameOver) return;
         base.Update();
-        if (Input.GetKeyDown(_shootAttack)) attackController.AttackOnMousePosition();
+        if (Input.GetKeyDown(_firstAbility)) UseRune(0);
+        if (Input.GetKeyDown(_secondAbility)) UseRune(1);
+        if (Input.GetKeyDown(_thirdAbility)) UseRune(2);
+        if (Input.GetKeyDown(_fourthAbility)) UseRune(3);
         if (Input.GetKeyDown(_openInventory)) EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
 
 
@@ -88,6 +104,12 @@ public class Player : Character
     {
         base.SpendMana(manaCost);
         EventsManager.instance.EventSpendMana(mana);
+    }
+
+    public override void AbilityCasted(int runeIndex)
+    {
+        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
+        EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
     }
 
     protected override IEnumerator ManaRegenCoroutine()

@@ -21,10 +21,6 @@ public class RangedRune : Rune
 
     public override void ShootAtDirection(Vector3 direction)
     {
-        if (_cooldownLeft > 0) return;
-        if (RuneStats.ManaCost > Player.Mana) return;
-
-        Debug.Log($"{name} mana left {Player.Mana}");
 
         int numberOfProjectiles = _rangedRuneStats.Projectiles;
         float angleBetweenProjectiles = 5f;
@@ -46,8 +42,6 @@ public class RangedRune : Rune
             GameObject spellProjectile = Instantiate(RunePrefab, transform.position, Quaternion.LookRotation(auxDirection), RuneContainer);
             spellProjectile.GetComponent<SpellProjectile>()?.SetOwner(this);
         }
-        _cooldownLeft = RuneStats.Cooldown;
-        Player.SpendMana(RuneStats.ManaCost);
     }
 
 

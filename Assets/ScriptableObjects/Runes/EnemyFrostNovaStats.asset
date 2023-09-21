@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5fba19c946d1c41bb83acfb8d3a8eb, type: 3}
-  m_Name: CharacterStats
+  m_Script: {fileID: 11500000, guid: 384e7c7f1773d2e439491477f87ad1a2, type: 3}
+  m_Name: EnemyFrostNovaStats
   m_EditorClassIdentifier: 
-  _stats:
-    MaxLife: 100
-  _characterStats:
-    MovementSpeed: 15
-    ManaRegen: 5
-    MaxMana: 100
-    Dexterity: 50
-    Intelligence: 50
-    Strength: 50
+  _runeStats:
+    Damage: 30
+    ManaCost: 20
+    Cooldown: 3

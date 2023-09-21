@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(NavMovementController), typeof(AttackController))]
+[RequireComponent(typeof(Animator))]
 public class Character : Actor
 {
     [SerializeField] protected CharacterStats characterStats;
-    protected int mana;
+    [SerializeField] protected int mana;
     protected NavMeshAgent agent;
     protected NavMovementController movementController;
     protected AttackController attackController;

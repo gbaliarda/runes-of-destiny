@@ -45,7 +45,7 @@ public class Enemy : Character
         if (attackController.Runes[0].CooldownLeft > 0) return;
         if (attackController.Runes[0].RuneStats.ManaCost > mana) return;
 
-        agent.SetDestination(transform.position);
+        movementController.Move(transform.position);
         
         SpendMana(attackController.Runes[0].RuneStats.ManaCost);
         attackController.Runes[0].SetCooldown(attackController.Runes[0].RuneStats.Cooldown);
@@ -60,6 +60,7 @@ public class Enemy : Character
 
     public override void Die()
     {
+        movementController.Move(transform.position);
         base.Die();
     }
 }

@@ -6,13 +6,10 @@ using UnityEngine;
 public class CharacterStats : EntityStats
 {
     [SerializeField] private CharacterStatsValues _characterStats;
-    private float _dexterityIncreaseMovementSpeed = 0.01f;
-    private float _intelligenceIncreaseMaxMana = 0.01f;
-    private float _intelligenceIncreaseManaRegen = 0.05f;
 
-    public float MovementSpeed => Mathf.RoundToInt(_characterStats.MovementSpeed + _characterStats.Dexterity * _dexterityIncreaseMovementSpeed);
-    public int MaxMana => Mathf.RoundToInt(_characterStats.MaxMana + _characterStats.Intelligence * _intelligenceIncreaseMaxMana);
-    public int ManaRegen => Mathf.RoundToInt(_characterStats.ManaRegen + _characterStats.Intelligence * _intelligenceIncreaseManaRegen);
+    public float MovementSpeed => Mathf.RoundToInt(_characterStats.MovementSpeed + _characterStats.Dexterity * 0.01f);
+    public int MaxMana => Mathf.RoundToInt(_characterStats.MaxMana + _characterStats.Intelligence * 0.01f);
+    public int ManaRegen => Mathf.RoundToInt(_characterStats.ManaRegen + _characterStats.Intelligence * 0.05f);
     public int Dexterity => _characterStats.Dexterity;
     public int Intelligence => _characterStats.Intelligence;
     public int Strength => _characterStats.Strength;

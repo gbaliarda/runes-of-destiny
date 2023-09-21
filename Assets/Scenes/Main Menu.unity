@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _victory: {fileID: 0}
   _defeat: {fileID: 0}
-  _background: {fileID: 8300000, guid: 0f9afe08b776e4544bd5f09c23eccfe8, type: 3}
+  _background: {fileID: 8300000, guid: a8b71be149d7e1c499fa692fc742f765, type: 3}
 --- !u!82 &1111678888
 AudioSource:
   m_ObjectHideFlags: 0

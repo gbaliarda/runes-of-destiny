@@ -33,6 +33,8 @@ public class EventsManager : MonoBehaviour
     public event Action<int, float> OnAbilityUse;
     public event Action<int, float> OnHealthPotUse;
     public event Action<int> OnUpdateHpPotCharge;
+    public event Action<int, float> OnManaPotUse;
+    public event Action<int> OnUpdateManaPotCharge;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -71,6 +73,16 @@ public class EventsManager : MonoBehaviour
     public void EventUpdateHpPotCharge(int currentCharges)
     {
         OnUpdateHpPotCharge?.Invoke(currentCharges);
+    }
+    
+    public void EventManaPotUse(int currentMana, float cooldown)
+    {
+        OnManaPotUse?.Invoke(currentMana, cooldown);
+    }
+
+    public void EventUpdateManaPotCharge(int currentCharges)
+    {
+        OnUpdateManaPotCharge?.Invoke(currentCharges);
     }
 
     #endregion

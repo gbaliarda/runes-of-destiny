@@ -8,6 +8,7 @@ public class Character : Actor
 {
     [SerializeField] protected CharacterStats characterStats;
     [SerializeField] protected int mana;
+    protected ManaPotionController manaPotionController;
     protected NavMeshAgent agent;
     protected NavMovementController movementController;
     protected AttackController attackController;
@@ -28,6 +29,8 @@ public class Character : Actor
 
         movementController = GetComponent<NavMovementController>();
         attackController = GetComponent<AttackController>();
+
+        manaPotionController = GetComponent<ManaPotionController>();
 
     }
     protected new void Start()
@@ -63,6 +66,12 @@ public class Character : Actor
     {
         mana -= manaCost;
         if (mana < 0) mana = 0;
+    }
+
+    public virtual void GetMana(int newMana)
+    {
+        mana += newMana;
+        if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
     }
 
     public virtual void AbilityCasted(int runeIndex)

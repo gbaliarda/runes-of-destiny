@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33732981895488272}
   - component: {fileID: 23991852965333892}
   - component: {fileID: 4335525037892109498}
+  - component: {fileID: 2710699765046345255}
   m_Layer: 0
   m_Name: rpgpp_lt_mountain_01
   m_TagString: Untagged
@@ -107,6 +108,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 2a6c16366c430c1468e536a6a6b03b21, type: 3}
+--- !u!114 &2710699765046345255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185380165875998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &8012480845998050308
 PrefabInstance:
   m_ObjectHideFlags: 0

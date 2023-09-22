@@ -19,6 +19,7 @@ public class Player : Character
     [SerializeField] private KeyCode _secondAbility = KeyCode.W;
     [SerializeField] private KeyCode _thirdAbility = KeyCode.E;
     [SerializeField] private KeyCode _fourthAbility = KeyCode.R;
+    [SerializeField] private KeyCode _healthPot = KeyCode.D;
     [SerializeField] private KeyCode _openInventory = KeyCode.I;
 
     #endregion
@@ -33,6 +34,7 @@ public class Player : Character
 
     private void UseRune(int runeIndex)
     {
+        if (attackController == null) return;
         if (attackController.Runes[runeIndex].CooldownLeft > 0) return;
         if (attackController.Runes[runeIndex].RuneStats.ManaCost > mana) return;
         SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
@@ -49,6 +51,7 @@ public class Player : Character
         if (Input.GetKeyDown(_secondAbility)) UseRune(1);
         if (Input.GetKeyDown(_thirdAbility)) UseRune(2);
         if (Input.GetKeyDown(_fourthAbility)) UseRune(3);
+        if (Input.GetKeyDown(_healthPot)) healthPotionController.Heal();
         if (Input.GetKeyDown(_openInventory)) EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
 
 
@@ -57,7 +60,7 @@ public class Player : Character
             Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out _hit, 100f, _clickableLayers))
             {
-                movementController.Move(_hit.point);
+                if (movementController != null) movementController.Move(_hit.point);
 
                 if (_clickEffect != null) ClickEffect();
             }
@@ -94,10 +97,11 @@ public class Player : Character
         Destroy(effectContainer, 2.0f);
     }
 
-    public override void TakeDamage(int damage)
+    public override int TakeDamage(int damage)
     {
         base.TakeDamage(damage);
         EventsManager.instance.EventTakeDamage(life);
+        return life;
     }
 
     public override void SpendMana(int manaCost)
@@ -108,6 +112,7 @@ public class Player : Character
 
     public override void AbilityCasted(int runeIndex)
     {
+        if (attackController == null) return;
         SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
         EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class AttackController : MonoBehaviour, INavMovable, IAttackable
 {
     public NavMeshAgent Agent => _agent;
@@ -27,12 +26,11 @@ public class AttackController : MonoBehaviour, INavMovable, IAttackable
     {
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
-        Debug.Log(hit.point);
         Attack(runeIndex, hit.point);
     }
 
     public void Move(Vector3 position)
     {
-        _agent.SetDestination(position);
+        if (_agent != null) _agent.SetDestination(position);
     }
 }

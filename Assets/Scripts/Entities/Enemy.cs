@@ -36,11 +36,12 @@ public class Enemy : Character
 
     private void Chase()
     {
-        movementController.Move(_player.transform.position);
+        if (movementController != null) movementController.Move(_player.transform.position);
     }
 
     private void Attack()
     {
+        if (attackController == null) return;
         if (_player.GetComponent<IDamageable>() != null && _player.GetComponent<IDamageable>().IsDead == true) return;
         if (attackController.Runes[0].CooldownLeft > 0) return;
         if (attackController.Runes[0].RuneStats.ManaCost > mana) return;
@@ -60,7 +61,7 @@ public class Enemy : Character
 
     public override void Die()
     {
-        movementController.Move(transform.position);
+        if (movementController != null) movementController.Move(transform.position);
         base.Die();
     }
 }

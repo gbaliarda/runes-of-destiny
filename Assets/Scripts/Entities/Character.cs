@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(NavMovementController), typeof(AttackController))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class Character : Actor
 {
     [SerializeField] protected CharacterStats characterStats;
@@ -68,6 +67,7 @@ public class Character : Actor
 
     public virtual void AbilityCasted(int runeIndex)
     {
+        if (attackController == null) return;
         SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
     }
 

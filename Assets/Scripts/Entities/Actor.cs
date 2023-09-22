@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class Actor : MonoBehaviour, IDamageable
@@ -8,6 +9,7 @@ public class Actor : MonoBehaviour, IDamageable
     [SerializeField] protected EntityStats stats;
     public EntityStats Stats => stats;
     protected int life;
+    protected HealthPotionController healthPotionController;
     [SerializeField] protected bool isDead = false;
     #endregion
 
@@ -22,23 +24,32 @@ public class Actor : MonoBehaviour, IDamageable
     #region IDAMAGEABLE_METHODS
     public virtual void Die()
     {
-        Debug.Log($"{name} died");
         isDead = true;
         Destroy(gameObject);
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual int TakeDamage(int damage)
     {
         life -= damage;
-        Debug.Log($"{name} Hit -> Life: {life}");
         if (life <= 0) Die();
+        return life;
     }
+
+    public virtual int HealDamage(int damage)
+    {
+        int healthToFull = stats.MaxLife - life;
+        int maximumHealthRecovered = damage;
+        life += healthToFull < maximumHealthRecovered ? healthToFull : maximumHealthRecovered;
+        return life;
+    }
+
     #endregion
 
     #region UNITY_EVENTS
     protected void Start()
     {
         life = MaxLife;
+        healthPotionController = GetComponent<HealthPotionController>();
     }
     #endregion
 }

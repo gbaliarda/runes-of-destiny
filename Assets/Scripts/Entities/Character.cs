@@ -14,6 +14,7 @@ public class Character : Actor
     protected AttackController attackController;
     protected Animator animator;
     public int Mana => mana;
+    public CharacterStats CharacterStats => characterStats;
 
     #region UNITY_EVENTS
 

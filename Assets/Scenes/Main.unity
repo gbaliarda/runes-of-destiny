@@ -12347,6 +12347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1460103152}
+  _player: {fileID: 1503606295}
 --- !u!1001 &860516299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19429,6 +19430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 324969197}
+  _player: {fileID: 1503606295}
 --- !u!114 &1373433673
 MonoBehaviour:
   m_ObjectHideFlags: 0

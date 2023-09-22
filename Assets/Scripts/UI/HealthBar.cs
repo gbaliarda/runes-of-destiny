@@ -7,19 +7,22 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private Player _player;
     private Slider _slider;
-    private float _maxHealth = 100f;
+    private int _maxHealth;
 
     void Start()
     {
+        _maxHealth = _player.Stats.MaxLife;
         _slider = GetComponent<Slider>();
+        UpdateHealth(_maxHealth);
         EventsManager.instance.OnPlayerTakeDamage += OnPlayerTakeDamage;
         EventsManager.instance.OnHealthPotUse += OnHealthPotUse;
     }
 
     private void UpdateHealth(int hp)
     {
-        _slider.value = hp / _maxHealth;
+        _slider.value = hp / (float)_maxHealth;
         _text.text = $"{hp}/{_maxHealth}";
     }
 

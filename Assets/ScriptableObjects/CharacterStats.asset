@@ -17,7 +17,7 @@ MonoBehaviour:
   _characterStats:
     MovementSpeed: 15
     ManaRegen: 5
-    MaxMana: 100
+    MaxMana: 200
     Dexterity: 50
     Intelligence: 50
     Strength: 50

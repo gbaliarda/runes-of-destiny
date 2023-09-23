@@ -6,13 +6,55 @@ using UnityEngine;
 public class CharacterStats : EntityStats
 {
     [SerializeField] private CharacterStatsValues _characterStats;
+    [SerializeField] private CharacterDefensiveStatsValues _characterDefensiveStats;
+    [SerializeField] private CharacterOffensiveStatsValues _characterOffensiveStats;
 
     public float MovementSpeed => Mathf.RoundToInt(_characterStats.MovementSpeed + _characterStats.Dexterity * 0.01f);
+    
+    public int Level => _characterStats.Level; 
+    public float Experience => _characterStats.Experience;
+
     public int MaxMana => Mathf.RoundToInt(_characterStats.MaxMana + _characterStats.Intelligence * 0.01f);
     public int ManaRegen => Mathf.RoundToInt(_characterStats.ManaRegen + _characterStats.Intelligence * 0.05f);
+    
+    public int MagicShield => _characterStats.MagicShield;
+    public int MagicShieldRegen => _characterStats.MagicShieldRegen;
+    public int HealthRegen => _characterStats.HealthRegen;
+    public int LifeLeech => _characterStats.LifeLeech;
+    public int ManaLeech => _characterStats.ManaLeech;
+    
     public int Dexterity => _characterStats.Dexterity;
     public int Intelligence => _characterStats.Intelligence;
     public int Strength => _characterStats.Strength;
+
+
+    public int Armor => _characterDefensiveStats.Armor;
+    public int EvasionChance => _characterDefensiveStats.EvasionChance;
+    public int BlockAttackChance => _characterDefensiveStats.BlockAttackChance;
+    public int BlockSpellChance => _characterDefensiveStats.BlockSpellChance;
+    public int WaterResistance => _characterDefensiveStats.WaterResistance;
+    public int FireResistance => _characterDefensiveStats.FireResistance;
+    public int LightningResistance => _characterDefensiveStats.LightningResistance;
+    public int VoidResistance => _characterDefensiveStats.VoidResistance;
+    public int StunResistance => _characterDefensiveStats.StunResistance;
+    public int CurseResistance => _characterDefensiveStats.CurseResistance;
+    public int PoisonResistance => _characterDefensiveStats.PoisonResistance;
+    public int Stealth => _characterDefensiveStats.Stealth;
+
+    public int SpellPower => _characterOffensiveStats.SpellPower;
+    public int AttackPower => _characterOffensiveStats.AttackPower;
+    public float AttackSpeed => _characterOffensiveStats.AttackSpeed;
+    public float CastSpeed => _characterOffensiveStats.CastSpeed;
+    public int Luck => _characterOffensiveStats.Luck;
+    public float CooldownReduction => _characterOffensiveStats.CooldownReduction;
+    public float CriticalChance => _characterOffensiveStats.CriticalChance;
+    public float CriticalDamage => _characterOffensiveStats.CriticalDamage;
+    public float Accuracy => _characterOffensiveStats.Accuracy;
+    public int WaterPenetration => _characterOffensiveStats.WaterPenetration;
+    public int FirePenetration => _characterOffensiveStats.FirePenetration;
+    public int LightningPenetration => _characterOffensiveStats.LightningPenetration;
+    public int VoidPenetration => _characterOffensiveStats.VoidPenetration;
+    public int ArmorPenetration => _characterOffensiveStats.ArmorPenetration;
 
 }
 
@@ -20,10 +62,53 @@ public class CharacterStats : EntityStats
 public struct CharacterStatsValues
 {
     public float MovementSpeed;
+    public int Level;
+    public float Experience;
     public int ManaRegen;
     public int MaxMana;
+    public int MagicShield;
+    public int MagicShieldRegen;
+    public int HealthRegen;
+    public int LifeLeech;
+    public int ManaLeech;
+    
     public int Dexterity;
     public int Intelligence;
     public int Strength;
+}
 
+[System.Serializable]
+public struct CharacterDefensiveStatsValues
+{
+    public int Armor;
+    public int EvasionChance;
+    public int BlockAttackChance;
+    public int BlockSpellChance;
+    public int WaterResistance;
+    public int FireResistance;
+    public int LightningResistance;
+    public int VoidResistance;
+    public int StunResistance;
+    public int CurseResistance;
+    public int PoisonResistance;
+    public int Stealth;
+}
+
+[System.Serializable]
+public struct CharacterOffensiveStatsValues
+{
+    public int SpellPower;
+    public int AttackPower;
+    public float AttackSpeed;
+    public float CastSpeed;
+    public int Luck;
+    public float CooldownReduction;
+    public float CriticalChance;
+    public float CriticalDamage;
+    public float Accuracy;
+    public int WaterPenetration;
+    public int FirePenetration;
+    public int LightningPenetration;
+    public int VoidPenetration;
+    public int ArmorPenetration;
 }

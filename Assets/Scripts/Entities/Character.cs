@@ -81,6 +81,28 @@ public class Character : Actor
         SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
     }
 
+    public override int TakeDamage(DamageStatsValues damage)
+    {
+        int PhysicalDamage = Mathf.RoundToInt(damage.PhysicalDamage * (1 - characterStats.Armor/(characterStats.Armor + 5000f)));
+        int FireDamage = Mathf.RoundToInt(damage.FireDamage*(1 - characterStats.FireResistance / 100f));
+        int WaterDamage = Mathf.RoundToInt(damage.WaterDamage * (1 - characterStats.WaterResistance / 100f));
+        int LightningDamage = Mathf.RoundToInt(damage.LightningDamage * (1 - characterStats.LightningResistance / 100f));
+        int VoidDamage = Mathf.RoundToInt(damage.VoidDamage * (1 - characterStats.VoidResistance / 100f));
+        
+        int chanceToMiss = Random.Range(1, 100);
+        if (chanceToMiss < characterStats.EvasionChance) return life;
+
+        int chanceToBlock = Random.Range(1, 100);
+        float damageModifier = 1;
+        if (chanceToBlock < characterStats.BlockSpellChance) damageModifier = 1 - characterStats.DamageBlockedAmount / 100f;
+
+        life -= Mathf.RoundToInt(damageModifier * (PhysicalDamage + FireDamage + WaterDamage + LightningDamage + VoidDamage));
+
+        if (this is Player) EventsManager.instance.EventTakeDamage(life);
+        if (life <= 0) Die();
+        return life;
+    }
+
     public override void Die()
     {
         animator.Play("Dead");

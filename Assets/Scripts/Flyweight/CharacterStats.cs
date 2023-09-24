@@ -30,8 +30,8 @@ public class CharacterStats : EntityStats
 
     public int Armor => _characterDefensiveStats.Armor;
     public int EvasionChance => _characterDefensiveStats.EvasionChance;
-    public int BlockAttackChance => _characterDefensiveStats.BlockAttackChance;
     public int BlockSpellChance => _characterDefensiveStats.BlockSpellChance;
+    public int DamageBlockedAmount => _characterDefensiveStats.DamageBlockedAmount;
     public int WaterResistance => _characterDefensiveStats.WaterResistance;
     public int FireResistance => _characterDefensiveStats.FireResistance;
     public int LightningResistance => _characterDefensiveStats.LightningResistance;
@@ -55,6 +55,7 @@ public class CharacterStats : EntityStats
     public int LightningPenetration => _characterOffensiveStats.LightningPenetration;
     public int VoidPenetration => _characterOffensiveStats.VoidPenetration;
     public int ArmorPenetration => _characterOffensiveStats.ArmorPenetration;
+    public int ReflectDamage => _characterOffensiveStats.ReflectDamage;
 
 }
 
@@ -82,8 +83,8 @@ public struct CharacterDefensiveStatsValues
 {
     public int Armor;
     public int EvasionChance;
-    public int BlockAttackChance;
     public int BlockSpellChance;
+    public int DamageBlockedAmount;
     public int WaterResistance;
     public int FireResistance;
     public int LightningResistance;
@@ -91,6 +92,7 @@ public struct CharacterDefensiveStatsValues
     public int StunResistance;
     public int CurseResistance;
     public int PoisonResistance;
+    public int ManaEfficiency;
     public int Stealth;
 }
 
@@ -110,5 +112,7 @@ public struct CharacterOffensiveStatsValues
     public int FirePenetration;
     public int LightningPenetration;
     public int VoidPenetration;
+    public int ElementalAffinity;
     public int ArmorPenetration;
+    public int ReflectDamage;
 }

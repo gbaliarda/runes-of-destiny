@@ -13,11 +13,49 @@ MonoBehaviour:
   m_Name: WizardStats
   m_EditorClassIdentifier: 
   _stats:
-    MaxLife: 30
+    MaxLife: 500
   _characterStats:
     MovementSpeed: 5
+    Level: 0
+    Experience: 0
     ManaRegen: 10
     MaxMana: 50
+    MagicShield: 0
+    MagicShieldRegen: 0
+    HealthRegen: 0
+    LifeLeech: 0
+    ManaLeech: 0
     Dexterity: 10
     Intelligence: 10
     Strength: 10
+  _characterDefensiveStats:
+    Armor: 100
+    EvasionChance: 0
+    BlockSpellChance: 20
+    DamageBlockedAmount: 30
+    WaterResistance: 10
+    FireResistance: 10
+    LightningResistance: 10
+    VoidResistance: 10
+    StunResistance: 0
+    CurseResistance: 0
+    PoisonResistance: 0
+    ManaEfficiency: 0
+    Stealth: 0
+  _characterOffensiveStats:
+    SpellPower: 0
+    AttackPower: 0
+    AttackSpeed: 0
+    CastSpeed: 0
+    Luck: 0
+    CooldownReduction: 0
+    CriticalChance: 0
+    CriticalDamage: 0
+    Accuracy: 0
+    WaterPenetration: 0
+    FirePenetration: 0
+    LightningPenetration: 0
+    VoidPenetration: 0
+    ElementalAffinity: 0
+    ArmorPenetration: 0
+    ReflectDamage: 0

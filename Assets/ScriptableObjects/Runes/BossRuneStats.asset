@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: BossRuneStats
   m_EditorClassIdentifier: 
   _runeStats:
-    Damage: 15
     ManaCost: 10
     Cooldown: 1
+  _damageStats:
+    PhysicalDamage: 0
+    FireDamage: 0
+    WaterDamage: 200
+    LightningDamage: 0
+    VoidDamage: 0
   _rangedRuneStats:
     Speed: 30
     Projectiles: 3

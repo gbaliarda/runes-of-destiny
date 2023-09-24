@@ -5,9 +5,9 @@ using UnityEngine;
 public class CmdApplyDamage : ICommand
 {
     private IDamageable _damageble;
-    private int _damage;
+    private DamageStatsValues _damage;
 
-    public CmdApplyDamage(IDamageable damageble, int damage)
+    public CmdApplyDamage(IDamageable damageble, DamageStatsValues damage)
     {
         _damageble = damageble;
         _damage = damage;

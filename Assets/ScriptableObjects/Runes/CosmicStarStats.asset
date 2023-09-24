@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: CosmicStarStats
   m_EditorClassIdentifier: 
   _runeStats:
-    Damage: 40
     ManaCost: 20
     Cooldown: 1
+  _damageStats:
+    PhysicalDamage: 0
+    FireDamage: 0
+    WaterDamage: 0
+    LightningDamage: 0
+    VoidDamage: 200
   _rangedRuneStats:
     Speed: 30
     Projectiles: 1

@@ -99,7 +99,7 @@ public class Player : Character
         Destroy(effectContainer, 2.0f);
     }
 
-    public override int TakeDamage(int damage)
+    public override int TakeDamage(DamageStatsValues damage)
     {
         base.TakeDamage(damage);
         EventsManager.instance.EventTakeDamage(life);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthPotionStats
   m_EditorClassIdentifier: 
   _stats:
-    HealAmount: 30
+    HealAmount: 300
     HealthPotCharges: 5
     HealthPotCooldown: 5
     HealthPotChargeRegenerationRate: 10

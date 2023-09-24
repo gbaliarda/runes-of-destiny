@@ -7,7 +7,7 @@ public interface IDamageable
     int MaxLife { get; }
     int Life { get; }
     bool IsDead { get; }
-    int TakeDamage(int damage);
+    int TakeDamage(DamageStatsValues damage);
     void Die();
     int HealDamage(int damage);
 }

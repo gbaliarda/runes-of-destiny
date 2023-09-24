@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: EnemyFrostNovaStats
   m_EditorClassIdentifier: 
   _runeStats:
-    Damage: 30
     ManaCost: 20
     Cooldown: 3
+  _damageStats:
+    PhysicalDamage: 0
+    FireDamage: 0
+    WaterDamage: 400
+    LightningDamage: 0
+    VoidDamage: 0

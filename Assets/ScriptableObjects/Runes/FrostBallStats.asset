@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: FrostBallStats
   m_EditorClassIdentifier: 
   _runeStats:
-    Speed: 20
-    Damage: 20
     ManaCost: 5
     Cooldown: 1
-    Projectiles: 1
+  _damageStats:
+    PhysicalDamage: 0
+    FireDamage: 0
+    WaterDamage: 200
+    LightningDamage: 0
+    VoidDamage: 0
+  _rangedRuneStats:
+    Speed: 0
+    Projectiles: 0

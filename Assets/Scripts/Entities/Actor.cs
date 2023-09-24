@@ -28,9 +28,9 @@ public class Actor : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    public virtual int TakeDamage(int damage)
+    public virtual int TakeDamage(DamageStatsValues damage)
     {
-        life -= damage;
+        life -= damage.PhysicalDamage + damage.FireDamage + damage.WaterDamage + damage.LightningDamage + damage.VoidDamage;
         if (life <= 0) Die();
         return life;
     }

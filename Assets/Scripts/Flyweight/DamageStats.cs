@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RuneStats", menuName = "Stats/Rune", order = 0)]
-public class RuneStats : ScriptableObject
+[CreateAssetMenu(fileName = "DamageStats", menuName = "Stats/Damage", order = 0)]
+public class DamageStats : ScriptableObject
 {
-    [SerializeField] private RuneStatsValues _runeStats;
     [SerializeField] private DamageStatsValues _damageStats;
 
     public int PhysicalDamage => _damageStats.PhysicalDamage;
@@ -15,17 +14,14 @@ public class RuneStats : ScriptableObject
     public int VoidDamage => _damageStats.VoidDamage;
     public int TotalDamage => PhysicalDamage + FireDamage + WaterDamage + LightningDamage + VoidDamage;
 
-    public DamageStatsValues Damage => _damageStats;
-
-    public int ManaCost => _runeStats.ManaCost;
-
-    public float Cooldown => _runeStats.Cooldown;
-
 }
 
 [System.Serializable]
-public struct RuneStatsValues
+public struct DamageStatsValues
 {
-    public int ManaCost;
-    public float Cooldown;
+    public int PhysicalDamage;
+    public int FireDamage;
+    public int WaterDamage;
+    public int LightningDamage;
+    public int VoidDamage;
 }

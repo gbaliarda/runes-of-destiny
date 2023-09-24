@@ -13,7 +13,7 @@ public class Body : MonoBehaviour
         _actor = transform.parent.GetComponent<Actor>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(DamageStatsValues damage)
     {
         _actor.TakeDamage(damage);
     }

@@ -13,11 +13,49 @@ MonoBehaviour:
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
   _stats:
-    MaxLife: 100
+    MaxLife: 1000
   _characterStats:
     MovementSpeed: 10
+    Level: 0
+    Experience: 0
     ManaRegen: 5
     MaxMana: 100
+    MagicShield: 0
+    MagicShieldRegen: 0
+    HealthRegen: 0
+    LifeLeech: 0
+    ManaLeech: 0
     Dexterity: 10
     Intelligence: 10
     Strength: 10
+  _characterDefensiveStats:
+    Armor: 100
+    EvasionChance: 0
+    BlockSpellChance: 0
+    DamageBlockedAmount: 0
+    WaterResistance: 0
+    FireResistance: 0
+    LightningResistance: 0
+    VoidResistance: 0
+    StunResistance: 0
+    CurseResistance: 0
+    PoisonResistance: 0
+    ManaEfficiency: 0
+    Stealth: 0
+  _characterOffensiveStats:
+    SpellPower: 0
+    AttackPower: 0
+    AttackSpeed: 0
+    CastSpeed: 0
+    Luck: 0
+    CooldownReduction: 0
+    CriticalChance: 0
+    CriticalDamage: 0
+    Accuracy: 0
+    WaterPenetration: 0
+    FirePenetration: 0
+    LightningPenetration: 0
+    VoidPenetration: 0
+    ElementalAffinity: 0
+    ArmorPenetration: 0
+    ReflectDamage: 0

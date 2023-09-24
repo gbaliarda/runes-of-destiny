@@ -19,16 +19,18 @@ public class EventQueueManager : MonoBehaviour
 
     public void Update()
     {
-        bool processedFrostBallSound = false;
+        bool processedSpellSound = false;
         while (_eventQueue.Count > 0)
         {
             ICommand command = _eventQueue.Dequeue();
             if (command is CmdPlaySound cmdPlaySound)
             {
-                if (cmdPlaySound.Listener is FrostBallSound)
+                if (cmdPlaySound.Listener is SpellSound)
                 {
-                    if (processedFrostBallSound) continue;
-                    processedFrostBallSound = true;
+                    Debug.Log("Sound is SpellSound");
+                    if (processedSpellSound) continue;
+                    Debug.Log("Continuing");
+                    processedSpellSound = true;
                 }
             }
 

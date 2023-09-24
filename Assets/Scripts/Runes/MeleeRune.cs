@@ -8,8 +8,8 @@ public class MeleeRune : Rune
 
     protected new void Start()
     {
-        base.Start();
         runeStats = _meleeRuneStats;
+        base.Start();
     }
 
     public override void Shoot()

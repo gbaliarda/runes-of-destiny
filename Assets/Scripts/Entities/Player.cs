@@ -118,18 +118,4 @@ public class Player : Character
         SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
         EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
     }
-
-    protected override IEnumerator ManaRegenCoroutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            if (mana < characterStats.MaxMana)
-            {
-                mana += characterStats.ManaRegen;
-                if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
-                EventsManager.instance.EventSpendMana(mana);
-            }
-        }
-    }
 }

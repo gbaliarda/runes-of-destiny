@@ -2207,6 +2207,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09b502c04c939b04e958e749d81b313a, type: 3}
+--- !u!1 &139718211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139718212}
+  - component: {fileID: 139718213}
+  m_Layer: 6
+  m_Name: FireStarRune
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &139718212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139718211}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.92, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1503606290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139718213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139718211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd18baef6c3406d4594b8b6ef59b0b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runePrefab: {fileID: 947250871755532473, guid: b2d6b3358e85c5b4fa40a6dc928e4e19, type: 3}
+  _runeContainer: {fileID: 352796498}
+  runeStats: {fileID: 11400000, guid: e7eb02e7af992814c9f712a301c55cd6, type: 2}
+  player: {fileID: 1503606295}
+  _iconSpell: {fileID: 0}
+  _rangedRuneStats: {fileID: 11400000, guid: e7eb02e7af992814c9f712a301c55cd6, type: 2}
 --- !u!1001 &140049691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4230,7 +4280,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 4747125718808606222, guid: 885cbd8cb65611d4bbc80473d23ddef2, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
-  _player: {fileID: 1844984027}
+  player: {fileID: 1844984027}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
 --- !u!1001 &296328698
@@ -6029,7 +6079,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 0}
   _runeContainer: {fileID: 0}
   runeStats: {fileID: 0}
-  _player: {fileID: 1418581990}
+  player: {fileID: 0}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 0}
 --- !u!4 &442076220
@@ -6761,7 +6811,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 2719766625095591549, guid: 36efcc31255994f44aa53ee6100b5a34, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: ac75a483da0731749ae1d564338b5e75, type: 2}
-  _player: {fileID: 1503606295}
+  player: {fileID: 1503606295}
   _iconSpell: {fileID: 0}
   _meleeRuneStats: {fileID: 11400000, guid: ac75a483da0731749ae1d564338b5e75, type: 2}
 --- !u!1001 &502664761
@@ -7175,7 +7225,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 4747125718808606222, guid: 885cbd8cb65611d4bbc80473d23ddef2, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 433312fe4c35729459d54dbe0a3e6274, type: 2}
-  _player: {fileID: 1503606295}
+  player: {fileID: 1503606295}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 11400000, guid: 433312fe4c35729459d54dbe0a3e6274, type: 2}
 --- !u!1001 &520143619
@@ -7491,7 +7541,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 7744883497706540795, guid: ed3a933307728b242abc46488544f2ed, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 16af585b79ab5a24299a958b4a1db56d, type: 2}
-  _player: {fileID: 1350262489}
+  player: {fileID: 1350262489}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 11400000, guid: 16af585b79ab5a24299a958b4a1db56d, type: 2}
 --- !u!4 &544203178
@@ -8694,7 +8744,7 @@ PrefabInstance:
     - target: {fileID: 5098283542191861425, guid: 656db7bd519f3d147ae5379aff0680fa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1458237dbb3c6d54f8fe9d39c0175d00, type: 3}
+      objectReference: {fileID: 21300000, guid: c3aab7237df394c4890e647a4ae580ea, type: 3}
     - target: {fileID: 6633025334307593992, guid: 656db7bd519f3d147ae5379aff0680fa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -9949,7 +9999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
+  baseStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:
@@ -11442,7 +11492,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 4747125718808606222, guid: 885cbd8cb65611d4bbc80473d23ddef2, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
-  _player: {fileID: 824486395}
+  player: {fileID: 824486395}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
 --- !u!4 &819555000 stripped
@@ -11507,7 +11557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
+  baseStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:
@@ -14920,7 +14970,7 @@ PrefabInstance:
     - target: {fileID: 5098283542191861425, guid: 656db7bd519f3d147ae5379aff0680fa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
+      objectReference: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
     - target: {fileID: 6633025334307593992, guid: 656db7bd519f3d147ae5379aff0680fa, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -15560,6 +15610,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09b502c04c939b04e958e749d81b313a, type: 3}
+--- !u!1 &1108286100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1108286101}
+  - component: {fileID: 1108286102}
+  m_Layer: 6
+  m_Name: BuffRune
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1108286101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108286100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1503606290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1108286102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108286100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025656102a1d424408071cb0d1e39141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runePrefab: {fileID: 0}
+  _runeContainer: {fileID: 0}
+  runeStats: {fileID: 11400000, guid: 21f7d28284330334da63b7e15970e1c3, type: 2}
+  player: {fileID: 1503606295}
+  _iconSpell: {fileID: 0}
+  _buffPrefab: {fileID: 1399491476850481373, guid: 7e691a0229efacd4cba2922df3888456, type: 3}
+  _buffContainer: {fileID: 352796498}
+  buffStats: {fileID: 11400000, guid: 9ff5951e2e297484baa007aedd19e985, type: 2}
 --- !u!1001 &1118466617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19046,7 +19148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: cd02cc0b625aedd4b974248e16200fda, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: cd02cc0b625aedd4b974248e16200fda, type: 2}
+  baseStats: {fileID: 11400000, guid: cd02cc0b625aedd4b974248e16200fda, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:
@@ -19240,7 +19342,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 4747125718808606222, guid: 885cbd8cb65611d4bbc80473d23ddef2, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
-  _player: {fileID: 685265184}
+  player: {fileID: 685265184}
   _iconSpell: {fileID: 0}
   _rangedRuneStats: {fileID: 11400000, guid: 48427f1dcfb86cc4fb61dcbd1af93605, type: 2}
 --- !u!1001 &1370206850
@@ -20416,7 +20518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 425fbded0c3c44b428b3ca7902f5ef2b, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: 425fbded0c3c44b428b3ca7902f5ef2b, type: 2}
+  baseStats: {fileID: 11400000, guid: 425fbded0c3c44b428b3ca7902f5ef2b, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:
@@ -21557,7 +21659,7 @@ MonoBehaviour:
   _runePrefab: {fileID: 2719766625095591549, guid: 36efcc31255994f44aa53ee6100b5a34, type: 3}
   _runeContainer: {fileID: 352796498}
   runeStats: {fileID: 11400000, guid: 0232e0fb33fa3cd40a78c89000d0c8b9, type: 2}
-  _player: {fileID: 1874471083}
+  player: {fileID: 1874471083}
   _iconSpell: {fileID: 0}
   _meleeRuneStats: {fileID: 11400000, guid: 0232e0fb33fa3cd40a78c89000d0c8b9, type: 2}
 --- !u!224 &1477539459 stripped
@@ -22047,10 +22149,16 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 519050307}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 502142541}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 519050307}
+      addedObject: {fileID: 139718212}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1108286101}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dcccb38eb06623145839faafe4b4f4c5, type: 3}
       insertIndex: -1
@@ -22123,7 +22231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a5ee124830943274bb639b470f0b0e58, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: a5ee124830943274bb639b470f0b0e58, type: 2}
+  baseStats: {fileID: 11400000, guid: a5ee124830943274bb639b470f0b0e58, type: 2}
   mana: 0
   _clickEffect: {fileID: 372635409}
   _inventory: {fileID: 1095497841}
@@ -22165,6 +22273,8 @@ MonoBehaviour:
   _runes:
   - {fileID: 519050308}
   - {fileID: 502142542}
+  - {fileID: 139718213}
+  - {fileID: 1108286102}
 --- !u!114 &1503606299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27694,7 +27804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
+  baseStats: {fileID: 11400000, guid: 31034b2280d26584aaa8441bd8f16064, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:
@@ -28409,7 +28519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 5d8562e52e388594ead3026d060205d0, type: 2}
   isDead: 0
-  characterStats: {fileID: 11400000, guid: 5d8562e52e388594ead3026d060205d0, type: 2}
+  baseStats: {fileID: 11400000, guid: 5d8562e52e388594ead3026d060205d0, type: 2}
   mana: 0
   _player: {fileID: 1503606289}
   _playerLayer:

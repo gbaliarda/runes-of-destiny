@@ -6,13 +6,15 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class Character : Actor
 {
-    [SerializeField] protected CharacterStats characterStats;
+    [SerializeField] private CharacterStats baseStats;
     [SerializeField] protected int mana;
     protected ManaPotionController manaPotionController;
     protected NavMeshAgent agent;
     protected NavMovementController movementController;
     protected AttackController attackController;
     protected Animator animator;
+    protected List<Buff> buffs;
+    protected CharacterStats characterStats;
     public int Mana => mana;
     public CharacterStats CharacterStats => characterStats;
 
@@ -20,6 +22,7 @@ public class Character : Actor
 
     protected void Awake()
     {
+        characterStats = Instantiate(baseStats);
         agent = GetComponent<NavMeshAgent>();
         agent.speed = characterStats.MovementSpeed;
         agent.autoBraking = false;
@@ -32,16 +35,17 @@ public class Character : Actor
         attackController = GetComponent<AttackController>();
 
         manaPotionController = GetComponent<ManaPotionController>();
-
     }
     protected new void Start()
     {
         base.stats = characterStats;
         base.Start();
+        if (buffs == null) buffs = new List<Buff>();
 
         mana = characterStats.MaxMana;
 
         StartCoroutine(ManaRegenCoroutine());
+        StartCoroutine(HealthRegenCoroutine());
     }
 
     protected void Update()
@@ -49,8 +53,35 @@ public class Character : Actor
         if (isDead) return;
         FaceTarget();
         SetAnimations();
+        UpdateBuffs();
     }
     #endregion
+
+    private void UpdateBuffs()
+    {
+        for (int i = buffs.Count - 1; i >= 0; i--)
+        {
+            IBuff buff = buffs[i];
+            buff.ReduceDuration(Time.deltaTime);
+            if (buff.Duration <= 0)
+            {
+                characterStats.RemoveStats(buff.Owner.BuffStats);
+                if (buff.Owner.BuffStats.MaxLife > 0)
+                {
+                    if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+                    if (this is Player) EventsManager.instance.EventTakeDamage(life);
+                }
+                buffs.RemoveAt(i);
+            }
+        }
+    }
+
+    public void AddBuff(Buff buff)
+    {
+        characterStats.AddStats(buff.Owner.BuffStats);
+        if (this is Player && buff is HealthBuff) EventsManager.instance.EventTakeDamage(life);
+        buffs.Add(buff);
+    }
 
     private void FaceTarget()
     {
@@ -119,6 +150,21 @@ public class Character : Actor
             {
                 mana += characterStats.ManaRegen;
                 if (mana >  characterStats.MaxMana) mana = characterStats.MaxMana;
+                if (this is Player) EventsManager.instance.EventSpendMana(mana);
+            }
+        }
+    }
+
+    protected virtual IEnumerator HealthRegenCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (life < characterStats.MaxLife)
+            {
+                life += characterStats.HealthRegen;
+                if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+                if (this is Player) EventsManager.instance.EventTakeDamage(life);
             }
         }
     }

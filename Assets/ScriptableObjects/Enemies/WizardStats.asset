@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5fba19c946d1c41bb83acfb8d3a8eb, type: 3}
   m_Name: WizardStats
   m_EditorClassIdentifier: 
-  _stats:
-    MaxLife: 500
+  stats:
+    MaxLife: 750
   _characterStats:
     MovementSpeed: 5
     Level: 0

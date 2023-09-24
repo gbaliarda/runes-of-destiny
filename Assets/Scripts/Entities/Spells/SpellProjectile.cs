@@ -33,8 +33,8 @@ public abstract class SpellProjectile : MonoBehaviour, ISpellProjectile
 
     public void InitSound()
     {
-        CosmicStarSound frostBallSound = GetComponent<CosmicStarSound>();
-        EventQueueManager.instance.AddCommand(new CmdPlaySound(frostBallSound));
+        SpellSound spellSound = GetComponent<SpellSound>();
+        EventQueueManager.instance.AddCommand(new CmdPlaySound(spellSound));
     }
 
     public void Travel()
@@ -60,9 +60,15 @@ public abstract class SpellProjectile : MonoBehaviour, ISpellProjectile
         if (((1 << other.gameObject.layer) & hittableMask) != 0)
         {
             if (other.GetComponent<IDamageable>() != null)
+            {
                 EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Actor>(), owner.RuneStats.Damage));
+                if (other.GetComponent<Actor>().IsDead) return;
+            }
             else if (other.GetComponent<Body>() != null)
+            {
                 EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Body>().Actor, owner.RuneStats.Damage));
+                if (other.GetComponent<Body>().Actor.IsDead) return;
+            }
             Die();
         }
     }

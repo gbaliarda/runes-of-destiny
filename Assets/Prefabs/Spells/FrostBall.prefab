@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 3843625005393531014}
   - component: {fileID: -7026907033104367999}
   - component: {fileID: 2854851578430976634}
-  - component: {fileID: 8469744810801088981}
   - component: {fileID: 1686707860691990870}
+  - component: {fileID: 2207661510748980959}
   m_Layer: 8
   m_Name: FrostBall
   m_TagString: Spell
@@ -153,20 +153,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8469744810801088981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7744883497706540795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d1f8c03ef65dc74baad635c0d34ed42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioClip: {fileID: 8300000, guid: 82bc4bb203309f347b49e379fb5c541a, type: 3}
-  _audioSource: {fileID: 1686707860691990870}
 --- !u!82 &1686707860691990870
 AudioSource:
   m_ObjectHideFlags: 0
@@ -263,3 +249,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2207661510748980959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7744883497706540795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568a796c475d5a46bbecc3c4811ed6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 82bc4bb203309f347b49e379fb5c541a, type: 3}
+  _audioSource: {fileID: 1686707860691990870}

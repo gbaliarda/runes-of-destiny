@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EntityStats", menuName = "Stats/Entities", order = 0)]
 public class EntityStats : ScriptableObject
 {
-    [SerializeField] private EntityStatsValues _stats;
+    [SerializeField] protected EntityStatsValues stats;
 
-    public int MaxLife => _stats.MaxLife;
+    public int MaxLife => stats.MaxLife;
 
 }
 

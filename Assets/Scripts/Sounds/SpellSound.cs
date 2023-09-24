@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrostBallSound : MonoBehaviour, IListener
+public class SpellSound : MonoBehaviour, IListener
 {
     #region PUBLIC_PROPERTIES
     public AudioClip AudioClip => _audioClip;

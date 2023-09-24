@@ -31,8 +31,8 @@ public abstract class MeleeSpell : MonoBehaviour, IMeleeSpell
 
     public void InitSound()
     {
-        CosmicStarSound frostBallSound = GetComponent<CosmicStarSound>();
-        EventQueueManager.instance.AddCommand(new CmdPlaySound(frostBallSound));
+        SpellSound spellSound = GetComponent<SpellSound>();
+        EventQueueManager.instance.AddCommand(new CmdPlaySound(spellSound));
     }
 
     public void Die() => Destroy(this.gameObject);

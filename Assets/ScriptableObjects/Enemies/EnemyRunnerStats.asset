@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5fba19c946d1c41bb83acfb8d3a8eb, type: 3}
   m_Name: EnemyRunnerStats
   m_EditorClassIdentifier: 
-  _stats:
+  stats:
     MaxLife: 1500
   _characterStats:
     MovementSpeed: 13

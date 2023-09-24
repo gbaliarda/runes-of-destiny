@@ -9,7 +9,7 @@ public class CharacterStats : EntityStats
     [SerializeField] private CharacterDefensiveStatsValues _characterDefensiveStats;
     [SerializeField] private CharacterOffensiveStatsValues _characterOffensiveStats;
 
-    public float MovementSpeed => Mathf.RoundToInt(_characterStats.MovementSpeed + _characterStats.Dexterity * 0.01f);
+    public int MovementSpeed => Mathf.RoundToInt(_characterStats.MovementSpeed + _characterStats.Dexterity * 0.01f);
     
     public int Level => _characterStats.Level; 
     public float Experience => _characterStats.Experience;
@@ -57,12 +57,113 @@ public class CharacterStats : EntityStats
     public int ArmorPenetration => _characterOffensiveStats.ArmorPenetration;
     public int ReflectDamage => _characterOffensiveStats.ReflectDamage;
 
+    public void BuffMaxLife(int maxLifeBuff)
+    {
+        stats.MaxLife += maxLifeBuff;
+    }
+
+    public void AddStats(CharacterStats otherStats)
+    {
+        stats.MaxLife += otherStats.MaxLife;
+
+        _characterStats.MovementSpeed += otherStats.MovementSpeed;
+
+        _characterStats.MaxMana += otherStats.MaxMana;
+        _characterStats.ManaRegen += otherStats.ManaRegen;
+        _characterStats.MagicShield += otherStats.MagicShield;
+        _characterStats.MagicShieldRegen += otherStats.MagicShieldRegen;
+        _characterStats.HealthRegen += otherStats.HealthRegen;
+        _characterStats.LifeLeech += otherStats.LifeLeech;
+        _characterStats.ManaLeech += otherStats.ManaLeech;
+
+        _characterStats.Dexterity += otherStats.Dexterity;
+        _characterStats.Intelligence += otherStats.Intelligence;
+        _characterStats.Strength += otherStats.Strength;
+
+        _characterDefensiveStats.Armor += otherStats.Armor;
+        _characterDefensiveStats.EvasionChance += otherStats.EvasionChance;
+        _characterDefensiveStats.BlockSpellChance += otherStats.BlockSpellChance;
+        _characterDefensiveStats.DamageBlockedAmount += otherStats.DamageBlockedAmount;
+        _characterDefensiveStats.WaterResistance += otherStats.WaterResistance;
+        _characterDefensiveStats.FireResistance += otherStats.FireResistance;
+        _characterDefensiveStats.LightningResistance += otherStats.LightningResistance;
+        _characterDefensiveStats.VoidResistance += otherStats.VoidResistance;
+        _characterDefensiveStats.StunResistance += otherStats.StunResistance;
+        _characterDefensiveStats.CurseResistance += otherStats.CurseResistance;
+        _characterDefensiveStats.PoisonResistance += otherStats.PoisonResistance;
+        _characterDefensiveStats.Stealth += otherStats.Stealth;
+
+        _characterOffensiveStats.SpellPower += otherStats.SpellPower;
+        _characterOffensiveStats.AttackPower += otherStats.AttackPower;
+        _characterOffensiveStats.AttackSpeed += otherStats.AttackSpeed;
+        _characterOffensiveStats.CastSpeed += otherStats.CastSpeed;
+        _characterOffensiveStats.Luck += otherStats.Luck;
+        _characterOffensiveStats.CooldownReduction += otherStats.CooldownReduction;
+        _characterOffensiveStats.CriticalChance += otherStats.CriticalChance;
+        _characterOffensiveStats.CriticalDamage += otherStats.CriticalDamage;
+        _characterOffensiveStats.Accuracy += otherStats.Accuracy;
+        _characterOffensiveStats.WaterPenetration += otherStats.WaterPenetration;
+        _characterOffensiveStats.FirePenetration += otherStats.FirePenetration;
+        _characterOffensiveStats.LightningPenetration += otherStats.LightningPenetration;
+        _characterOffensiveStats.VoidPenetration += otherStats.VoidPenetration;
+        _characterOffensiveStats.ArmorPenetration += otherStats.ArmorPenetration;
+        _characterOffensiveStats.ReflectDamage += otherStats.ReflectDamage;
+    }
+
+
+    public void RemoveStats(CharacterStats otherStats)
+    {
+        stats.MaxLife -= otherStats.MaxLife;
+
+        _characterStats.MovementSpeed -= otherStats.MovementSpeed;
+
+        _characterStats.MaxMana -= otherStats.MaxMana;
+        _characterStats.ManaRegen -= otherStats.ManaRegen;
+        _characterStats.MagicShield -= otherStats.MagicShield;
+        _characterStats.MagicShieldRegen -= otherStats.MagicShieldRegen;
+        _characterStats.HealthRegen -= otherStats.HealthRegen;
+        _characterStats.LifeLeech -= otherStats.LifeLeech;
+        _characterStats.ManaLeech -= otherStats.ManaLeech;
+
+        _characterStats.Dexterity -= otherStats.Dexterity;
+        _characterStats.Intelligence -= otherStats.Intelligence;
+        _characterStats.Strength -= otherStats.Strength;
+
+        _characterDefensiveStats.Armor -= otherStats.Armor;
+        _characterDefensiveStats.EvasionChance -= otherStats.EvasionChance;
+        _characterDefensiveStats.BlockSpellChance -= otherStats.BlockSpellChance;
+        _characterDefensiveStats.DamageBlockedAmount -= otherStats.DamageBlockedAmount;
+        _characterDefensiveStats.WaterResistance -= otherStats.WaterResistance;
+        _characterDefensiveStats.FireResistance -= otherStats.FireResistance;
+        _characterDefensiveStats.LightningResistance -= otherStats.LightningResistance;
+        _characterDefensiveStats.VoidResistance -= otherStats.VoidResistance;
+        _characterDefensiveStats.StunResistance -= otherStats.StunResistance;
+        _characterDefensiveStats.CurseResistance -= otherStats.CurseResistance;
+        _characterDefensiveStats.PoisonResistance -= otherStats.PoisonResistance;
+        _characterDefensiveStats.Stealth -= otherStats.Stealth;
+
+        _characterOffensiveStats.SpellPower -= otherStats.SpellPower;
+        _characterOffensiveStats.AttackPower -= otherStats.AttackPower;
+        _characterOffensiveStats.AttackSpeed -= otherStats.AttackSpeed;
+        _characterOffensiveStats.CastSpeed -= otherStats.CastSpeed;
+        _characterOffensiveStats.Luck -= otherStats.Luck;
+        _characterOffensiveStats.CooldownReduction -= otherStats.CooldownReduction;
+        _characterOffensiveStats.CriticalChance -= otherStats.CriticalChance;
+        _characterOffensiveStats.CriticalDamage -= otherStats.CriticalDamage;
+        _characterOffensiveStats.Accuracy -= otherStats.Accuracy;
+        _characterOffensiveStats.WaterPenetration -= otherStats.WaterPenetration;
+        _characterOffensiveStats.FirePenetration -= otherStats.FirePenetration;
+        _characterOffensiveStats.LightningPenetration -= otherStats.LightningPenetration;
+        _characterOffensiveStats.VoidPenetration -= otherStats.VoidPenetration;
+        _characterOffensiveStats.ArmorPenetration -= otherStats.ArmorPenetration;
+        _characterOffensiveStats.ReflectDamage -= otherStats.ReflectDamage;
+    }
 }
 
 [System.Serializable]
 public struct CharacterStatsValues
 {
-    public float MovementSpeed;
+    public int MovementSpeed;
     public int Level;
     public float Experience;
     public int ManaRegen;

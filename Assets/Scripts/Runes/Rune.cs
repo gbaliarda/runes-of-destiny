@@ -9,17 +9,17 @@ public abstract class Rune : MonoBehaviour, IRune
     [SerializeField] private GameObject _runePrefab;
     [SerializeField] private Transform _runeContainer;
     [SerializeField] protected RuneStats runeStats;
-    [SerializeField] private Character _player;
-    [SerializeField] private Image _iconSpell;
-    protected float _cooldownLeft;
-    public float CooldownLeft => _cooldownLeft;
+    [SerializeField] private Character player;
+    [SerializeField] private Sprite _iconSpell;
+    protected float cooldownLeft;
+    public float CooldownLeft => cooldownLeft;
     #endregion
 
     #region IRUNE_PROPERTIES
     public GameObject RunePrefab => _runePrefab;
     public Transform RuneContainer => _runeContainer;
     public RuneStats RuneStats => runeStats;
-    public Character Player => _player;
+    public Character Player => player;
     #endregion
 
     #region IRUNE_METHODS
@@ -28,18 +28,18 @@ public abstract class Rune : MonoBehaviour, IRune
 
     public virtual void ShootAtDirection(Vector3 direction) => Debug.Log("Shooting at direection");
 
-    public virtual void SetCooldown(float cooldown) => _cooldownLeft = cooldown;
+    public virtual void SetCooldown(float cooldown) => cooldownLeft = cooldown;
     #endregion
 
     #region UNITY_EVENTS
     protected void Start()
     {
-        _cooldownLeft = 0;
+        cooldownLeft = 0;
     }
 
     protected void Update()
     {
-        if (_cooldownLeft > 0) _cooldownLeft -= Time.deltaTime;
+        if (cooldownLeft > 0) cooldownLeft -= Time.deltaTime;
     }
     #endregion
 }

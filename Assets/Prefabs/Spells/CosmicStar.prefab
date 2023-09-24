@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 9044774612235569401}
   - component: {fileID: 498723750842507966}
   - component: {fileID: -3037794639860778164}
-  - component: {fileID: 8006846001607480081}
   - component: {fileID: 3138090862565467341}
+  - component: {fileID: 4988562583700397850}
   m_Layer: 8
   m_Name: CosmicStar
   m_TagString: Spell
@@ -154,20 +154,6 @@ MonoBehaviour:
   hittableMask:
     serializedVersion: 2
     m_Bits: 5696
---- !u!114 &8006846001607480081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4747125718808606222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868ab61c85e4a3b43b87424e8894f84d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioClip: {fileID: 0}
-  _audioSource: {fileID: 0}
 --- !u!82 &3138090862565467341
 AudioSource:
   m_ObjectHideFlags: 0
@@ -178,8 +164,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 82bc4bb203309f347b49e379fb5c541a, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -264,6 +250,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4988562583700397850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747125718808606222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568a796c475d5a46bbecc3c4811ed6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 82bc4bb203309f347b49e379fb5c541a, type: 3}
+  _audioSource: {fileID: 3138090862565467341}
 --- !u!1001 &8661020453438117146
 PrefabInstance:
   m_ObjectHideFlags: 0

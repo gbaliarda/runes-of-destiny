@@ -10,8 +10,8 @@ public class RangedRune : Rune
 
     protected new void Start()
     {
-        base.Start();
         runeStats = _rangedRuneStats;
+        base.Start();
     }
 
     public override void Shoot()

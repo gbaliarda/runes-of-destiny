@@ -69,7 +69,11 @@ public class Character : Actor
                 if (buff.Owner.BuffStats.MaxLife > 0)
                 {
                     if (life > characterStats.MaxLife) life = characterStats.MaxLife;
-                    if (this is Player) EventsManager.instance.EventTakeDamage(life);
+                    if (this is Player)
+                    {
+                        EventsManager.instance.EventTakeDamage(life);
+                        EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
+                    }
                 }
                 buffs.RemoveAt(i);
             }
@@ -79,7 +83,11 @@ public class Character : Actor
     public void AddBuff(Buff buff)
     {
         characterStats.AddStats(buff.Owner.BuffStats);
-        if (this is Player && buff is HealthBuff) EventsManager.instance.EventTakeDamage(life);
+        if (this is Player && buff is HealthBuff)
+        {
+            EventsManager.instance.EventTakeDamage(life);
+            EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life, MaxLife);
+        }
         buffs.Add(buff);
     }
 
@@ -129,6 +137,7 @@ public class Character : Actor
 
         life -= Mathf.RoundToInt(damageModifier * (PhysicalDamage + FireDamage + WaterDamage + LightningDamage + VoidDamage));
 
+        EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
         if (this is Player) EventsManager.instance.EventTakeDamage(life);
         if (life <= 0) Die();
         return life;
@@ -136,6 +145,7 @@ public class Character : Actor
 
     public override void Die()
     {
+        if (movementController != null) movementController.Move(transform.position);
         animator.Play("Dead");
         isDead = true;
         Destroy(gameObject, 5f);
@@ -164,6 +174,7 @@ public class Character : Actor
             {
                 life += characterStats.HealthRegen;
                 if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+                EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life, MaxLife);
                 if (this is Player) EventsManager.instance.EventTakeDamage(life);
             }
         }

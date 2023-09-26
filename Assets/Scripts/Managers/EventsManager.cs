@@ -35,6 +35,7 @@ public class EventsManager : MonoBehaviour
     public event Action<int> OnUpdateHpPotCharge;
     public event Action<int, float> OnManaPotUse;
     public event Action<int> OnUpdateManaPotCharge;
+    public event Action<int, int, int> OnTargetHealthUpdate;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -83,6 +84,11 @@ public class EventsManager : MonoBehaviour
     public void EventUpdateManaPotCharge(int currentCharges)
     {
         OnUpdateManaPotCharge?.Invoke(currentCharges);
+    }
+
+    public void EventTargetHealthChange(int instanceId, int targetHealth, int targetMaxHealth)
+    {
+        OnTargetHealthUpdate?.Invoke(instanceId, targetHealth, targetMaxHealth);
     }
 
     #endregion

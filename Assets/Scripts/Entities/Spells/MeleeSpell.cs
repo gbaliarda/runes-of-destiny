@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public abstract class MeleeSpell : MonoBehaviour, IMeleeSpell
 {
     #region PRIVATE_PROPERTIES
@@ -24,9 +23,16 @@ public abstract class MeleeSpell : MonoBehaviour, IMeleeSpell
 
     public void Init()
     {
-        GetComponent<Collider>().isTrigger = true;
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
+
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
     }
 
     public void InitSound()
@@ -59,6 +65,26 @@ public abstract class MeleeSpell : MonoBehaviour, IMeleeSpell
         }
     }
 
+    protected void CollideWithActors()
+    {
+        int layerMask = (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Enemy"));
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f, layerMask);
+        foreach (Collider other in colliders)
+        {
+            if (owner.Player.CompareTag(other.tag)) continue;
+
+            if (((1 << other.gameObject.layer) & hittableMask) != 0)
+            {
+                Debug.Log($"About to deal damage to {other.name}");
+                if (other.GetComponent<IDamageable>() != null)
+                    EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Actor>(), owner.RuneStats.Damage));
+                else if (other.GetComponent<Body>() != null)
+                    EventQueueManager.instance.AddCommand(new CmdApplyDamage(other.GetComponent<Body>().Actor, owner.RuneStats.Damage));
+            }
+        }
+    }
+
     void Start()
     {
         col = GetComponent<Collider>();
@@ -69,6 +95,8 @@ public abstract class MeleeSpell : MonoBehaviour, IMeleeSpell
         Init();
 
         InitSound();
+
+        CollideWithActors();
     }
 
     void Update()

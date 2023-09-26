@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    #region SINGLETON
+    static public GameManager instance;
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
+    #endregion
+
     [SerializeField] private bool _isGameOver = false;
     [SerializeField] private bool _isVictory = false;
     [SerializeField] private Text _gameOverMessage;
 
     #region UNITY_EVENTS
-    // Start is called before the first frame update
     void Start()
     {
         EventsManager.instance.OnGameOver += OnGameOver;

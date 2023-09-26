@@ -10,7 +10,8 @@ public class Actor : MonoBehaviour, IDamageable
     public EntityStats Stats => stats;
     protected int life;
     protected HealthPotionController healthPotionController;
-    [SerializeField] protected bool isDead = false;
+    protected bool isDead = false;
+    protected bool isGameOver = false;
     #endregion
 
     #region IDAMAGEABLE_PROPERTIES
@@ -43,6 +44,11 @@ public class Actor : MonoBehaviour, IDamageable
         return life;
     }
 
+    public void OnGameOver(bool isVictory)
+    {
+        isGameOver = true;
+    }
+
     #endregion
 
     #region UNITY_EVENTS
@@ -50,6 +56,7 @@ public class Actor : MonoBehaviour, IDamageable
     {
         life = MaxLife;
         healthPotionController = GetComponent<HealthPotionController>();
+        EventsManager.instance.OnGameOver += OnGameOver;
     }
     #endregion
 }

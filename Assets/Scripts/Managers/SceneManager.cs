@@ -5,18 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    private SceneManager instance;
-    [SerializeField] private string _logInSceneName;
+    #region SINGLETON
+    static public SceneManager instance;
 
-    void Awake()
+    private void Awake()
     {
-        if (instance != null) Destroy(this);
+        if (instance != null) Destroy(gameObject);
         instance = this;
     }
+    #endregion
 
-    public void ChangeScene()
+    public void LoadScene(int scene)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(_logInSceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
     public void ExitGame()

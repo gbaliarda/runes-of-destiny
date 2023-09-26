@@ -83,7 +83,10 @@ public class Player : Character
 
     public override void Die()
     {
-        base.Die();
+        if (movementController != null) movementController.Move(transform.position);
+        animator.Play("Dead");
+        isDead = true;
+        EventsManager.instance.EventGameOver(false);
     }
 
     private void ClickEffect()

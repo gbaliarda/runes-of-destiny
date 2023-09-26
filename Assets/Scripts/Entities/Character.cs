@@ -122,6 +122,7 @@ public class Character : Actor
 
     public override int TakeDamage(DamageStatsValues damage)
     {
+        if (isGameOver) return life;
         int PhysicalDamage = Mathf.RoundToInt(damage.PhysicalDamage * (1 - characterStats.Armor/(characterStats.Armor + 5000f)));
         int FireDamage = Mathf.RoundToInt(damage.FireDamage*(1 - characterStats.FireResistance / 100f));
         int WaterDamage = Mathf.RoundToInt(damage.WaterDamage * (1 - characterStats.WaterResistance / 100f));
@@ -153,7 +154,7 @@ public class Character : Actor
 
     protected virtual IEnumerator ManaRegenCoroutine()
     {
-        while (true)
+        while (!isDead)
         {
             yield return new WaitForSeconds(1f);
             if (mana < characterStats.MaxMana)
@@ -167,7 +168,7 @@ public class Character : Actor
 
     protected virtual IEnumerator HealthRegenCoroutine()
     {
-        while (true)
+        while (!isDead)
         {
             yield return new WaitForSeconds(1f);
             if (life < characterStats.MaxLife)

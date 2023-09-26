@@ -8,6 +8,7 @@ public class Enemy : Character
     [SerializeField] private GameObject _player;
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private float _sightRange, _attackRange;
+    [SerializeField] private bool _isFinalBoss;
     private bool _playerInSight, _playerInAttack;
 
     new void Start()
@@ -61,7 +62,7 @@ public class Enemy : Character
 
     public override void Die()
     {
-        if (movementController != null) movementController.Move(transform.position);
+        if (_isFinalBoss) EventsManager.instance.EventGameOver(true);
         base.Die();
     }
 }

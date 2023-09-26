@@ -5,6 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    #region SINGLETON
+    static public MenuManager instance;
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
+    #endregion
+
     [SerializeField] private GameObject _menu;
     [SerializeField] private string _mainMenuScene;
     [SerializeField] private KeyCode _openMenuKeyCode = KeyCode.Escape;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
@@ -19,7 +20,7 @@ public class ManaPotionController : MonoBehaviour, IManaPotion
     {
         if (_currentManaPotCooldown > 0) return;
         if (_manaPotChargesLeft == 0) return;
-        _character.GetMana(_manaPotionStats.ManaAmount);
+        EventQueueManager.instance.AddCommand(new CmdGetMana(_character, _manaPotionStats.ManaAmount));
         _currentManaPotCooldown = _manaPotionStats.ManaPotCooldown;
         _currentChargeRegenerationCycle = _manaPotionStats.ManaPotChargeRegenerationRate;
         _manaPotChargesLeft -= 1;

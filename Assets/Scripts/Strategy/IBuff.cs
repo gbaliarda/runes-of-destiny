@@ -4,12 +4,10 @@ using UnityEngine;
 
 public interface IBuff
 {
-    BuffRune Owner { get; }
+    IBuffRune Owner { get; }
     float Duration { get; }
-    float LifeTime { get; }
 
     void Init();
     void Die();
     void SetOwner(BuffRune owner);
-    void ReduceDuration(float duration);
 }

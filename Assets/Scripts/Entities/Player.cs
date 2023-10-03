@@ -20,7 +20,6 @@ public class Player : Character
     [SerializeField] private GameObject _inventory;
     private RaycastHit _hit;
     [SerializeField] private LayerMask _clickableLayers;
-    private bool _gameOver;
 
     #endregion
 
@@ -49,7 +48,7 @@ public class Player : Character
         if (attackController == null) return;
         if (attackController.Runes[runeIndex].CooldownLeft > 0) return;
         if (attackController.Runes[runeIndex].RuneStats.ManaCost > mana) return;
-        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
+        EventQueueManager.instance.AddCommand(new CmdSpendMana(this, attackController.Runes[runeIndex].RuneStats.ManaCost));
         attackController.Runes[runeIndex].SetCooldown(attackController.Runes[runeIndex].RuneStats.Cooldown);
         attackController.AttackOnMousePosition(runeIndex);
         EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
@@ -57,7 +56,7 @@ public class Player : Character
 
     private new void Update()
     {
-        if (isDead || _gameOver) return;
+        if (isDead || isGameOver) return;
         base.Update();
         if (Input.GetKeyDown(_firstAbility)) UseRune(0);
         if (Input.GetKeyDown(_secondAbility)) UseRune(1);
@@ -82,9 +81,8 @@ public class Player : Character
 
     private void OnGameOver(bool isVictory)
     {
-        Debug.Log($"Victory: {isVictory}");
-        _gameOver = true;
-        if (isVictory) animator.Play("Victory");
+        base.OnGameOver(isVictory);
+        if (isVictory) EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Victory"));
     }
 
     private void OnOpenInventory(bool isOpen)
@@ -95,7 +93,7 @@ public class Player : Character
     public override void Die()
     {
         if (movementController != null) movementController.Move(transform.position);
-        animator.Play("Dead");
+        EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Dead"));
         isDead = true;
         EventsManager.instance.EventGameOver(false);
     }
@@ -137,12 +135,5 @@ public class Player : Character
     {
         base.SpendMana(manaCost);
         EventsManager.instance.EventSpendMana(mana);
-    }
-
-    public override void AbilityCasted(int runeIndex)
-    {
-        if (attackController == null) return;
-        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
-        EventsManager.instance.EventAbilityUse(runeIndex, attackController.Runes[runeIndex].RuneStats.Cooldown);
     }
 }

@@ -49,7 +49,7 @@ public class Enemy : Character
 
         movementController.Move(transform.position);
         
-        SpendMana(attackController.Runes[0].RuneStats.ManaCost);
+        EventQueueManager.instance.AddCommand(new CmdSpendMana(this, attackController.Runes[0].RuneStats.ManaCost));
         attackController.Runes[0].SetCooldown(attackController.Runes[0].RuneStats.Cooldown);
 
         attackController.Attack(0, _player.transform.position);
@@ -57,7 +57,8 @@ public class Enemy : Character
 
     private void OnGameOver(bool isVictory)
     {
-        if (!isVictory) animator.Play("Victory");
+        base.OnGameOver(isVictory);
+        if (!isVictory) EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Victory"));
     }
 
     public override void Die()

@@ -10,6 +10,16 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
+    #region SINGLETON
+    static public SettingsManager instance;
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
+    #endregion
+
     private Resolution[] _resolutions;
     private int _resolution;
     private int _tempResolution;

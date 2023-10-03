@@ -35,7 +35,6 @@ public class BuffRune : Rune, IBuffRune
                 return;
             }
             buffSpell.GetComponent<Buff>().SetOwner(this);
-            Player.AddBuff(buffSpell.GetComponent<Buff>());
         }
     }
     #endregion

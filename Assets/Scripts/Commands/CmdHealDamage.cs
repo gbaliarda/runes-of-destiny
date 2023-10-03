@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CmdHealDamage : ICommand
 {
-    private IDamageable _damageble;
+    private IDamageable _damageable;
     private int _damage;
 
-    public CmdHealDamage(IDamageable damageble, int damage)
+    public CmdHealDamage(IDamageable damageable, int damage)
     {
-        _damageble = damageble;
+        _damageable = damageable;
         _damage = damage;
     }
 
     public void Execute()
     {
-        _damageble.HealDamage(_damage);
+        _damageable.HealDamage(_damage);
     }
 
     public void Undo()

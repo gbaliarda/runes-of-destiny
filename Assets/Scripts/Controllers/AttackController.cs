@@ -19,7 +19,7 @@ public class AttackController : MonoBehaviour, INavMovable, IAttackable
     public void Attack(int runeIndex, Vector3 direction)
     {
         Move(transform.position);
-        _runes[runeIndex].ShootAtDirection(direction);
+        EventQueueManager.instance.AddCommand(new CmdShootAtDirection(_runes[runeIndex], direction));
     }
 
     public void AttackOnMousePosition(int runeIndex)
@@ -31,6 +31,6 @@ public class AttackController : MonoBehaviour, INavMovable, IAttackable
 
     public void Move(Vector3 position)
     {
-        if (_agent != null) _agent.SetDestination(position);
+        EventQueueManager.instance.AddCommand(new CmdMoveToPosition(_agent, position));
     }
 }

@@ -15,7 +15,7 @@ public class CmdMoveToPosition : ICommand
 
     public void Execute() 
     { 
-        _agent.SetDestination(_position);
+        if(_agent != null) _agent.SetDestination(_position);
     }
         
 

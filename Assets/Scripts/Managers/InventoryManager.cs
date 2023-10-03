@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
 
     void UpdateUI()
     {
-        Debug.Log("asd");
+
     }
 
     void OnOpenInventory(bool isOpen)

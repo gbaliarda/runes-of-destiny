@@ -16,6 +16,7 @@ public class EventQueueManager : MonoBehaviour
 
     public Queue<ICommand> EventQueue => _eventQueue; 
     private Queue<ICommand> _eventQueue = new Queue<ICommand>();
+    private Queue<ICommand> _eventUndoQueue = new Queue<ICommand>();
 
     public void Update()
     {
@@ -36,9 +37,17 @@ public class EventQueueManager : MonoBehaviour
 
             command.Execute();
         }
+
+        while (_eventUndoQueue.Count > 0)
+        {
+            ICommand command = _eventUndoQueue.Dequeue();
+            command.Undo();
+        }
     }
 
     public void AddCommand(ICommand command) => _eventQueue.Enqueue(command);
+
+    public void AddUndoCommand(ICommand command) => _eventUndoQueue.Enqueue(command);
 
 
 }

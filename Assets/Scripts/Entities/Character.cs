@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
-public class Character : Actor
+public class Character : Actor, IMana, IBuffable
 {
     [SerializeField] private CharacterStats baseStats;
     [SerializeField] protected int mana;
@@ -14,9 +15,12 @@ public class Character : Actor
     protected NavMovementController movementController;
     protected AttackController attackController;
     protected Animator animator;
-    protected List<Buff> buffs;
+    protected List<IBuff> buffs;
     protected CharacterStats characterStats;
     public int Mana => mana;
+    public int MaxMana => baseStats.MaxMana;
+    public List<IBuff> Buffs => buffs;
+    public Dictionary<IBuff, CmdBuff> Buffs2 => Buffs2;
     public CharacterStats CharacterStats => characterStats;
 
     #region UNITY_EVENTS
@@ -41,7 +45,7 @@ public class Character : Actor
     {
         base.stats = characterStats;
         base.Start();
-        if (buffs == null) buffs = new List<Buff>();
+        if (buffs == null) buffs = new List<IBuff>();
 
         mana = characterStats.MaxMana;
 
@@ -54,34 +58,10 @@ public class Character : Actor
         if (isDead) return;
         FaceTarget();
         SetAnimations();
-        UpdateBuffs();
     }
     #endregion
 
-    private void UpdateBuffs()
-    {
-        for (int i = buffs.Count - 1; i >= 0; i--)
-        {
-            IBuff buff = buffs[i];
-            buff.ReduceDuration(Time.deltaTime);
-            if (buff.Duration <= 0)
-            {
-                characterStats.RemoveStats(buff.Owner.BuffStats);
-                if (buff.Owner.BuffStats.MaxLife > 0)
-                {
-                    if (life > characterStats.MaxLife) life = characterStats.MaxLife;
-                    if (this is Player)
-                    {
-                        EventsManager.instance.EventTakeDamage(life);
-                        EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
-                    }
-                }
-                buffs.RemoveAt(i);
-            }
-        }
-    }
-
-    public void AddBuff(Buff buff)
+    public void AddBuff(IBuff buff)
     {
         characterStats.AddStats(buff.Owner.BuffStats);
         if (this is Player && buff is HealthBuff)
@@ -92,15 +72,30 @@ public class Character : Actor
         buffs.Add(buff);
     }
 
+    public void RemoveBuff(IBuff buff)
+    {
+        characterStats.RemoveStats(buff.Owner.BuffStats);
+        if (buff.Owner.BuffStats.MaxLife > 0)
+        {
+            if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+            if (this is Player)
+            {
+                EventsManager.instance.EventTakeDamage(life);
+                EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
+            }
+        }
+        buffs.Remove(buff);
+    }
+
     private void FaceTarget()
     {
-        if (agent.velocity != Vector3.zero) new CmdChangeRotation(transform, (agent.destination - transform.position).normalized).Execute();
+        if (agent.velocity != Vector3.zero) EventQueueManager.instance.AddCommand(new CmdChangeRotation(transform, (agent.destination - transform.position).normalized));
     }
 
     private void SetAnimations()
     {
-        if (agent.velocity == Vector3.zero) animator.Play("Idle");
-        else animator.Play("Walk");
+        if (agent.velocity == Vector3.zero) EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Idle"));
+        else EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Walk")); ;
     }
 
     public virtual void SpendMana(int manaCost)
@@ -113,12 +108,6 @@ public class Character : Actor
     {
         mana += newMana;
         if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
-    }
-
-    public virtual void AbilityCasted(int runeIndex)
-    {
-        if (attackController == null) return;
-        SpendMana(attackController.Runes[runeIndex].RuneStats.ManaCost);
     }
 
     public override int TakeDamage(DamageStatsValues damage)
@@ -150,7 +139,7 @@ public class Character : Actor
     public override void Die()
     {
         if (movementController != null) movementController.Move(transform.position);
-        animator.Play("Dead");
+        EventQueueManager.instance.AddCommand(new CmdPlayAnimation(animator, "Dead"));
         isDead = true;
         Destroy(gameObject, 5f);
     }
@@ -162,7 +151,7 @@ public class Character : Actor
             yield return new WaitForSeconds(1f);
             if (mana < characterStats.MaxMana)
             {
-                mana += characterStats.ManaRegen;
+                new CmdGetMana(this, characterStats.ManaRegen).Execute();
                 if (mana >  characterStats.MaxMana) mana = characterStats.MaxMana;
                 if (this is Player) EventsManager.instance.EventSpendMana(mana);
             }
@@ -176,7 +165,7 @@ public class Character : Actor
             yield return new WaitForSeconds(1f);
             if (life < characterStats.MaxLife)
             {
-                HealDamage(characterStats.HealthRegen);
+                new CmdHealDamage(this, characterStats.HealthRegen).Execute();
                 EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life, MaxLife);
                 if (this is Player) EventsManager.instance.EventTakeDamage(life);
             }

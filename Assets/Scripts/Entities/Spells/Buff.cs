@@ -5,25 +5,24 @@ using UnityEngine;
 public class Buff : MonoBehaviour, IBuff
 {
     #region PRIVATE_PROPERTEIS
-    [SerializeField] protected float speed = 5;
-    [SerializeField] protected float lifetime = 3;
     [SerializeField] protected float duration = 5;
-    protected BuffRune owner;
+    protected IBuffRune owner;
+    protected CmdBuff command;
     #endregion
 
-    #region I_SPELLPROJECTILE_PROPERTIES
-    public float Speed => speed;
-    public float LifeTime => lifetime;
+    #region I_BUFF_PROPERTIES
 
-    public BuffRune Owner => owner;
+    public IBuffRune Owner => owner;
 
     public float Duration => duration;
     #endregion
 
-    #region I_SPELLPROJECTILE_PROPERTIES
+    #region I_BUFF_PROPERTIES
 
     public void Init()
     {
+        command = new CmdBuff(owner.Player, this);
+        EventQueueManager.instance.AddCommand(command);
     }
 
     public void InitSound()
@@ -36,7 +35,6 @@ public class Buff : MonoBehaviour, IBuff
 
     public void SetOwner(BuffRune owner) => this.owner = owner;
 
-    public void ReduceDuration(float duration) => this.duration -= duration;
     #endregion
 
     #region UNITY_EVENTS
@@ -54,9 +52,12 @@ public class Buff : MonoBehaviour, IBuff
 
     void Update()
     {
-
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0) Die();
+        duration -= Time.deltaTime;
+        if (duration <= 0)
+        {
+            EventQueueManager.instance.AddUndoCommand(command);
+            Die();
+        }
     }
     #endregion
 }

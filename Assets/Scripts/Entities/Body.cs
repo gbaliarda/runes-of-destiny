@@ -16,7 +16,7 @@ public class Body : MonoBehaviour
 
     public void TakeDamage(DamageStatsValues damage)
     {
-        _actor.TakeDamage(damage);
+        EventQueueManager.instance.AddCommand(new CmdApplyDamage(_actor, damage));
     }
 
     private void OnMouseEnter()

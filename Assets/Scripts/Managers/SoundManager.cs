@@ -15,25 +15,27 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private AudioClip _victory;
-    [SerializeField] private AudioClip _defeat;
     [SerializeField] private AudioClip _background;
 
     private AudioSource _audioSource;
+    public AudioSource AudioSource => _audioSource;
 
     #region UNITY_EVENTS
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        EventsManager.instance.OnGameOver += OnGameOver;
-        _audioSource.PlayOneShot(_background);
+        _audioSource.loop = true;
+        _audioSource.clip = _background;
+        _audioSource.Play();
     }
     #endregion
 
     #region EVENTS 
-    private void OnGameOver(bool isVictory)
-    {
-        _audioSource.PlayOneShot(isVictory ? _victory : _defeat);
-    }
+
     #endregion
+
+    public void PlayOneShot(AudioClip clip)
+    {
+        _audioSource.PlayOneShot(clip);
+    }
 }

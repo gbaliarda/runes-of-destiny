@@ -12,28 +12,27 @@ public class SpellSound : MonoBehaviour, IListener
 
     #region PRIVATE_PROPERTIES
     [SerializeField] private AudioClip _audioClip;
-    [SerializeField] private AudioSource _audioSource;
+    private AudioSource _audioSource;
 
     #endregion
     public void InitAudioSource()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.clip = _audioClip;
+        _audioSource = SoundManager.instance.AudioSource;
     }
 
     public void Play()
     {
-        _audioSource.Play();
+        //
     }
 
-    public void PlayOnShot()
+    public void PlayOneShot()
     {
         _audioSource.PlayOneShot(_audioClip);
     }
 
     public void Stop()
     {
-        _audioSource.Stop();
+        //
     }
     void Start()
     {

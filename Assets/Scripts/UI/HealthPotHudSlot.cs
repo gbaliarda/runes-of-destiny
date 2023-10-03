@@ -19,7 +19,7 @@ public class HealthPotHudSlot : MonoBehaviour
         EventsManager.instance.OnUpdateHpPotCharge += OnUpdateHpPotCharge;
     }
 
-    private void OnHealthPotUse(int currentHp, float cooldown)
+    private void OnHealthPotUse(float cooldown)
     {
         _maxCooldown = cooldown;
         _cooldownLeft = cooldown;
@@ -28,7 +28,7 @@ public class HealthPotHudSlot : MonoBehaviour
     private void OnUpdateHpPotCharge(int currentCharges)
     {
         Debug.Log($"Updating HP Pot charge with {currentCharges}");
-        if (_potionSprites.Count < currentCharges) return;
+        if (_potionSprites.Count <= currentCharges) return;
         _icon.sprite = _potionSprites[currentCharges];
     }
 

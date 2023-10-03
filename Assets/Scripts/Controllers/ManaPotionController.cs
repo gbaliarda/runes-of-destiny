@@ -6,6 +6,7 @@ using UnityEngine;
 public class ManaPotionController : MonoBehaviour, IManaPotion
 {
     [SerializeField] private ManaPotionStats _manaPotionStats;
+    [SerializeField] private UsePotionSound _potionSound;
     private Character _character;
     private int _manaPotChargesLeft;
     private float _currentManaPotCooldown;
@@ -24,7 +25,8 @@ public class ManaPotionController : MonoBehaviour, IManaPotion
         _manaPotChargesLeft -= 1;
         if (_character is Player)
         {
-            EventsManager.instance.EventManaPotUse(_character.Mana, _currentManaPotCooldown);
+            if (_potionSound != null) EventQueueManager.instance.AddCommand(new CmdPlaySound(_potionSound));
+            EventsManager.instance.EventManaPotUse(_currentManaPotCooldown);
             EventsManager.instance.EventUpdateManaPotCharge(_manaPotChargesLeft);
         }
     }

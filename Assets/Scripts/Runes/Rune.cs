@@ -9,7 +9,7 @@ public abstract class Rune : MonoBehaviour, IRune
     [SerializeField] private GameObject _runePrefab;
     [SerializeField] private Transform _runeContainer;
     [SerializeField] protected RuneStats runeStats;
-    [SerializeField] private Character player;
+    [SerializeField] protected Character player;
     [SerializeField] private Sprite _iconSpell;
     protected float cooldownLeft;
     public float CooldownLeft => cooldownLeft;

@@ -7,7 +7,7 @@ public interface IListener
     AudioClip AudioClip { get; }
     AudioSource AudioSource { get; }
     void InitAudioSource();
-    void PlayOnShot();
+    void PlayOneShot();
     void Play();
     void Stop();
 }

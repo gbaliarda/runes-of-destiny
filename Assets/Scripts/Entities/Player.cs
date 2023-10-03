@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Player : Character
 {
+    #region SINGLETON
+    static public Player instance;
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        base.Awake();
+        instance = this;
+    }
+    #endregion
+
     #region PROPERTIES
     [SerializeField] private ParticleSystem _clickEffect;
     [SerializeField] private GameObject _inventory;
@@ -100,6 +111,19 @@ public class Player : Character
         effectInstance.transform.localPosition = Vector3.zero;
 
         Destroy(effectContainer, 2.0f);
+    }
+
+    public override int HealDamage(int damage)
+    {
+        base.HealDamage(damage);
+        EventsManager.instance.EventTakeDamage(life);
+        return life;
+    }
+
+    public override void GetMana(int newMana)
+    {
+        base.GetMana(newMana);
+        EventsManager.instance.EventSpendMana(mana);
     }
 
     public override int TakeDamage(DamageStatsValues damage)

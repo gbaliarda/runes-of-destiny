@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(AudioSource))]
 public class Actor : MonoBehaviour, IDamageable
 {
     #region PRIVATE_PROPERTIES
@@ -12,6 +14,9 @@ public class Actor : MonoBehaviour, IDamageable
     protected HealthPotionController healthPotionController;
     protected bool isDead = false;
     protected bool isGameOver = false;
+    protected AudioSource audioSource;
+
+    public AudioSource AudioSource => audioSource;
     #endregion
 
     #region IDAMAGEABLE_PROPERTIES
@@ -57,6 +62,7 @@ public class Actor : MonoBehaviour, IDamageable
         life = MaxLife;
         healthPotionController = GetComponent<HealthPotionController>();
         EventsManager.instance.OnGameOver += OnGameOver;
+        audioSource = GetComponent<AudioSource>();
     }
     #endregion
 }

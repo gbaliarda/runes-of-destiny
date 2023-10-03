@@ -17,7 +17,6 @@ public class ManaBar : MonoBehaviour
         _slider = GetComponent<Slider>();
         UpdateMana(_maxMana);
         EventsManager.instance.OnPlayerSpendMana += OnPlayerSpendMana;
-        EventsManager.instance.OnManaPotUse += OnManaPotUse;
     }
 
     private void UpdateMana(int mana)
@@ -29,10 +28,5 @@ public class ManaBar : MonoBehaviour
     private void OnPlayerSpendMana(int mana)
     {
         UpdateMana(mana);
-    }
-
-    private void OnManaPotUse(int currentMana, float cooldown)
-    {
-        UpdateMana(currentMana);
     }
 }

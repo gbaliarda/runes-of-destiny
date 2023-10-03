@@ -15,7 +15,6 @@ public class HealthBar : MonoBehaviour
         _slider = GetComponent<Slider>();
         UpdateHealth(_player.Stats.MaxLife);
         EventsManager.instance.OnPlayerTakeDamage += OnPlayerTakeDamage;
-        EventsManager.instance.OnHealthPotUse += OnHealthPotUse;
     }
 
     private void UpdateHealth(int hp)
@@ -29,10 +28,5 @@ public class HealthBar : MonoBehaviour
     {
         if (hp < 0) hp = 0;
         UpdateHealth(hp);
-    }
-
-    private void OnHealthPotUse(int currentHp, float cooldown)
-    {
-        UpdateHealth(currentHp);
     }
 }

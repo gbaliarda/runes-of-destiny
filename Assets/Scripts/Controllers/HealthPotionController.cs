@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Actor))]
 public class HealthPotionController : MonoBehaviour, IHealthPotion
 {
     [SerializeField] private HealthPotionStats _healthPotionStats;
+    [SerializeField] private UsePotionSound _potionSound;
     private Actor _actor;
     private int _hpPotChargesLeft;
     private float _currentHpPotCooldown;
@@ -18,13 +20,14 @@ public class HealthPotionController : MonoBehaviour, IHealthPotion
     {
         if (_currentHpPotCooldown > 0) return;
         if (_hpPotChargesLeft == 0) return;
-        _actor.HealDamage(_healthPotionStats.HealAmount);
+        EventQueueManager.instance.AddCommand(new CmdHealDamage(_actor, _healthPotionStats.HealAmount));
         _currentHpPotCooldown = _healthPotionStats.HealthPotCooldown;
         _currentChargeRegenerationCycle = _healthPotionStats.HealthPotChargeRegenerationRate;
         _hpPotChargesLeft -= 1;
         if (_actor is Player)
         {
-            EventsManager.instance.EventHealthPotUse(_actor.Life, _currentHpPotCooldown);
+            if (_potionSound != null) EventQueueManager.instance.AddCommand(new CmdPlaySound(_potionSound));
+            EventsManager.instance.EventHealthPotUse(_currentHpPotCooldown);
             EventsManager.instance.EventUpdateHpPotCharge(_hpPotChargesLeft);
         }
     }

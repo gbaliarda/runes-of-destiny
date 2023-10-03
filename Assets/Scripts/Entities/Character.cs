@@ -8,6 +8,7 @@ public class Character : Actor
 {
     [SerializeField] private CharacterStats baseStats;
     [SerializeField] protected int mana;
+    [SerializeField] private List<AudioClip> _takeDamageClip;
     protected ManaPotionController manaPotionController;
     protected NavMeshAgent agent;
     protected NavMovementController movementController;
@@ -123,6 +124,7 @@ public class Character : Actor
     public override int TakeDamage(DamageStatsValues damage)
     {
         if (isGameOver) return life;
+        if (isDead) return life;
         int PhysicalDamage = Mathf.RoundToInt(damage.PhysicalDamage * (1 - characterStats.Armor/(characterStats.Armor + 5000f)));
         int FireDamage = Mathf.RoundToInt(damage.FireDamage*(1 - characterStats.FireResistance / 100f));
         int WaterDamage = Mathf.RoundToInt(damage.WaterDamage * (1 - characterStats.WaterResistance / 100f));
@@ -141,6 +143,7 @@ public class Character : Actor
         EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
         if (this is Player) EventsManager.instance.EventTakeDamage(life);
         if (life <= 0) Die();
+        if (_takeDamageClip != null && _takeDamageClip.Count > 0) audioSource.PlayOneShot(_takeDamageClip[Random.Range(0, _takeDamageClip.Count)]);
         return life;
     }
 
@@ -173,8 +176,7 @@ public class Character : Actor
             yield return new WaitForSeconds(1f);
             if (life < characterStats.MaxLife)
             {
-                life += characterStats.HealthRegen;
-                if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+                HealDamage(characterStats.HealthRegen);
                 EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life, MaxLife);
                 if (this is Player) EventsManager.instance.EventTakeDamage(life);
             }

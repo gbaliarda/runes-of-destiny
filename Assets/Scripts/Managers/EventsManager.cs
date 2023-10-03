@@ -31,9 +31,9 @@ public class EventsManager : MonoBehaviour
     public event Action<int> OnPlayerTakeDamage;
     public event Action<int> OnPlayerSpendMana;
     public event Action<int, float> OnAbilityUse;
-    public event Action<int, float> OnHealthPotUse;
+    public event Action<float> OnHealthPotUse;
     public event Action<int> OnUpdateHpPotCharge;
-    public event Action<int, float> OnManaPotUse;
+    public event Action<float> OnManaPotUse;
     public event Action<int> OnUpdateManaPotCharge;
     public event Action<int, int, int> OnTargetHealthUpdate;
     public void EventOpenMenu(bool open)
@@ -66,9 +66,9 @@ public class EventsManager : MonoBehaviour
         OnAbilityUse?.Invoke(abilityUsed, cooldown);
     }
 
-    public void EventHealthPotUse(int currentHp, float cooldown)
+    public void EventHealthPotUse(float cooldown)
     {
-        OnHealthPotUse?.Invoke(currentHp, cooldown);
+        OnHealthPotUse?.Invoke(cooldown);
     }
 
     public void EventUpdateHpPotCharge(int currentCharges)
@@ -76,9 +76,9 @@ public class EventsManager : MonoBehaviour
         OnUpdateHpPotCharge?.Invoke(currentCharges);
     }
     
-    public void EventManaPotUse(int currentMana, float cooldown)
+    public void EventManaPotUse(float cooldown)
     {
-        OnManaPotUse?.Invoke(currentMana, cooldown);
+        OnManaPotUse?.Invoke(cooldown);
     }
 
     public void EventUpdateManaPotCharge(int currentCharges)

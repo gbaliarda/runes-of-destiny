@@ -12,7 +12,7 @@ public class CmdPlaySound : ICommand
         this._listener = listener;
     }
 
-    public void Execute() => _listener.PlayOnShot();
+    public void Execute() => _listener.PlayOneShot();
 
     public void Undo()
     {

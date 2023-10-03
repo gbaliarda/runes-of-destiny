@@ -19,7 +19,7 @@ public class ManaPotHudSlot : MonoBehaviour
         EventsManager.instance.OnUpdateManaPotCharge += OnUpdateManaPotCharge;
     }
 
-    private void OnManaPotUse(int currentMana, float cooldown)
+    private void OnManaPotUse(float cooldown)
     {
         _maxCooldown = cooldown;
         _cooldownLeft = cooldown;
@@ -27,7 +27,7 @@ public class ManaPotHudSlot : MonoBehaviour
 
     private void OnUpdateManaPotCharge(int currentCharges)
     {
-        if (_potionSprites.Count < currentCharges) return;
+        if (_potionSprites.Count <= currentCharges) return;
         _icon.sprite = _potionSprites[currentCharges];
     }
 

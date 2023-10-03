@@ -42,7 +42,9 @@ public abstract class SpellProjectile : MonoBehaviour, ISpellProjectile
         EventQueueManager.instance.AddCommand(new CmdMoveTowardsDirection(transform, transform.forward, Owner.RangedRuneStats.Speed));
     }
 
-    public void Die() => Destroy(this.gameObject);
+    public void Die() {
+        Destroy(this.gameObject);
+    }
 
     public void SetOwner(RangedRune owner) => this.owner = owner;
     #endregion

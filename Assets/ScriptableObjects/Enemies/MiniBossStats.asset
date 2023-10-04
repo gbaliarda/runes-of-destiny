@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5fba19c946d1c41bb83acfb8d3a8eb, type: 3}
+  m_Name: MiniBossStats
+  m_EditorClassIdentifier: 
+  stats:
+    MaxLife: 3000
+  _characterStats:
+    MovementSpeed: 15
+    Level: 0
+    Experience: 0
+    ManaRegen: 10
+    MaxMana: 100
+    MagicShield: 0
+    MagicShieldRegen: 0
+    HealthRegen: 0
+    LifeLeech: 0
+    ManaLeech: 0
+    Dexterity: 10
+    Intelligence: 10
+    Strength: 10
+  _characterDefensiveStats:
+    Armor: 1000
+    EvasionChance: 5
+    BlockSpellChance: 10
+    DamageBlockedAmount: 40
+    WaterResistance: 20
+    FireResistance: 20
+    LightningResistance: 20
+    VoidResistance: 0
+    StunResistance: 0
+    CurseResistance: 0
+    PoisonResistance: 0
+    ManaEfficiency: 0
+    Stealth: 0
+  _characterOffensiveStats:
+    SpellPower: 0
+    AttackPower: 0
+    AttackSpeed: 0
+    CastSpeed: 0
+    Luck: 0
+    CooldownReduction: 0
+    CriticalChance: 0
+    CriticalDamage: 0
+    Accuracy: 0
+    WaterPenetration: 0
+    FirePenetration: 0
+    LightningPenetration: 0
+    VoidPenetration: 0
+    ElementalAffinity: 0
+    ArmorPenetration: 0
+    ReflectDamage: 0

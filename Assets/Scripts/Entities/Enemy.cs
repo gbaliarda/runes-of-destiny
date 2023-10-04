@@ -37,17 +37,24 @@ public class Enemy : Character
 
     private void Chase()
     {
+        if (_player.GetComponent<IDamageable>() != null && _player.GetComponent<IDamageable>().IsDead == true) return;
         if (movementController != null) movementController.Move(_player.transform.position);
+    }
+
+    private void FaceEnemy()
+    {
+        EventQueueManager.instance.AddCommand(new CmdChangeRotation(transform, (_player.transform.position - transform.position).normalized));
     }
 
     private void Attack()
     {
+        movementController.Move(transform.position);
         if (attackController == null) return;
         if (_player.GetComponent<IDamageable>() != null && _player.GetComponent<IDamageable>().IsDead == true) return;
+        FaceEnemy();
         if (attackController.Runes[0].CooldownLeft > 0) return;
         if (attackController.Runes[0].RuneStats.ManaCost > mana) return;
 
-        movementController.Move(transform.position);
         
         EventQueueManager.instance.AddCommand(new CmdSpendMana(this, attackController.Runes[0].RuneStats.ManaCost));
         attackController.Runes[0].SetCooldown(attackController.Runes[0].RuneStats.Cooldown);

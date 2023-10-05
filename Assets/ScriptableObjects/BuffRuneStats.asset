@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runeStats:
     ManaCost: 50
-    Cooldown: 10
+    Cooldown: 30
   _damageStats:
     PhysicalDamage: 0
     FireDamage: 0

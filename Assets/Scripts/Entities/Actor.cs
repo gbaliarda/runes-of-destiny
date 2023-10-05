@@ -36,6 +36,7 @@ public class Actor : MonoBehaviour, IDamageable
 
     public virtual int TakeDamage(DamageStatsValues damage)
     {
+        if (isDead) return 0;
         life -= damage.PhysicalDamage + damage.FireDamage + damage.WaterDamage + damage.LightningDamage + damage.VoidDamage;
         if (life <= 0) Die();
         return life;
@@ -43,6 +44,7 @@ public class Actor : MonoBehaviour, IDamageable
 
     public virtual int HealDamage(int damage)
     {
+        if (isDead) return 0;
         int healthToFull = stats.MaxLife - life;
         int maximumHealthRecovered = damage;
         life += healthToFull < maximumHealthRecovered ? healthToFull : maximumHealthRecovered;

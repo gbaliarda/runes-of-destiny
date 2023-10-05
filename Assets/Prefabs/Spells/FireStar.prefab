@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lifetime: 3
+  lifetime: 1
   hittableMask:
     serializedVersion: 2
     m_Bits: 5696
@@ -224,7 +224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 3feb30036ca6d5e4aa1d62f0dfb079b4, type: 3}
-  _audioSource: {fileID: -1851785097765123590}
 --- !u!1 &8406815242578516651
 GameObject:
   m_ObjectHideFlags: 0

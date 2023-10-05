@@ -9,7 +9,7 @@ public class BuffRune : Rune, IBuffRune
     [SerializeField] private GameObject _buffPrefab;
     [SerializeField] private Transform _buffContainer;
     [SerializeField] protected CharacterStats buffStats;
-    protected float duration;
+    [SerializeField] protected float duration;
     #endregion
 
     #region IRUNE_PROPERTIES

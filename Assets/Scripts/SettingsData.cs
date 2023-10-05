@@ -14,7 +14,6 @@ public class SettingsData
     {
         volume = settingsManager.Volume;
         fullScreen = settingsManager.FullScreen;
-        Debug.Log(fullScreen);
         resolutionWidth = settingsManager.Resolution.width;
         resolutionHeight = settingsManager.Resolution.height;
     }

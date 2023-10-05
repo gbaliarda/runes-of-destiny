@@ -15,7 +15,7 @@ MonoBehaviour:
   stats:
     MaxLife: 2000
   _characterStats:
-    MovementSpeed: 15
+    MovementSpeed: 10
     Level: 0
     Experience: 0
     ManaRegen: 5
@@ -30,13 +30,13 @@ MonoBehaviour:
     Strength: 50
   _characterDefensiveStats:
     Armor: 5000
-    EvasionChance: 20
-    BlockSpellChance: 50
+    EvasionChance: 10
+    BlockSpellChance: 15
     DamageBlockedAmount: 50
     WaterResistance: 20
     FireResistance: 20
     LightningResistance: 20
-    VoidResistance: 20
+    VoidResistance: 0
     StunResistance: 0
     CurseResistance: 0
     PoisonResistance: 0

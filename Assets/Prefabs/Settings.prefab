@@ -166,6 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f8cb67b80d9c549998f89fc5ca5446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
+  _slider: {fileID: 6488711931830977701}
+  _resolutionDropdown: {fileID: 3087294445698151094}
+  _fullScreenToggle: {fileID: 8957502273249105451}
 --- !u!1 &423750010553507761
 GameObject:
   m_ObjectHideFlags: 0

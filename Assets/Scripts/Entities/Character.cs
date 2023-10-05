@@ -63,6 +63,7 @@ public class Character : Actor, IMana, IBuffable
 
     public void AddBuff(IBuff buff)
     {
+        if (isDead) return;
         characterStats.AddStats(buff.Owner.BuffStats);
         if (this is Player && buff is HealthBuff)
         {
@@ -74,6 +75,7 @@ public class Character : Actor, IMana, IBuffable
 
     public void RemoveBuff(IBuff buff)
     {
+        if (isDead) return;
         characterStats.RemoveStats(buff.Owner.BuffStats);
         if (buff.Owner.BuffStats.MaxLife > 0)
         {
@@ -100,12 +102,14 @@ public class Character : Actor, IMana, IBuffable
 
     public virtual void SpendMana(int manaCost)
     {
+        if (isDead) return;
         mana -= manaCost;
         if (mana < 0) mana = 0;
     }
 
     public virtual void GetMana(int newMana)
     {
+        if (isDead) return;
         mana += newMana;
         if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
     }
@@ -119,15 +123,26 @@ public class Character : Actor, IMana, IBuffable
         int WaterDamage = Mathf.RoundToInt(damage.WaterDamage * (1 - characterStats.WaterResistance / 100f));
         int LightningDamage = Mathf.RoundToInt(damage.LightningDamage * (1 - characterStats.LightningResistance / 100f));
         int VoidDamage = Mathf.RoundToInt(damage.VoidDamage * (1 - characterStats.VoidResistance / 100f));
+        Debug.Log($"Taking {PhysicalDamage} as physical, {FireDamage} as fire, {WaterDamage} as water, {LightningDamage} as lightning, {VoidDamage} as void");
         
         int chanceToMiss = Random.Range(1, 100);
-        if (chanceToMiss < characterStats.EvasionChance) return life;
+        if (chanceToMiss < characterStats.EvasionChance)
+        {
+            Debug.Log("Damage evaded");
+            return life;
+        }
 
         int chanceToBlock = Random.Range(1, 100);
         float damageModifier = 1;
-        if (chanceToBlock < characterStats.BlockSpellChance) damageModifier = 1 - characterStats.DamageBlockedAmount / 100f;
+        if (chanceToBlock < characterStats.BlockSpellChance)
+        {
+            Debug.Log("Damage blocked");
+            damageModifier = 1 - characterStats.DamageBlockedAmount / 100f;
+        }
 
         life -= Mathf.RoundToInt(damageModifier * (PhysicalDamage + FireDamage + WaterDamage + LightningDamage + VoidDamage));
+
+        Debug.Log($"New life is {life}");
 
         EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
         if (this is Player) EventsManager.instance.EventTakeDamage(life);

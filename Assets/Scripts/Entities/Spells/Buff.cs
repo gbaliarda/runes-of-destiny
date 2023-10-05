@@ -5,7 +5,7 @@ using UnityEngine;
 public class Buff : MonoBehaviour, IBuff
 {
     #region PRIVATE_PROPERTEIS
-    [SerializeField] protected float duration = 5;
+    protected float duration;
     protected IBuffRune owner;
     protected CmdBuff command;
     #endregion
@@ -23,6 +23,7 @@ public class Buff : MonoBehaviour, IBuff
     {
         command = new CmdBuff(owner.Player, this);
         EventQueueManager.instance.AddCommand(command);
+        duration = Owner.Duration;
     }
 
     public void InitSound()
@@ -31,7 +32,9 @@ public class Buff : MonoBehaviour, IBuff
         EventQueueManager.instance.AddCommand(new CmdPlaySound(spellSound));
     }
 
-    public void Die() => Destroy(this.gameObject);
+    public void Die() {
+        Destroy(this.gameObject);
+    }
 
     public void SetOwner(BuffRune owner) => this.owner = owner;
 
@@ -40,6 +43,7 @@ public class Buff : MonoBehaviour, IBuff
     #region UNITY_EVENTS
     private void OnDestroy()
     {
+        EventQueueManager.instance.AddUndoCommand(command);
     }
     void Start()
     {
@@ -55,7 +59,6 @@ public class Buff : MonoBehaviour, IBuff
         duration -= Time.deltaTime;
         if (duration <= 0)
         {
-            EventQueueManager.instance.AddUndoCommand(command);
             Die();
         }
     }

@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lifetime: 3
+  lifetime: 1
   hittableMask:
     serializedVersion: 2
     m_Bits: 5879
@@ -262,4 +262,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 82bc4bb203309f347b49e379fb5c541a, type: 3}
-  _audioSource: {fileID: 1686707860691990870}

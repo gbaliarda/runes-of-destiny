@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffStats
   m_EditorClassIdentifier: 
   stats:
-    MaxLife: 500
+    MaxLife: 1000
   _characterStats:
     MovementSpeed: 0
     Level: 0
@@ -34,9 +34,9 @@ MonoBehaviour:
     BlockSpellChance: 0
     DamageBlockedAmount: 0
     WaterResistance: 0
-    FireResistance: 0
-    LightningResistance: 0
-    VoidResistance: 0
+    FireResistance: 30
+    LightningResistance: 30
+    VoidResistance: 30
     StunResistance: 0
     CurseResistance: 0
     PoisonResistance: 0

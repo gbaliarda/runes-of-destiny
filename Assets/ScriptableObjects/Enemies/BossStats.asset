@@ -15,7 +15,7 @@ MonoBehaviour:
   stats:
     MaxLife: 5000
   _characterStats:
-    MovementSpeed: 15
+    MovementSpeed: 12
     Level: 0
     Experience: 0
     ManaRegen: 10

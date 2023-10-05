@@ -34,7 +34,7 @@ public class SpellSlotCooldown : MonoBehaviour
     {
         _cooldownLeft -= Time.deltaTime;
         _slider.value = _cooldownLeft / _maxCooldown;
-        _text.text = $"{_cooldownLeft:F2}";
+        _text.text = $"{_cooldownLeft:F1}";
         if (_cooldownLeft <= 0) _text.text = "";
     }
 }

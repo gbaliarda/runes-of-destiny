@@ -16,7 +16,6 @@ public class MenuManager : MonoBehaviour
     #endregion
 
     [SerializeField] private GameObject _menu;
-    [SerializeField] private string _mainMenuScene;
     [SerializeField] private KeyCode _openMenuKeyCode = KeyCode.Escape;
 
     private void Start()
@@ -41,15 +40,5 @@ public class MenuManager : MonoBehaviour
     public void CloseMenu()
     {
         _menu.SetActive(false);
-    }
-
-    public void ExitToMenu()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(_mainMenuScene);
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
     }
 }

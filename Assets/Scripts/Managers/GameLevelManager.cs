@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Enums;
 
 public class GameLevelManager : MonoBehaviour
@@ -15,8 +16,8 @@ public class GameLevelManager : MonoBehaviour
     }
     #endregion
 
-    public void LoadMainMenu() => SceneManager.instance.LoadScene((int)Levels.MainMenu);
-    public void LoadLoadScreen() => SceneManager.instance.LoadScene((int)Levels.LoadScreen);
-    public void LoadLevel1() => SceneManager.instance.LoadScene((int)Levels.Level1);
-    public void Exit() => SceneManager.instance.ExitGame();
+    public void LoadMainMenu() => SceneManager.LoadScene((int)Levels.MainMenu);
+    public void LoadLoadScreen() => SceneManager.LoadScene((int)Levels.LoadScreen);
+    public void LoadLevel1() => SceneManager.LoadScene((int)Levels.Level1);
+    public void Exit() => Application.Quit();
 }

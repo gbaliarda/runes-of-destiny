@@ -417,7 +417,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!95 &6607638842215803604

@@ -12654,7 +12654,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!82 &495460906
@@ -18675,7 +18675,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!114 &685265185
@@ -19323,7 +19323,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &708271677
@@ -22358,7 +22358,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &804238622
@@ -22805,7 +22805,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!114 &824486396
@@ -33083,7 +33083,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!82 &1244247832
@@ -36446,7 +36446,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &1356944475
@@ -46192,7 +46192,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &1630890784
@@ -48052,7 +48052,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &1704072211
@@ -51378,7 +51378,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!82 &1781272749
@@ -52591,7 +52591,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 15
+  _sightRange: 20
   _attackRange: 8
   _isFinalBoss: 0
 --- !u!82 &1839157091
@@ -52919,7 +52919,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!114 &1844984028
@@ -54081,7 +54081,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &1872117666
@@ -54653,7 +54653,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 2
   _isFinalBoss: 0
 --- !u!64 &1874471084
@@ -56323,7 +56323,7 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 10
+  _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
 --- !u!64 &1910185574

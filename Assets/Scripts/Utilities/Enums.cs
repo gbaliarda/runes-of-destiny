@@ -17,6 +17,7 @@ public class Enums : MonoBehaviour
     public enum Levels
     {
         MainMenu,
+        LoadScreen,
         Level1
     }
 }

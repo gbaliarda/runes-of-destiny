@@ -517,7 +517,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1042539149}
         m_TargetAssemblyTypeName: GameLevelManager, Assembly-CSharp
-        m_MethodName: LoadLevel1
+        m_MethodName: LoadLoadScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13531,8 +13531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734e07987ab2ed848bda464f84b77be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _victory: {fileID: 0}
-  _defeat: {fileID: 0}
   _background: {fileID: 8300000, guid: a8b71be149d7e1c499fa692fc742f765, type: 3}
 --- !u!82 &1111678888
 AudioSource:

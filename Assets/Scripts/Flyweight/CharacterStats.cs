@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterStats", menuName = "Stats/Characters", order = 0)]
@@ -56,6 +57,16 @@ public class CharacterStats : EntityStats
     public int VoidPenetration => _characterOffensiveStats.VoidPenetration;
     public int ArmorPenetration => _characterOffensiveStats.ArmorPenetration;
     public int ReflectDamage => _characterOffensiveStats.ReflectDamage;
+
+    public void SetEntityStats(EntityStatsValues values)
+    {
+        stats = values;
+    }
+
+    public void SetCharacterStatsValues(CharacterStatsValues values)
+    {
+        _characterStats = values;
+    }
 
     public void BuffMaxLife(int maxLifeBuff)
     {

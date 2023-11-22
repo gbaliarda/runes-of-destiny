@@ -20,4 +20,19 @@ public class Enums : MonoBehaviour
         LoadScreen,
         Level1
     }
+
+    public enum ItemType
+    {
+        Armor,
+        Weapon,
+        Helmet,
+        Belt,
+        Boots,
+        Bracers,
+        Gloves,
+        Necklaces,
+        Rings,
+        Pants,
+        Shoulders
+    }
 }

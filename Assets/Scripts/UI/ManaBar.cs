@@ -9,20 +9,19 @@ public class ManaBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Player _player;
     private Slider _slider;
-    private int _maxMana;
 
     private void Start()
     {
-        _maxMana = _player.CharacterStats.MaxMana;
         _slider = GetComponent<Slider>();
-        UpdateMana(_maxMana);
+        UpdateMana(_player.CharacterStats.MaxMana);
         EventsManager.instance.OnPlayerSpendMana += OnPlayerSpendMana;
     }
 
     private void UpdateMana(int mana)
     {
-        _slider.value = mana / (float)_maxMana;
-        _text.text = $"{mana}/{_maxMana}";
+        int maxMana = _player.CharacterStats.MaxMana;
+        _slider.value = mana / (float)maxMana;
+        _text.text = $"{mana}/{maxMana}";
     }
 
     private void OnPlayerSpendMana(int mana)

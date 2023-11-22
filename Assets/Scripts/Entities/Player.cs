@@ -20,6 +20,9 @@ public class Player : Character
     [SerializeField] private GameObject _inventory;
     private RaycastHit _hit;
     [SerializeField] private LayerMask _clickableLayers;
+    [SerializeField] public Item[] inventory;
+
+    private Database _database;
 
     #endregion
 
@@ -38,9 +41,28 @@ public class Player : Character
     protected new void Start()
     {
         base.Start();
+        _database = new Database();
+        _database.InitializeDatabase();
+
         if (_inventory == null) _inventory = GameObject.Find("Inventory");
+        inventory = FindObjectsOfType<Item>();
+
+        UserData userData = _database.GetUser(1);
+        
+        if (userData != null)
+        {
+            int inventoryIndex = 0;
+            foreach(int itemId in userData.inventory)
+            {
+                if (inventoryIndex <  inventory.Length) inventory[inventoryIndex++].UpdateItem(itemId);
+            }
+        }
+
+
         EventsManager.instance.OnGameOver += OnGameOver;
         EventsManager.instance.OnOpenInventory += OnOpenInventory;
+        EventsManager.instance.OnEquippedItem += OnEquippedItem;
+        Debug.Log($"Inventory slots: {inventory.Length}");
     }
 
     private void UseRune(int runeIndex)
@@ -88,6 +110,45 @@ public class Player : Character
     private void OnOpenInventory(bool isOpen)
     {
         _inventory.SetActive(isOpen);
+    }
+
+    public void ApplyItem(Item item)
+    {
+        if (isDead) return;
+        if (!item.IsEquipped)
+        {
+            Debug.Log($"Adding stats {item.ItemStats.MaxLife}");
+            characterStats.AddStats(item.ItemStats);
+        }
+        else
+            characterStats.RemoveStats(item.ItemStats);
+        if (item.ItemStats.MaxLife > 0)
+        {
+            if (life > characterStats.MaxLife) life = characterStats.MaxLife;
+            EventsManager.instance.EventTakeDamage(life);
+            EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
+        }
+
+        if (item.ItemStats.MaxMana > 0)
+        {
+            if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
+            EventsManager.instance.EventSpendMana(mana);
+        }
+    }
+
+    private void OnEquippedItem(Item item)
+    {
+        Debug.Log($"{(item.IsEquipped ? "unequipped" : "equiped")} item");
+        foreach(Item itemInInventory in inventory)
+        {
+            if (itemInInventory.ItemId == item.ItemId) continue;
+            if (itemInInventory.IsEquipped && itemInInventory.ItemType == item.ItemType)
+            {
+                ApplyItem(itemInInventory);
+                itemInInventory.UnequipItem();
+            }
+        }
+        ApplyItem(item);
     }
 
     public override void Die()

@@ -35,4 +35,13 @@ public class Enums : MonoBehaviour
         Pants,
         Shoulders
     }
+
+    public enum Rarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Legendary,
+        Mythic
+    }
 }

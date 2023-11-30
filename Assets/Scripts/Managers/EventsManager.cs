@@ -37,7 +37,8 @@ public class EventsManager : MonoBehaviour
     public event Action<int> OnUpdateManaPotCharge;
     public event Action<int, int, int> OnTargetHealthUpdate;
     public event Action<int, int, int> OnTargetManaUpdate;
-    public event Action<Item> OnEquippedItem;
+    public event Action<DraggableItem> OnEquippedItem;
+    public event Action<PickableItem> OnPickedUpItem;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -98,9 +99,14 @@ public class EventsManager : MonoBehaviour
         OnTargetManaUpdate?.Invoke(instanceId, targetMana, targetMaxMana);
     }
 
-    public void EventEquipItem(Item item)
+    public void EventEquipItem(DraggableItem item)
     {
         OnEquippedItem?.Invoke(item);
+    }
+    
+    public void EventPickedUpItem(PickableItem item)
+    {
+        OnPickedUpItem?.Invoke(item);
     }
 
     #endregion

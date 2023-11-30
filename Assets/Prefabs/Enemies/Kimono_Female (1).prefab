@@ -483,6 +483,8 @@ MonoBehaviour:
   _sightRange: 16
   _attackRange: 2
   _isFinalBoss: 0
+  _pickablePrefab: {fileID: 1605784356102360596, guid: c59e635683aed3142b05497e9fc652ae, type: 3}
+  _pickableDropPrefab: {fileID: 2425472867355505591, guid: a2ab334368908b7449544242fea2085d, type: 3}
 --- !u!1 &331630031471526323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 635547659545568360, guid: 23ae0db30ee20124ebfd0f2a5dd9dc41, type: 3}

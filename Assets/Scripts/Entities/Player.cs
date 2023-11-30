@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : Character
 {
@@ -20,7 +22,7 @@ public class Player : Character
     [SerializeField] private GameObject _inventory;
     private RaycastHit _hit;
     [SerializeField] private LayerMask _clickableLayers;
-    [SerializeField] public Item[] inventory;
+    [SerializeField] public InventorySlot[] inventory;
 
     private Database _database;
 
@@ -45,7 +47,8 @@ public class Player : Character
         _database.InitializeDatabase();
 
         if (_inventory == null) _inventory = GameObject.Find("Inventory");
-        inventory = FindObjectsOfType<Item>();
+        inventory = FindObjectsOfType<InventorySlot>();
+        inventory = inventory.OrderBy(slot => slot.name).ToArray();
 
         UserData userData = _database.GetUser(1);
         
@@ -62,6 +65,7 @@ public class Player : Character
         EventsManager.instance.OnGameOver += OnGameOver;
         EventsManager.instance.OnOpenInventory += OnOpenInventory;
         EventsManager.instance.OnEquippedItem += OnEquippedItem;
+        EventsManager.instance.OnPickedUpItem += OnPickedUpItem;
         Debug.Log($"Inventory slots: {inventory.Length}");
     }
 
@@ -91,7 +95,7 @@ public class Player : Character
 
         if (Input.GetKeyDown(_move))
         {
-            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out _hit, 100f, _clickableLayers))
             {
                 if (movementController != null) movementController.Move(_hit.point);
@@ -112,7 +116,7 @@ public class Player : Character
         _inventory.SetActive(isOpen);
     }
 
-    public void ApplyItem(Item item)
+    public void ApplyItem(DraggableItem item)
     {
         if (isDead) return;
         if (!item.IsEquipped)
@@ -122,6 +126,12 @@ public class Player : Character
         }
         else
             characterStats.RemoveStats(item.ItemStats);
+
+        if (item.ItemStats.MovementSpeed != 0)
+        {
+            movementController.SetSpeed(characterStats.MovementSpeed);
+        }
+
         if (item.ItemStats.MaxLife > 0)
         {
             if (life > characterStats.MaxLife) life = characterStats.MaxLife;
@@ -136,19 +146,45 @@ public class Player : Character
         }
     }
 
-    private void OnEquippedItem(Item item)
+    private void OnEquippedItem(DraggableItem item)
     {
         Debug.Log($"{(item.IsEquipped ? "unequipped" : "equiped")} item");
-        foreach(Item itemInInventory in inventory)
+        if (item.IsEquipped)
         {
-            if (itemInInventory.ItemId == item.ItemId) continue;
-            if (itemInInventory.IsEquipped && itemInInventory.ItemType == item.ItemType)
+            ApplyItem(item);
+        } else
+        {
+            foreach(InventorySlot inventorySlot in inventory)
             {
-                ApplyItem(itemInInventory);
-                itemInInventory.UnequipItem();
+                DraggableItem itemInInventory = inventorySlot.Item;
+                if (itemInInventory == null) continue;
+                if (itemInInventory.IsEquipped && itemInInventory.ItemType == item.ItemType)
+                {
+                    ApplyItem(itemInInventory);
+                    itemInInventory.UnequipItem();
+                }
             }
+            ApplyItem(item);
         }
-        ApplyItem(item);
+    }
+
+    private void OnPickedUpItem(PickableItem item)
+    {
+        foreach(InventorySlot inventorySlot in inventory)
+        {
+            DraggableItem itemInInventory = inventorySlot.Item;
+            if (itemInInventory == null) continue;
+            if (itemInInventory.ItemId != 0) continue;
+
+            inventorySlot.UpdateItem(item.ItemId);
+            item.DestroyItem();
+            break;
+        }
+    }
+
+    private void DropItem()
+    {
+
     }
 
     public override void Die()

@@ -68,6 +68,11 @@ public class CharacterStats : EntityStats
         _characterStats = values;
     }
 
+    public void SetCharacterDefensiveStatsValues(CharacterDefensiveStatsValues values)
+    {
+        _characterDefensiveStats = values;
+    }
+
     public void BuffMaxLife(int maxLifeBuff)
     {
         stats.MaxLife += maxLifeBuff;
@@ -78,6 +83,7 @@ public class CharacterStats : EntityStats
         stats.MaxLife += otherStats.MaxLife;
 
         _characterStats.MovementSpeed += otherStats.MovementSpeed;
+        Debug.Log(_characterStats.MovementSpeed);
 
         _characterStats.MaxMana += otherStats.MaxMana;
         _characterStats.ManaRegen += otherStats.ManaRegen;

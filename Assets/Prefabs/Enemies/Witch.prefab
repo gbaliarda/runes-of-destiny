@@ -371,6 +371,8 @@ MonoBehaviour:
   _sightRange: 16
   _attackRange: 7
   _isFinalBoss: 0
+  _pickablePrefab: {fileID: 1605784356102360596, guid: c59e635683aed3142b05497e9fc652ae, type: 3}
+  _pickableDropPrefab: {fileID: 2425472867355505591, guid: a2ab334368908b7449544242fea2085d, type: 3}
 --- !u!95 &2696321901924006964
 Animator:
   serializedVersion: 5

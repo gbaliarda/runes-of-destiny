@@ -74,7 +74,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void EquipItem()
     {
         if (_sprite == null || _button == null) return;
-        EventsManager.instance.EventEquipItem(this);
+        EventsManager.instance.EventEquipItem(null);
         if (_equipped)
         {
             _buttonImage.color = Color.white;
@@ -95,7 +95,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnMouseEnter()
     {
         Debug.Log($"Show Tooltip");
-        ItemTooltipManager.instance.SetAndShowTooltip(this);
+        ItemTooltipManager.instance.SetAndShowTooltip(null);
     }
 
     public void OnMouseExit()
@@ -107,7 +107,7 @@ public class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (_itemId == 0) return;
         Debug.Log($"Show Tooltip");
-        ItemTooltipManager.instance.SetAndShowTooltip(this);
+        ItemTooltipManager.instance.SetAndShowTooltip(null);
     }
 
     public void OnPointerExit(PointerEventData eventData)

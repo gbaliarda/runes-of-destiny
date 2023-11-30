@@ -104,6 +104,8 @@ public class Database
                             "name VARCHAR(200) NOT NULL," +
                             "sprite VARCHAR(255) NOT NULL," +
                             "item_type INTEGER NOT NULL," +
+                            "item_rarity INTEGER NOT NULL," +
+                            "drop_chance DOUBLE PRECISION NOT NULL," +
                             "max_health INTEGER," +
                             "max_mana INTEGER," +
                             "movement_speed INTEGER," +
@@ -126,15 +128,21 @@ public class Database
 
     private void CreateItems()
     {
-        string queryBodyArmor1 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, max_health) VALUES ('Mail Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_1', '{(int)ItemType.Armor}', 500)";
-        string queryBodyArmor3 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, max_mana) VALUES ('Mage Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_3', '{(int)ItemType.Armor}', 300)";
+        string queryBodyArmor1 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health) VALUES ('Mail Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_1', '{(int)ItemType.Armor}', '{(int)Rarity.Common}', 0.2, 500)";
+        string queryBodyArmor3 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_mana) VALUES ('Mage Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_3', '{(int)ItemType.Armor}', '{(int)Rarity.Uncommon}', 0.1, 300)";
         PostQueryToDb(queryBodyArmor1);
         PostQueryToDb(queryBodyArmor3);
+
+
+        string queryBoots6 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Light Boots', 'ArmorAndJewelry/Icons/Boots/Boots_6', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.05, 5)";
+        string queryBoots8 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed, armor) VALUES ('Heavy Boots', 'ArmorAndJewelry/Icons/Boots/Boots_8', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.05, -5, 500)";
+        PostQueryToDb(queryBoots6);
+        PostQueryToDb(queryBoots8);
     }
 
     private void CreatePlayer()
     {
-        int[] inventory = new int[] { 1, 2, 3 };
+        int[] inventory = new int[] { 1, 2, 3, 4 };
         string inventoryString = string.Join(",", inventory);
         inventoryString = inventoryString.Replace("'", "''");
         string query = $"INSERT INTO {UserTable} (name, inventory) VALUES ('player', '{inventoryString}')";
@@ -148,7 +156,7 @@ public class Database
             _dbConn.Open();
 
             IDbCommand cmd = _dbConn.CreateCommand();
-            string query = $"SELECT item_id, name, sprite, item_type, COALESCE(max_health, 0), COALESCE(max_mana, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
+            string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
             ItemData itemData = null;
             cmd.CommandText = query;
             IDataReader reader = cmd.ExecuteReader();
@@ -158,21 +166,37 @@ public class Database
                 string name = reader.GetString(1);
                 string spritePath = reader.GetString(2);
                 ItemType itemType = (ItemType)reader.GetInt32(3);
-                int maxHealth = reader.GetInt32(4);
-                int maxMana = reader.GetInt32(5);
+                Rarity rarity = (Rarity)reader.GetInt32(4);
+                double dropChance = reader.GetDouble(5);
+                int maxHealth = reader.GetInt32(6);
+                int maxMana = reader.GetInt32(7);
+                int movementSpeed = reader.GetInt32(8);
+                int armor = reader.GetInt32(9);
 
-                EntityStatsValues statsValues = new EntityStatsValues();
-                statsValues.MaxLife = maxHealth;
-                CharacterStatsValues characterStatsValues = new CharacterStatsValues();
-                characterStatsValues.MaxMana = maxMana;
+                EntityStatsValues statsValues = new()
+                {
+                    MaxLife = maxHealth
+                };
+
+                CharacterStatsValues characterStatsValues = new()
+                {
+                    MaxMana = maxMana,
+                    MovementSpeed = movementSpeed
+                };
+
+                CharacterDefensiveStatsValues characterDefensiveStatsValues = new()
+                {
+                    Armor = armor
+                };
                 CharacterStats characterStats = ScriptableObject.CreateInstance<CharacterStats>();
                 characterStats.SetEntityStats(statsValues);
                 characterStats.SetCharacterStatsValues(characterStatsValues);
+                characterStats.SetCharacterDefensiveStatsValues(characterDefensiveStatsValues);
                 
 
                 Sprite sprite = Resources.Load<Sprite>(spritePath);
                 Debug.Log($"Sprite is {sprite} with path {spritePath}");
-                itemData = new ItemData(id, name, characterStats, sprite, itemType);
+                itemData = new ItemData(id, name, characterStats, sprite, itemType, rarity, dropChance);
 
             }
 

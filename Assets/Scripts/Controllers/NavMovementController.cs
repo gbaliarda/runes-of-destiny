@@ -15,6 +15,12 @@ public class NavMovementController : MonoBehaviour, INavMovable
         _agent = GetComponent<NavMeshAgent>();
     }
 
+    public void SetSpeed(float speed)
+    {
+        if (_agent == null) _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = speed;
+    }
+
     public void Move(Vector3 position) => EventQueueManager.instance.AddCommand(new CmdMoveToPosition(_agent, position));
 
 }

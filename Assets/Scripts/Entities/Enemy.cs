@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : Character
 {
@@ -9,11 +10,29 @@ public class Enemy : Character
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private float _sightRange, _attackRange;
     [SerializeField] private bool _isFinalBoss;
+    [SerializeField] private GameObject _pickablePrefab;
+    [SerializeField] private GameObject _pickableDropPrefab;
+    private Database _database;
     private bool _playerInSight, _playerInAttack;
+    [SerializeField] private int[] _droppableItemIds;
+    private Dictionary<int, double> _lootTable;
 
     new void Start()
     {
         base.Start();
+
+        _database = new Database();
+
+        _lootTable = new Dictionary<int, double>();
+        foreach (int itemId in _droppableItemIds)
+        {
+            ItemData itemData = _database.GetItem(itemId);
+            if (itemData != null)
+            {
+                _lootTable.Add(itemId, itemData.DropChance);
+            }
+        }
+
         if (_player == null) _player = GameObject.Find("Player");
         EventsManager.instance.OnGameOver += OnGameOver;
     } 
@@ -71,6 +90,24 @@ public class Enemy : Character
     public override void Die()
     {
         if (_isFinalBoss) EventsManager.instance.EventGameOver(true);
+        GameObject pickableContainer = GameObject.Find("Pickables");
+        GameObject dropContainer = GameObject.Find("Drops");
+        float random = UnityEngine.Random.Range(0f, 1f);
+
+        foreach (KeyValuePair<int, double> entry in _lootTable)
+        {
+            int key = entry.Key;
+            double value = entry.Value;
+
+            if (random <  value)
+            {
+                GameObject pickableDropItem = Instantiate(_pickableDropPrefab, transform.position, transform.rotation, dropContainer.transform);
+                GameObject pickableItem = Instantiate(_pickablePrefab, pickableContainer.transform);
+                pickableItem.GetComponent<PickableItem>()?.SetItem(key);
+                pickableItem.GetComponent<FollowCanvas>()?.SetLookAt(pickableDropItem);
+            }
+        }
         base.Die();
+
     }
 }

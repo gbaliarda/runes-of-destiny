@@ -29,13 +29,16 @@ public class ItemTooltipManager : MonoBehaviour
 
     }
 
-    public void SetAndShowTooltip(Item item)
+    public void SetAndShowTooltip(DraggableItem item)
     {
         gameObject.SetActive(true);
         // transform.position = item.transform.position;
         _itemName.text = item.Name;
         _itemDescription.text = $"{(item.ItemStats.MaxLife > 0 ? $"+ {item.ItemStats.MaxLife} Health \n" : "")}" +
-                                $"{(item.ItemStats.MaxMana > 0 ? $"+ {item.ItemStats.MaxMana} Mana \n" : "")}";
+                                $"{(item.ItemStats.MaxMana > 0 ? $"+ {item.ItemStats.MaxMana} Mana \n" : "")}" +
+                                $"{(item.ItemStats.Armor > 0 ? $"+ {item.ItemStats.Armor} Armor \n" : "")}" +
+                                $"{(item.ItemStats.MovementSpeed > 0 ? $"+ {item.ItemStats.MovementSpeed} Movement Speed \n" : "")}" +
+                                $"{(item.ItemStats.MovementSpeed < 0 ? $"- {item.ItemStats.MovementSpeed} Movement Speed \n" : "")}";
     }
 
     public void HideTooltip()

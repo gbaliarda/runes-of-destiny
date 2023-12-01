@@ -38,7 +38,12 @@ public class ItemTooltipManager : MonoBehaviour
                                 $"{(item.ItemStats.MaxMana > 0 ? $"+ {item.ItemStats.MaxMana} Mana \n" : "")}" +
                                 $"{(item.ItemStats.Armor > 0 ? $"+ {item.ItemStats.Armor} Armor \n" : "")}" +
                                 $"{(item.ItemStats.MovementSpeed > 0 ? $"+ {item.ItemStats.MovementSpeed} Movement Speed \n" : "")}" +
-                                $"{(item.ItemStats.MovementSpeed < 0 ? $"- {item.ItemStats.MovementSpeed} Movement Speed \n" : "")}";
+                                $"{(item.ItemStats.MovementSpeed < 0 ? $"- {item.ItemStats.MovementSpeed} Movement Speed \n" : "")}" +
+                                $"{(item.ItemStats.EvasionChance > 0 ? $"+ {item.ItemStats.EvasionChance}% Evasion Chance \n" : "")}" +
+                                $"{(item.ItemStats.WaterResistance > 0 ? $"+ {item.ItemStats.WaterResistance }% Water Resistance \n" : "")}" +
+                                $"{(item.ItemStats.FireResistance > 0 ? $"+ {item.ItemStats.FireResistance }% Fire Resistance \n" : "")}" +
+                                $"{(item.ItemStats.LightningResistance > 0 ? $"+ {item.ItemStats.LightningResistance }% Lightning Resistance \n" : "")}" +
+                                $"{(item.ItemStats.VoidResistance > 0 ? $"+ {item.ItemStats.VoidResistance}% Void Resistance \n" : "")}";
     }
 
     public void HideTooltip()

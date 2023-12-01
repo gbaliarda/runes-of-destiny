@@ -43,6 +43,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void UpdateItem(int itemId)
     {
+        if (_item == null) _item = GetComponentInChildren<DraggableItem>();
         _item.UpdateItem(itemId);
     }
 }

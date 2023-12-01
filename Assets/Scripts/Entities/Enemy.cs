@@ -92,12 +92,13 @@ public class Enemy : Character
         if (_isFinalBoss) EventsManager.instance.EventGameOver(true);
         GameObject pickableContainer = GameObject.Find("Pickables");
         GameObject dropContainer = GameObject.Find("Drops");
-        float random = UnityEngine.Random.Range(0f, 1f);
 
         foreach (KeyValuePair<int, double> entry in _lootTable)
         {
+            float random = UnityEngine.Random.Range(0f, 1f);
             int key = entry.Key;
             double value = entry.Value;
+            Debug.Log($"Dropping for key {key} with chance {value} and random {random}");
 
             if (random <  value)
             {

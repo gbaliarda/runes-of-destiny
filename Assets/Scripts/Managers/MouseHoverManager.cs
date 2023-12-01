@@ -28,6 +28,8 @@ public class MouseHoverManager : MonoBehaviour
 
     public void OnTargetDamageableEnter(int instanceId, int life, int maxLife, string name)
     {
+        Debug.Log(_targetHpBar);
+        Debug.Log(_targetHpBar.gameObject);
         _targetHpBar.gameObject.SetActive(true);
         _targetHpBar.SubscribeToTarget(instanceId, name);
         EventsManager.instance.EventTargetHealthChange(instanceId, life, maxLife);

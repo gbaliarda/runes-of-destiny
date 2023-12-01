@@ -14,6 +14,7 @@ public class Player : Character
         if (instance != null) Destroy(gameObject);
         base.Awake();
         instance = this;
+        _database = new Database();
     }
     #endregion
 
@@ -43,8 +44,8 @@ public class Player : Character
     protected new void Start()
     {
         base.Start();
-        _database = new Database();
-        _database.InitializeDatabase();
+        //_database = new Database();
+        //_database.InitializeDatabase();
 
         if (_inventory == null) _inventory = GameObject.Find("Inventory");
         inventory = FindObjectsOfType<InventorySlot>();
@@ -67,6 +68,8 @@ public class Player : Character
         EventsManager.instance.OnEquippedItem += OnEquippedItem;
         EventsManager.instance.OnPickedUpItem += OnPickedUpItem;
         Debug.Log($"Inventory slots: {inventory.Length}");
+
+        EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
     }
 
     private void UseRune(int runeIndex)

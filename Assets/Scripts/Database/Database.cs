@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using Mono.Data.Sqlite;
-using UnityEditor.Search;
 using UnityEngine;
 using static Enums;
 
@@ -16,15 +15,19 @@ public class Database
     private string _connPath;
     private IDbConnection _dbConn;
 
+    public static bool Initialized = false;
+
     public Database()
     {
         _connPath = $"URI=file:{Application.dataPath}/{DatabaseName}";
         _dbConn = new SqliteConnection(_connPath);
 
+        InitializeDatabase();
     }
 
     public void InitializeDatabase()
     {
+        if (Initialized) return;
         DropTable_Users();
         DropTable_Items();
 
@@ -33,6 +36,7 @@ public class Database
         CreateItems();
         CreatePlayer();
         Debug.Log("Database Initialized");
+        Initialized = true;
     }
 
     private void PostQueryToDb(string query)
@@ -128,21 +132,29 @@ public class Database
 
     private void CreateItems()
     {
-        string queryBodyArmor1 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health) VALUES ('Mail Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_1', '{(int)ItemType.Armor}', '{(int)Rarity.Common}', 0.2, 500)";
-        string queryBodyArmor3 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_mana) VALUES ('Mage Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_3', '{(int)ItemType.Armor}', '{(int)Rarity.Uncommon}', 0.1, 300)";
+        string queryBodyArmor1 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health) VALUES ('Mail Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_1', '{(int)ItemType.Armor}', '{(int)Rarity.Common}', 0.5, 500)";
+        string queryBodyArmor3 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_mana) VALUES ('Mage Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_3', '{(int)ItemType.Armor}', '{(int)Rarity.Uncommon}', 0.25, 300)";
         PostQueryToDb(queryBodyArmor1);
         PostQueryToDb(queryBodyArmor3);
 
 
-        string queryBoots6 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Light Boots', 'ArmorAndJewelry/Icons/Boots/Boots_6', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.05, 5)";
-        string queryBoots8 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed, armor) VALUES ('Heavy Boots', 'ArmorAndJewelry/Icons/Boots/Boots_8', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.05, -5, 500)";
+        string queryBoots6 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Light Boots', 'ArmorAndJewelry/Icons/Boots/Boots_6', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.20, 5)";
+        string queryBoots8 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed, armor) VALUES ('Heavy Boots', 'ArmorAndJewelry/Icons/Boots/Boots_8', '{(int)ItemType.Boots}', '{(int)Rarity.Rare}', 0.2, -5, 500)";
         PostQueryToDb(queryBoots6);
         PostQueryToDb(queryBoots8);
+
+
+        string queryAdminBoots = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Admin Boots', 'ArmorAndJewelry/Icons/Boots/Boots_5', '{(int)ItemType.Boots}', '{(int)Rarity.Mythic}', 0.0, 50)";
+        string queryAdminRing = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health, max_mana, evasion_chance) VALUES ('Admin Ring', 'ArmorAndJewelry/Icons/Rings/Ring_1', '{(int)ItemType.Rings}', '{(int)Rarity.Mythic}', 0.0, 100000, 100000, 100)";
+        string queryIkfirus = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, water_resistance, fire_resistance, lightning_resistance, void_resistance) VALUES ('Ikfirus Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_8', '{(int)ItemType.Armor}', '{(int)Rarity.Mythic}', 1.0, 80, 80, 80, 80)";
+        PostQueryToDb(queryIkfirus);
+        PostQueryToDb(queryAdminBoots);
+        PostQueryToDb(queryAdminRing);
     }
 
     private void CreatePlayer()
     {
-        int[] inventory = new int[] { 1, 2, 3, 4 };
+        int[] inventory = new int[] { 1, 2, 3, 4, 5, 6, 7 };
         string inventoryString = string.Join(",", inventory);
         inventoryString = inventoryString.Replace("'", "''");
         string query = $"INSERT INTO {UserTable} (name, inventory) VALUES ('player', '{inventoryString}')";
@@ -156,7 +168,7 @@ public class Database
             _dbConn.Open();
 
             IDbCommand cmd = _dbConn.CreateCommand();
-            string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
+            string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0), COALESCE(evasion_chance, 0), COALESCE(water_resistance, 0), COALESCE(lightning_resistance, 0), COALESCE(fire_resistance, 0), COALESCE(void_resistance, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
             ItemData itemData = null;
             cmd.CommandText = query;
             IDataReader reader = cmd.ExecuteReader();
@@ -172,6 +184,11 @@ public class Database
                 int maxMana = reader.GetInt32(7);
                 int movementSpeed = reader.GetInt32(8);
                 int armor = reader.GetInt32(9);
+                int evasionChance = reader.GetInt32(10);
+                int waterResistance = reader.GetInt32(11);
+                int lightningResistance = reader.GetInt32(12);
+                int fireResistance = reader.GetInt32(13);
+                int voidResistance = reader.GetInt32(14);
 
                 EntityStatsValues statsValues = new()
                 {
@@ -186,7 +203,12 @@ public class Database
 
                 CharacterDefensiveStatsValues characterDefensiveStatsValues = new()
                 {
-                    Armor = armor
+                    Armor = armor,
+                    EvasionChance = evasionChance,
+                    WaterResistance = waterResistance,
+                    LightningResistance = lightningResistance,
+                    FireResistance = fireResistance,
+                    VoidResistance = voidResistance
                 };
                 CharacterStats characterStats = ScriptableObject.CreateInstance<CharacterStats>();
                 characterStats.SetEntityStats(statsValues);

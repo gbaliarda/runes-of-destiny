@@ -22,6 +22,9 @@ public class LoadScreenManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(LoadSceneAsync());
+
+        Database database = new();
+        database.InitializeDatabase();
     }
     private IEnumerator LoadSceneAsync()
     {

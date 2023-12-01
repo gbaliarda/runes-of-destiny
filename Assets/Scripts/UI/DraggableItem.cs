@@ -53,12 +53,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _parentAfterDrag = parentAfterDrag;
     }
 
-    public void Start()
+    public void Awake()
     {
         _image = GetComponent<Image>();
 
         _database = new Database();
+    }
 
+    public void Start()
+    {
         if (_sprite == null && _itemId > 0)
         {
             UpdateItem(_itemId);
@@ -75,7 +78,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void UpdateItem(int itemId)
     {
-
+        if (_database == null) _database = new Database();
         ItemData itemData = _database.GetItem(itemId);
         if (itemData != null && itemData.Sprite != null)
         {
@@ -85,6 +88,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             _sprite = itemData.Sprite;
             _itemType = itemData.ItemType;
             _name = itemData.Name;
+
+            if (_image == null) _image = GetComponent<Image>();
 
             _image.color = Color.white;
             _image.sprite = _sprite;

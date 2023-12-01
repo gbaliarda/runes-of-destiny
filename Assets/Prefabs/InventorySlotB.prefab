@@ -90,6 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemId: 0
   _equipped: 0
+  _pickablePrefab: {fileID: 1605784356102360596, guid: c59e635683aed3142b05497e9fc652ae, type: 3}
+  _pickableDropPrefab: {fileID: 2425472867355505591, guid: a2ab334368908b7449544242fea2085d, type: 3}
 --- !u!1 &4338246647295113745
 GameObject:
   m_ObjectHideFlags: 0

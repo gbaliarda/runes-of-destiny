@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static Enums;
+using UnityEngine.InputSystem;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -12,6 +13,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private ItemType _itemType;
     private Sprite _sprite;
     [SerializeField] private bool _equipped;
+    [SerializeField] private GameObject _pickablePrefab;
+    [SerializeField] private GameObject _pickableDropPrefab;
     private string _name;
 
     private Database _database;
@@ -44,8 +47,25 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnEndDrag(PointerEventData eventData)
     {
         if (_itemId == 0) return;
-        transform.SetParent(_parentAfterDrag);
-        _image.raycastTarget = true;
+        Debug.Log(Input.mousePosition);
+        if(_pickableDropPrefab != null && _pickablePrefab != null && (Input.mousePosition.x < 1000 || Input.mousePosition.y > 750))
+        {
+            transform.SetParent(_parentAfterDrag);
+            _image.raycastTarget = true;
+            GameObject pickableContainer = GameObject.Find("Pickables");
+            GameObject dropContainer = GameObject.Find("Drops");
+
+            GameObject pickableDropItem = Instantiate(_pickableDropPrefab, Player.instance.transform.position, Player.instance.transform.rotation, dropContainer.transform);
+            GameObject pickableItem = Instantiate(_pickablePrefab, pickableContainer.transform);
+            pickableItem.GetComponent<PickableItem>()?.SetItem(_itemId);
+            pickableItem.GetComponent<FollowCanvas>()?.SetLookAt(pickableDropItem);
+            RemoveItem();
+        } else
+        {
+            transform.SetParent(_parentAfterDrag);
+            _image.raycastTarget = true;
+        }
+
     }
 
     public void SetParentAfterDrag(Transform parentAfterDrag)

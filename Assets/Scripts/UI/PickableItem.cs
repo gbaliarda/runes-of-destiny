@@ -43,23 +43,24 @@ public class PickableItem : MonoBehaviour, IPointerClickHandler
             switch(_rarity)
             {
                 case Rarity.Common:
-                    _name.color = new Color(255, 255, 255);
+                    _name.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     SoundManager.instance.PlayOneShot(Resources.Load<AudioClip>("Drops/AlertSound2"));
                     break;
                 case Rarity.Uncommon:
-                    _name.color = new Color(38, 255, 0);
+                    _name.color = new Color(38 / 255.0f, 255 / 255.0f, 0, 1.0f);
                     SoundManager.instance.PlayOneShot(Resources.Load<AudioClip>("Drops/AlertSound3"));
                     break;
                 case Rarity.Rare:
-                    _name.color = new Color(255, 255, 0);
+                    _name.color = new Color(1.0f, 1.0f, 0, 1.0f);
                     SoundManager.instance.PlayOneShot(Resources.Load<AudioClip>("Drops/AlertSound1"));
                     break;
                 case Rarity.Legendary:
-                    _name.color = new Color(236, 132, 0);
+                    _name.color = new Color(236 / 255.0f, 132 / 255.0f, 0, 1.0f);
                     SoundManager.instance.PlayOneShot(Resources.Load<AudioClip>("Drops/AlertSound4"));
                     break;
                 case Rarity.Mythic:
-                    _name.color = new Color(255, 43, 204);
+                    _name.color = new Color(1.0f, 43 / 255.0f, 204 / 255.0f, 1.0f);
+
                     SoundManager.instance.PlayOneShot(Resources.Load<AudioClip>("Drops/AlertSound5"));
                     break;
             }

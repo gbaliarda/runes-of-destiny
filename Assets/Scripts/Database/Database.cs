@@ -146,7 +146,7 @@ public class Database
 
         string queryAdminBoots = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Admin Boots', 'ArmorAndJewelry/Icons/Boots/Boots_5', '{(int)ItemType.Boots}', '{(int)Rarity.Mythic}', 0.0, 50)";
         string queryAdminRing = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health, max_mana, evasion_chance, health_regen, mana_regen) VALUES ('Admin Ring', 'ArmorAndJewelry/Icons/Rings/Ring_1', '{(int)ItemType.Rings}', '{(int)Rarity.Mythic}', 0.0, 100000, 100000, 100, 1000, 1000)";
-        string queryIkfirus = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, water_resistance, fire_resistance, lightning_resistance, void_resistance) VALUES ('Ikfirus Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_8', '{(int)ItemType.Armor}', '{(int)Rarity.Mythic}', 1.0, 80, 80, 80, 80)";
+        string queryIkfirus = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, water_resistance, fire_resistance, lightning_resistance, void_resistance) VALUES ('Ikfirus Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_8', '{(int)ItemType.Armor}', '{(int)Rarity.Legendary}', 1.0, 80, 80, 80, 80)";
         PostQueryToDb(queryIkfirus);
         PostQueryToDb(queryAdminBoots);
         PostQueryToDb(queryAdminRing);

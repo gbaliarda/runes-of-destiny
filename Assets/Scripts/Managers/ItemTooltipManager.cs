@@ -43,7 +43,9 @@ public class ItemTooltipManager : MonoBehaviour
                                 $"{(item.ItemStats.WaterResistance > 0 ? $"+ {item.ItemStats.WaterResistance }% Water Resistance \n" : "")}" +
                                 $"{(item.ItemStats.FireResistance > 0 ? $"+ {item.ItemStats.FireResistance }% Fire Resistance \n" : "")}" +
                                 $"{(item.ItemStats.LightningResistance > 0 ? $"+ {item.ItemStats.LightningResistance }% Lightning Resistance \n" : "")}" +
-                                $"{(item.ItemStats.VoidResistance > 0 ? $"+ {item.ItemStats.VoidResistance}% Void Resistance \n" : "")}";
+                                $"{(item.ItemStats.VoidResistance > 0 ? $"+ {item.ItemStats.VoidResistance}% Void Resistance \n" : "")}" +
+                                $"{(item.ItemStats.HealthRegen > 0 ? $"+ {item.ItemStats.HealthRegen} HPS \n" : "")}" +
+                                $"{(item.ItemStats.ManaRegen > 0 ? $"+ {item.ItemStats.ManaRegen} MPS \n" : "")}";
     }
 
     public void HideTooltip()

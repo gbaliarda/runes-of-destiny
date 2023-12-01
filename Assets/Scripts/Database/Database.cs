@@ -145,7 +145,7 @@ public class Database
 
 
         string queryAdminBoots = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, movement_speed) VALUES ('Admin Boots', 'ArmorAndJewelry/Icons/Boots/Boots_5', '{(int)ItemType.Boots}', '{(int)Rarity.Mythic}', 0.0, 50)";
-        string queryAdminRing = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health, max_mana, evasion_chance) VALUES ('Admin Ring', 'ArmorAndJewelry/Icons/Rings/Ring_1', '{(int)ItemType.Rings}', '{(int)Rarity.Mythic}', 0.0, 100000, 100000, 100)";
+        string queryAdminRing = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health, max_mana, evasion_chance, health_regen, mana_regen) VALUES ('Admin Ring', 'ArmorAndJewelry/Icons/Rings/Ring_1', '{(int)ItemType.Rings}', '{(int)Rarity.Mythic}', 0.0, 100000, 100000, 100, 1000, 1000)";
         string queryIkfirus = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, water_resistance, fire_resistance, lightning_resistance, void_resistance) VALUES ('Ikfirus Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_8', '{(int)ItemType.Armor}', '{(int)Rarity.Mythic}', 1.0, 80, 80, 80, 80)";
         PostQueryToDb(queryIkfirus);
         PostQueryToDb(queryAdminBoots);
@@ -168,7 +168,7 @@ public class Database
             _dbConn.Open();
 
             IDbCommand cmd = _dbConn.CreateCommand();
-            string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0), COALESCE(evasion_chance, 0), COALESCE(water_resistance, 0), COALESCE(lightning_resistance, 0), COALESCE(fire_resistance, 0), COALESCE(void_resistance, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
+            string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0), COALESCE(evasion_chance, 0), COALESCE(water_resistance, 0), COALESCE(lightning_resistance, 0), COALESCE(fire_resistance, 0), COALESCE(void_resistance, 0), COALESCE(health_regen, 0), COALESCE(mana_regen, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
             ItemData itemData = null;
             cmd.CommandText = query;
             IDataReader reader = cmd.ExecuteReader();
@@ -189,6 +189,8 @@ public class Database
                 int lightningResistance = reader.GetInt32(12);
                 int fireResistance = reader.GetInt32(13);
                 int voidResistance = reader.GetInt32(14);
+                int healthRegen = reader.GetInt32(15);
+                int manaRegen = reader.GetInt32(16);
 
                 EntityStatsValues statsValues = new()
                 {
@@ -198,7 +200,9 @@ public class Database
                 CharacterStatsValues characterStatsValues = new()
                 {
                     MaxMana = maxMana,
-                    MovementSpeed = movementSpeed
+                    MovementSpeed = movementSpeed,
+                    HealthRegen = healthRegen,
+                    ManaRegen = manaRegen
                 };
 
                 CharacterDefensiveStatsValues characterDefensiveStatsValues = new()

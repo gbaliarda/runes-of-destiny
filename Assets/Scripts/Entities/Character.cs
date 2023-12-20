@@ -48,7 +48,7 @@ public class Character : Actor, IMana, IBuffable
         if (buffs == null) buffs = new List<IBuff>();
 
         mana = characterStats.MaxMana;
-        movementController.SetSpeed(characterStats.MovementSpeed);
+        if (movementController != null) movementController.SetSpeed(characterStats.MovementSpeed);
 
         StartCoroutine(ManaRegenCoroutine());
         StartCoroutine(HealthRegenCoroutine());

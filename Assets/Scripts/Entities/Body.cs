@@ -28,4 +28,13 @@ public class Body : MonoBehaviour
     {
         MouseHoverManager.instance.OnTargetDamageableExit();
     }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("Clicked!");
+        if(_actor.GetComponent<NPC>() != null)
+        {
+            EventsManager.instance.EventTalkWithNpc(_actor.GetComponent<NPC>().name, _actor.GetComponent<NPC>().NpcId);
+        }
+    }
 }

@@ -27,6 +27,10 @@ public class Player : Character
 
     private Database _database;
 
+    private List<QuestData> _questLog;
+
+    public List<QuestData> QuestLog => _questLog;
+
     #endregion
 
     #region KEY_BINDINGS
@@ -41,11 +45,31 @@ public class Player : Character
 
     #endregion
 
+    public bool HasQuest(int questId)
+    {
+        foreach (QuestData quest in _questLog)
+        {
+            if (quest.QuestId == questId) return true;
+        }
+        return false;
+    }
+
+    public void AcceptQuest(int questId)
+    {
+        if (HasQuest(questId)) return;
+
+        QuestData questData = _database.GetQuest(questId);
+        EventsManager.instance.EventAcceptQuest(questId);
+        _questLog.Add(questData);
+    }
+
     protected new void Start()
     {
         base.Start();
         //_database = new Database();
         //_database.InitializeDatabase();
+
+        _questLog = new List<QuestData>();
 
         if (_inventory == null) _inventory = GameObject.Find("Inventory");
         inventory = FindObjectsOfType<InventorySlot>();

@@ -39,6 +39,8 @@ public class EventsManager : MonoBehaviour
     public event Action<int, int, int> OnTargetManaUpdate;
     public event Action<DraggableItem> OnEquippedItem;
     public event Action<PickableItem> OnPickedUpItem;
+    public event Action<string, int> OnTalkWithNpc;
+    public event Action<int> OnAcceptQuest;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -63,7 +65,7 @@ public class EventsManager : MonoBehaviour
     {
         OnPlayerSpendMana?.Invoke(currentMana);
     }
-    
+
     public void EventAbilityUse(int abilityUsed, float cooldown)
     {
         OnAbilityUse?.Invoke(abilityUsed, cooldown);
@@ -78,7 +80,7 @@ public class EventsManager : MonoBehaviour
     {
         OnUpdateHpPotCharge?.Invoke(currentCharges);
     }
-    
+
     public void EventManaPotUse(float cooldown)
     {
         OnManaPotUse?.Invoke(cooldown);
@@ -103,10 +105,20 @@ public class EventsManager : MonoBehaviour
     {
         OnEquippedItem?.Invoke(item);
     }
-    
+
     public void EventPickedUpItem(PickableItem item)
     {
         OnPickedUpItem?.Invoke(item);
+    }
+
+    public void EventTalkWithNpc(string npcName, int npcId)
+    {
+        OnTalkWithNpc?.Invoke(npcName, npcId);
+    }
+
+    public void EventAcceptQuest(int questId)
+    {
+        OnAcceptQuest?.Invoke(questId);
     }
 
     #endregion

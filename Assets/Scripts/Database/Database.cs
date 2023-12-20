@@ -10,6 +10,8 @@ public class Database
 {
     private const string DatabaseName = "RunesOfDestiny.s3db";
     private const string UserTable = "users";
+    private const string NpcTable = "npc";
+    private const string QuestTable = "quest";
     private const string ItemsTable = "items";
 
     private string _connPath;
@@ -30,11 +32,17 @@ public class Database
         if (Initialized) return;
         DropTable_Users();
         DropTable_Items();
+        DropTable_Npc();
+        DropTable_Quest();
 
         CreateTable_Users();
         CreateTable_Items();
+        CreateTable_Npc();
+        CreateTable_Quest();
         CreateItems();
         CreatePlayer();
+        CreateQuests();
+        CreateNpcs();
         Debug.Log("Database Initialized");
         Initialized = true;
     }
@@ -91,6 +99,32 @@ public class Database
         }
     }
 
+    private void DropTable_Npc()
+    {
+        try
+        {
+            string query = $"DROP TABLE IF EXISTS {NpcTable}";
+            PostQueryToDb(query);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error dropping table {NpcTable}: {e}");
+        }
+    }
+
+    private void DropTable_Quest()
+    {
+        try
+        {
+            string query = $"DROP TABLE IF EXISTS {QuestTable}";
+            PostQueryToDb(query);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error dropping table {QuestTable}: {e}");
+        }
+    }
+
     private void CreateTable_Users()
     {
         string query = $"CREATE TABLE IF NOT EXISTS {UserTable}(" +
@@ -130,6 +164,28 @@ public class Database
         PostQueryToDb(query);
     }
 
+    private void CreateTable_Npc()
+    {
+        string query = $"CREATE TABLE IF NOT EXISTS {NpcTable}(" +
+                            "npc_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            "name VARCHAR(200)," +
+                            "quest_ids TEXT" +
+                            ")";
+        PostQueryToDb(query);
+    }
+
+    private void CreateTable_Quest()
+    {
+        string query = $"CREATE TABLE IF NOT EXISTS {QuestTable}(" +
+                            "quest_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            "title VARCHAR(200) NOT NULL," +
+                            "description TEXT NOT NULL," +
+                            "objective VARCHAR(255) NOT NULL," +
+                            "item_rewards TEXT" +
+                            ")";
+        PostQueryToDb(query);
+    }
+
     private void CreateItems()
     {
         string queryBodyArmor1 = $"INSERT INTO {ItemsTable} (name, sprite, item_type, item_rarity, drop_chance, max_health) VALUES ('Mail Armor', 'ArmorAndJewelry/Icons/BodyArmor/BodyArmor_1', '{(int)ItemType.Armor}', '{(int)Rarity.Common}', 0.5, 500)";
@@ -161,11 +217,161 @@ public class Database
         PostQueryToDb(query);
     }
 
+    private void CreateNpcs()
+    {
+        int[] questId = new int[] { 1, 2, 3 };
+        string questString = string.Join(",", questId).Replace("'", "''");
+        string query = $"INSERT INTO {NpcTable} (name, quest_ids) VALUES ('starter', '{questString}')";
+        Debug.Log("NPC Created");
+        PostQueryToDb(query);
+    }
+
+    private void CreateQuests()
+    {
+        int[] reward = new int[] { 1 };
+        string rewardString = string.Join(",", reward);
+        rewardString = rewardString.Replace("'", "''");
+        string gettingStartedQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('Getting Started', 'Ah, greetings! I have been eagerly awaiting your arrival. Welcome to Eldoria, the heart of our mystical world. My name is Elysia, and I am here to guide you on your extraordinary journey throughout the realms of magic and destiny. \n\nAs your first task, lets begin by exploring the outskirts of Eldoria and familiarizing yourself with the basics, equip an item in your inventory.', '- Equip an item\n')";
+        string eliminateTheMenaceQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('Eliminate The Menace', 'Greetings! Eldoria faces a growing threat from hostile forces, and your assistance is crucial. We have identified a group of mischievous pirates in the vicinity that need to be dealt with. Your task is to eliminate 5 of these enemies. Head east from here, vanquish the foes, and ensure the safety of Eldoria. May your blade be swift and true!\r\n', '- Kill 5 enemies\n')";
+        string wantedCaptainQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('WANTED: Captain Darkblade', 'Ahoy! There is a notorious figure causing chaos in Eldoria, and we need your skills to put an end to their mischief. We have received reports of a formidable enemy known as Captain Darkblade. This rogue captain is Wanted for various crimes against the realm. Your mission, should you choose to accept it, is to track down and defeat Captain Darkblade. Exercise caution, for the captain is rumored to be a fierce adversary.\n\nEldorias fate rests in your hands!\r\n', '- Kill Captain Darkblade\n')";
+        PostQueryToDb(gettingStartedQuery);
+        PostQueryToDb(eliminateTheMenaceQuery);
+        PostQueryToDb(wantedCaptainQuery);
+    }
+
+    public int[] GetQuestsFromNpc(int npcId)
+    {
+        try
+        {
+            if (_dbConn.State != ConnectionState.Open)
+            {
+                _dbConn.Open();
+            }
+
+            IDbCommand cmd = _dbConn.CreateCommand();
+            string query = $"SELECT npc_id, quest_ids FROM {NpcTable} WHERE npc_id = {npcId}";
+            int[] questsIds = null;
+            cmd.CommandText = query;
+            IDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                string questIds = reader.GetString(1);
+                Debug.Log($"QuestIds {questIds}");
+                string[] questArrayString = questIds.Split(',');
+
+                questsIds = Array.ConvertAll(questArrayString, int.Parse);
+            }
+
+            cmd.Dispose();
+            _dbConn.Close();
+
+            return questsIds;
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"POST QUERY ERROR: {e}");
+            _dbConn.Close();
+            return null;
+        }
+    }
+
+    public QuestData GetQuest(int questId)
+    {
+        try
+        {
+            if (_dbConn.State != ConnectionState.Open)
+            {
+                _dbConn.Open();
+            }
+            IDbCommand cmd = _dbConn.CreateCommand();
+            string query = $"SELECT quest_id, title, description, objective, COALESCE(item_rewards, '') FROM {QuestTable} WHERE quest_id = {questId}";
+            QuestData questData = null;
+            cmd.CommandText = query;
+            IDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                string title = reader.GetString(1);
+                string description = reader.GetString(2);
+                Debug.Log($"Description is {description}");
+                string objective = reader.GetString(3);
+                string rewardString = reader.GetString(4);
+                string[] rewardArrayString = rewardString.Split(',');
+                int[] rewards = rewardString.Length > 0 ? Array.ConvertAll(rewardArrayString, int.Parse) : new int[0];
+
+                questData = new QuestData(id, title, description, objective, rewards);
+
+            }
+
+            cmd.Dispose();
+            _dbConn.Close();
+
+            return questData;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"POST QUERY ERROR: {e}");
+            _dbConn.Close();
+            return null;
+        }
+    }
+
+    public QuestData[] GetQuests(int npcId)
+    {
+        try
+        {
+            int[] questsIds = GetQuestsFromNpc(npcId);
+            if (_dbConn.State != ConnectionState.Open)
+            {
+                _dbConn.Open();
+            }
+            if (questsIds.Length <= 0) return null;
+            string questIdList = string.Join(",", questsIds);
+
+            IDbCommand cmd = _dbConn.CreateCommand();
+            string query = $"SELECT quest_id, title, description, objective, COALESCE(item_rewards, '') FROM {QuestTable} WHERE quest_id IN ({questIdList})";
+            List<QuestData> questsData = new();
+            cmd.CommandText = query;
+            IDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                QuestData questData = null;
+                int id = reader.GetInt32(0);
+                string title = reader.GetString(1);
+                string description = reader.GetString(2);
+                string objective = reader.GetString(3);
+                string rewardString = reader.GetString(4);
+                string[] rewardArrayString = rewardString.Split(',');
+                int[] rewards = rewardString.Length > 0 ? Array.ConvertAll(rewardArrayString, int.Parse) : new int[0];
+
+                questData = new QuestData(id, title, description, objective, rewards);
+                questsData.Add(questData);
+
+            }
+
+            cmd.Dispose();
+            _dbConn.Close();
+
+            return questsData.ToArray();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"POST QUERY ERROR: {e}");
+            _dbConn.Close();
+            return null;
+        }
+    }
+
     public ItemData GetItem(int itemId)
     {
         try
         {
-            _dbConn.Open();
+            if (_dbConn.State != ConnectionState.Open)
+            {
+                _dbConn.Open();
+            }
 
             IDbCommand cmd = _dbConn.CreateCommand();
             string query = $"SELECT item_id, name, sprite, item_type, item_rarity, drop_chance, COALESCE(max_health, 0), COALESCE(max_mana, 0), COALESCE(movement_speed, 0), COALESCE(armor, 0), COALESCE(evasion_chance, 0), COALESCE(water_resistance, 0), COALESCE(lightning_resistance, 0), COALESCE(fire_resistance, 0), COALESCE(void_resistance, 0), COALESCE(health_regen, 0), COALESCE(mana_regen, 0) FROM {ItemsTable} WHERE item_id = {itemId}";
@@ -254,7 +460,10 @@ public class Database
     {
         try
         {
-            _dbConn.Open();
+            if (_dbConn.State != ConnectionState.Open)
+            {
+                _dbConn.Open();
+            }
 
             IDbCommand cmd = _dbConn.CreateCommand();
             string query = $"SELECT user_id, inventory FROM {UserTable} WHERE user_id = {userId}";

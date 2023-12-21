@@ -44,6 +44,7 @@ public class Player : Character
     [SerializeField] private KeyCode _healthPot = KeyCode.D;
     [SerializeField] private KeyCode _manaPot = KeyCode.F;
     [SerializeField] private KeyCode _openInventory = KeyCode.I;
+    [SerializeField] private KeyCode _openCharacterPanel = KeyCode.C;
 
     #endregion
 
@@ -170,6 +171,7 @@ public class Player : Character
         if (Input.GetKeyDown(_healthPot) && healthPotionController != null) healthPotionController.Heal();
         if (Input.GetKeyDown(_manaPot) && manaPotionController != null) manaPotionController.GetMana();
         if (Input.GetKeyDown(_openInventory)) EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
+        if (Input.GetKeyDown(_openCharacterPanel)) EventsManager.instance.EventCharacterPanelOpen();
 
 
         if (Input.GetKeyDown(_move))
@@ -224,6 +226,8 @@ public class Player : Character
             if (mana > characterStats.MaxMana) mana = characterStats.MaxMana;
             EventsManager.instance.EventSpendMana(mana);
         }
+
+        EventsManager.instance.EventUpdateCharacterStats();
     }
 
     private void OnEquippedItem(DraggableItem item)

@@ -70,6 +70,7 @@ public class Character : Actor, IMana, IBuffable
         {
             EventsManager.instance.EventTakeDamage(life);
             EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life, MaxLife);
+            EventsManager.instance.EventUpdateCharacterStats();
         }
         buffs.Add(buff);
     }
@@ -85,6 +86,7 @@ public class Character : Actor, IMana, IBuffable
             {
                 EventsManager.instance.EventTakeDamage(life);
                 EventsManager.instance.EventTargetHealthChange(gameObject.GetInstanceID(), life > 0 ? life : 0, MaxLife);
+                EventsManager.instance.EventUpdateCharacterStats();
             }
         }
         buffs.Remove(buff);

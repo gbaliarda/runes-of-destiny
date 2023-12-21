@@ -55,6 +55,7 @@ public class QuestManager : MonoBehaviour
 
     void OnTalkWithNpc(string name, int npcId)
     {
+        CloseQuestPanel();
         _npcName = name;
         QuestData[] quests = _database.GetQuests(npcId);
 
@@ -83,7 +84,7 @@ public class QuestManager : MonoBehaviour
 
     public void OpenDetailedQuest(int questId)
     {
-        Debug.Log(questId);
+        CloseQuestPanel();
         QuestData questData = _database.GetQuest(questId);
         Debug.Log("QuestData");
         if (questData == null) return;
@@ -100,12 +101,14 @@ public class QuestManager : MonoBehaviour
         {
             _detailedQuestDeliver.gameObject.SetActive(false);
             _detailedQuestAccept.gameObject.SetActive(true);
+            _detailedQuestDeny.gameObject.SetActive(true);
             _detailedQuestAccept.onClick.RemoveAllListeners();
             _detailedQuestAccept.onClick.AddListener(() => AcceptQuest(questId));
         } else
         {
             _detailedQuestDeliver.gameObject.SetActive(true);
             _detailedQuestAccept.gameObject.SetActive(false);
+            _detailedQuestDeny.gameObject.SetActive(true);
             _detailedQuestDeliver.onClick.RemoveAllListeners();
             _detailedQuestDeliver.onClick.AddListener(() => DeliverQuest(questId));
         }

@@ -51,12 +51,14 @@ public class QuestData : IEquatable<QuestData>
 
     public void SetIsFinished(bool isFinished)
     {
+        if (_isFinished == isFinished) return;
         _isFinished = isFinished;
         if (isFinished) EventsManager.instance.EventFinishQuest(_questId);
     }
 
     public void SetIsDelivered(bool isDelivered)
     {
+        if (_isDelivered == isDelivered) return;
         _isDelivered = isDelivered;
         if (isDelivered) EventsManager.instance.EventDeliverQuest(_questId);
     }

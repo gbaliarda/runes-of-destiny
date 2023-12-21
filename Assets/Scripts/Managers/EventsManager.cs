@@ -45,6 +45,8 @@ public class EventsManager : MonoBehaviour
     public event Action<int> OnFinishQuest;
     public event Action<int> OnDeliverQuest;
     public event Action<string> OnEnemyDeath;
+    public event Action OnCharacterPanelOpen;
+    public event Action OnUpdateCharacterStats;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -143,6 +145,16 @@ public class EventsManager : MonoBehaviour
     public void EventEnemyDeath(string name)
     {
         OnEnemyDeath?.Invoke(name);
+    }
+
+    public void EventCharacterPanelOpen()
+    {
+        OnCharacterPanelOpen?.Invoke();
+    }
+
+    public void EventUpdateCharacterStats()
+    {
+        OnUpdateCharacterStats?.Invoke();
     }
 
     #endregion

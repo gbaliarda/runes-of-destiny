@@ -181,7 +181,8 @@ public class Database
                             "title VARCHAR(200) NOT NULL," +
                             "description TEXT NOT NULL," +
                             "objective VARCHAR(255) NOT NULL," +
-                            "item_rewards TEXT" +
+                            "item_rewards TEXT," +
+                            "kill_count INTEGER " +
                             ")";
         PostQueryToDb(query);
     }
@@ -232,8 +233,8 @@ public class Database
         string rewardString = string.Join(",", reward);
         rewardString = rewardString.Replace("'", "''");
         string gettingStartedQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('Getting Started', 'Ah, greetings! I have been eagerly awaiting your arrival. Welcome to Eldoria, the heart of our mystical world. My name is Elysia, and I am here to guide you on your extraordinary journey throughout the realms of magic and destiny. \n\nAs your first task, lets begin by exploring the outskirts of Eldoria and familiarizing yourself with the basics, equip an item in your inventory.', '- Equip an item\n')";
-        string eliminateTheMenaceQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('Eliminate The Menace', 'Greetings! Eldoria faces a growing threat from hostile forces, and your assistance is crucial. We have identified a group of mischievous pirates in the vicinity that need to be dealt with. Your task is to eliminate 5 of these enemies. Head east from here, vanquish the foes, and ensure the safety of Eldoria. May your blade be swift and true!\r\n', '- Kill 5 enemies\n')";
-        string wantedCaptainQuery = $"INSERT INTO {QuestTable} (title, description, objective) VALUES ('WANTED: Captain Darkblade', 'Ahoy! There is a notorious figure causing chaos in Eldoria, and we need your skills to put an end to their mischief. We have received reports of a formidable enemy known as Captain Darkblade. This rogue captain is Wanted for various crimes against the realm. Your mission, should you choose to accept it, is to track down and defeat Captain Darkblade. Exercise caution, for the captain is rumored to be a fierce adversary.\n\nEldorias fate rests in your hands!\r\n', '- Kill Captain Darkblade\n')";
+        string eliminateTheMenaceQuery = $"INSERT INTO {QuestTable} (title, description, objective, kill_count) VALUES ('Eliminate The Menace', 'Greetings! Eldoria faces a growing threat from hostile forces, and your assistance is crucial. We have identified a group of mischievous pirates in the vicinity that need to be dealt with. Your task is to eliminate 5 of these enemies. Head east from here, vanquish the foes, and ensure the safety of Eldoria. May your blade be swift and true!\r\n', '- Kill 5 enemies\n', 5)";
+        string wantedCaptainQuery = $"INSERT INTO {QuestTable} (title, description, objective, item_rewards) VALUES ('WANTED: Captain Darkblade', 'Ahoy! There is a notorious figure causing chaos in Eldoria, and we need your skills to put an end to their mischief. We have received reports of a formidable enemy known as Captain Darkblade. This rogue captain is Wanted for various crimes against the realm. Your mission, should you choose to accept it, is to track down and defeat Captain Darkblade. Exercise caution, for the captain is rumored to be a fierce adversary.\n\nEldorias fate rests in your hands!\r\n', '- Kill Captain Darkblade\n', '{rewardString}')";
         PostQueryToDb(gettingStartedQuery);
         PostQueryToDb(eliminateTheMenaceQuery);
         PostQueryToDb(wantedCaptainQuery);
@@ -286,7 +287,7 @@ public class Database
                 _dbConn.Open();
             }
             IDbCommand cmd = _dbConn.CreateCommand();
-            string query = $"SELECT quest_id, title, description, objective, COALESCE(item_rewards, '') FROM {QuestTable} WHERE quest_id = {questId}";
+            string query = $"SELECT quest_id, title, description, objective, COALESCE(item_rewards, ''), COALESCE(kill_count, 0) FROM {QuestTable} WHERE quest_id = {questId}";
             QuestData questData = null;
             cmd.CommandText = query;
             IDataReader reader = cmd.ExecuteReader();
@@ -295,13 +296,13 @@ public class Database
                 int id = reader.GetInt32(0);
                 string title = reader.GetString(1);
                 string description = reader.GetString(2);
-                Debug.Log($"Description is {description}");
                 string objective = reader.GetString(3);
                 string rewardString = reader.GetString(4);
+                int killCount = reader.GetInt32(5);
                 string[] rewardArrayString = rewardString.Split(',');
                 int[] rewards = rewardString.Length > 0 ? Array.ConvertAll(rewardArrayString, int.Parse) : new int[0];
 
-                questData = new QuestData(id, title, description, objective, rewards);
+                questData = new QuestData(id, title, description, objective, rewards, killCount);
 
             }
 

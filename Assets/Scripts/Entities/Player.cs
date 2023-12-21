@@ -24,6 +24,8 @@ public class Player : Character
     private RaycastHit _hit;
     [SerializeField] private LayerMask _clickableLayers;
     [SerializeField] public InventorySlot[] inventory;
+    [SerializeField] private GameObject _pickablePrefab;
+    [SerializeField] private GameObject _pickableDropPrefab;
 
     private Database _database;
 
@@ -54,6 +56,15 @@ public class Player : Character
         return false;
     }
 
+    public QuestData GetQuestInLog(int questId)
+    {
+        foreach (QuestData quest in _questLog)
+        {
+            if (quest.QuestId == questId) return quest;
+        }
+        return null;
+    }
+
     public void AcceptQuest(int questId)
     {
         if (HasQuest(questId)) return;
@@ -61,6 +72,25 @@ public class Player : Character
         QuestData questData = _database.GetQuest(questId);
         EventsManager.instance.EventAcceptQuest(questId);
         _questLog.Add(questData);
+    }
+
+    public void DeliverQuest(int questId)
+    {
+        QuestData questInLog = GetQuestInLog(questId);
+        if (questInLog == null) return;
+
+        if (questInLog.ItemRewards != null && questInLog.ItemRewards.Length > 0)
+        {
+            GameObject pickableContainer = GameObject.Find("Pickables");
+            GameObject dropContainer = GameObject.Find("Drops");
+
+            GameObject pickableDropItem = Instantiate(_pickableDropPrefab, transform.position, transform.rotation, dropContainer.transform);
+            GameObject pickableItem = Instantiate(_pickablePrefab, pickableContainer.transform);
+            pickableItem.GetComponent<PickableItem>()?.SetItem(questInLog.ItemRewards[0]);
+            pickableItem.GetComponent<FollowCanvas>()?.SetLookAt(pickableDropItem);
+        }
+
+        questInLog.SetIsDelivered(true);
     }
 
     protected new void Start()
@@ -91,9 +121,31 @@ public class Player : Character
         EventsManager.instance.OnOpenInventory += OnOpenInventory;
         EventsManager.instance.OnEquippedItem += OnEquippedItem;
         EventsManager.instance.OnPickedUpItem += OnPickedUpItem;
+        EventsManager.instance.OnEnemyDeath += OnEnemyDeath;
         Debug.Log($"Inventory slots: {inventory.Length}");
 
         EventsManager.instance.EventOpenInventory(!_inventory.activeSelf);
+    }
+
+    private void OnEnemyDeath(string enemyName)
+    {
+        QuestData eliminateTheMenanceQuest = GetQuestInLog(2);
+        if (eliminateTheMenanceQuest != null)
+        {
+            eliminateTheMenanceQuest.SetProgress(eliminateTheMenanceQuest.Progress + 1);
+            EventsManager.instance.EventUpdateQuest(eliminateTheMenanceQuest.QuestId);
+
+            if(eliminateTheMenanceQuest.Progress == eliminateTheMenanceQuest.KillCount)
+            {
+                eliminateTheMenanceQuest.SetIsFinished(true);
+            }
+        }
+
+        QuestData wantedDarkbladeQuest = GetQuestInLog(3);
+        if (wantedDarkbladeQuest != null && enemyName.Contains("Darkblade"))
+        {
+            wantedDarkbladeQuest.SetIsFinished(true);
+        }
     }
 
     private void UseRune(int runeIndex)
@@ -192,6 +244,11 @@ public class Player : Character
                 }
             }
             ApplyItem(item);
+            QuestData questInLog = GetQuestInLog(1);
+            if (questInLog != null)
+            {
+                questInLog.SetIsFinished(true);
+            }
         }
     }
 

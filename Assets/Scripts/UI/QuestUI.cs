@@ -14,16 +14,15 @@ public class QuestUI : MonoBehaviour
 
     void Start()
     {
-        _turnInIcon.gameObject.SetActive(false);
 
 
         gameObject.GetComponent<Button>().onClick.AddListener(() => QuestManager.instance.OpenDetailedQuest(_questId));
     }
 
-    public void SetQuest(bool isAcceptable, string title, int questId)
+    public void SetQuest(bool isFinished, string title, int questId)
     {
-        _acceptIcon.gameObject.SetActive(isAcceptable);
-        _turnInIcon.gameObject.SetActive(!isAcceptable);
+        _acceptIcon.gameObject.SetActive(!isFinished);
+        _turnInIcon.gameObject.SetActive(isFinished);
         _questTitle.text = title;
         _questId = questId;
     }

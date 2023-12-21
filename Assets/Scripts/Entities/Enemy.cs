@@ -108,6 +108,8 @@ public class Enemy : Character
                 pickableItem.GetComponent<FollowCanvas>()?.SetLookAt(pickableDropItem);
             }
         }
+
+        EventsManager.instance.EventEnemyDeath(gameObject.name);
         base.Die();
 
     }

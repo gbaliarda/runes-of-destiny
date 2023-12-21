@@ -41,6 +41,10 @@ public class EventsManager : MonoBehaviour
     public event Action<PickableItem> OnPickedUpItem;
     public event Action<string, int> OnTalkWithNpc;
     public event Action<int> OnAcceptQuest;
+    public event Action<int> OnUpdateQuest;
+    public event Action<int> OnFinishQuest;
+    public event Action<int> OnDeliverQuest;
+    public event Action<string> OnEnemyDeath;
     public void EventOpenMenu(bool open)
     {
         OnOpenMenu?.Invoke(open);
@@ -119,6 +123,26 @@ public class EventsManager : MonoBehaviour
     public void EventAcceptQuest(int questId)
     {
         OnAcceptQuest?.Invoke(questId);
+    }
+
+    public void EventUpdateQuest(int questId)
+    {
+        OnUpdateQuest?.Invoke(questId);
+    }
+
+    public void EventFinishQuest(int questId)
+    {
+        OnFinishQuest?.Invoke(questId);
+    }
+
+    public void EventDeliverQuest(int questId)
+    {
+        OnDeliverQuest?.Invoke(questId);
+    }
+
+    public void EventEnemyDeath(string name)
+    {
+        OnEnemyDeath?.Invoke(name);
     }
 
     #endregion

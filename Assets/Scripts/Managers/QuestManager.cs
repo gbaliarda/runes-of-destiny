@@ -30,6 +30,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private RewardItem _detailedQuestItemReward;
     [SerializeField] private Button _detailedQuestAccept;
     [SerializeField] private Button _detailedQuestDeliver;
+    [SerializeField] private Button _detailedQuestDeny;
 
     private List<GameObject> _quests;
 
@@ -88,6 +89,7 @@ public class QuestManager : MonoBehaviour
         if (questData == null) return;
         QuestData questInPlayerLog = Player.instance.GetQuestInLog(questId);
         if (questInPlayerLog != null) questData = questInPlayerLog;
+        gameObject.SetActive(true);
         _generalView.SetActive(false);
         _detailedQuestView.SetActive(true);
 
@@ -107,6 +109,14 @@ public class QuestManager : MonoBehaviour
             _detailedQuestDeliver.onClick.RemoveAllListeners();
             _detailedQuestDeliver.onClick.AddListener(() => DeliverQuest(questId));
         }
+
+        if(Player.instance.HasQuest(questId) && !questData.IsFinished) 
+        {
+            _detailedQuestDeliver.gameObject.SetActive(false);
+            _detailedQuestAccept.gameObject.SetActive(false);
+            _detailedQuestDeny.gameObject.SetActive(false);
+        }
+
         _detailedQuestRewardPanel.SetActive(false);
         if (questData.ItemRewards != null && questData.ItemRewards.Length > 0)
         {

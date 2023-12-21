@@ -29,6 +29,8 @@ public class MenuManager : MonoBehaviour
         if (Input.GetKeyDown(_openMenuKeyCode))
         {
             EventsManager.instance.EventOpenMenu(!_menu.activeSelf);
+            EventsManager.instance.EventOpenInventory(false);
+            if (QuestManager.instance != null) QuestManager.instance.CloseQuestPanel();
         }
     }
 

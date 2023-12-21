@@ -29,10 +29,10 @@ public class QuestLogManager : MonoBehaviour
         _quests.Add(questData, questInLog);
         if (questData.KillCount > 0)
         {
-            questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(true, questData.Title, questData.Objective, questData.Progress+"/"+questData.KillCount);
+            questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(questId, true, questData.Title, questData.Objective, questData.Progress+"/"+questData.KillCount);
         } else
         {
-            questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(true, questData.Title, questData.Objective);
+            questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(questId, true, questData.Title, questData.Objective);
         }
         gameObject.SetActive(_quests.Count != 0);
     }
@@ -52,7 +52,7 @@ public class QuestLogManager : MonoBehaviour
         if (questData == null) return;
 
         GameObject questInLog = _quests.GetValueOrDefault(questData);
-        questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(false, questData.Title, questData.Objective);
+        questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(questId, false, questData.Title, questData.Objective);
     }
 
     private void OnDeliverQuest(int questId)

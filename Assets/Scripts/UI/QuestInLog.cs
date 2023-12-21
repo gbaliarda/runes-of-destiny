@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Color = UnityEngine.Color;
 
 public class QuestInLog : MonoBehaviour
 {
+    private int _questId;
     [SerializeField] private TextMeshProUGUI _title;
+    [SerializeField] private Button _titleButton;
     [SerializeField] private TextMeshProUGUI _objectives;
     [SerializeField] private TextMeshProUGUI _progress;
     void Start()
@@ -15,9 +18,12 @@ public class QuestInLog : MonoBehaviour
 
     }
 
-    public void SetQuestInLog(bool inProgress, string title, string objectives)
+    public void SetQuestInLog(int questId, bool inProgress, string title, string objectives)
     {
         _title.text = title + (inProgress ? " (In Progress): " : " (Finished): ");
+        _questId = questId;
+        _titleButton.onClick.RemoveAllListeners();
+        _titleButton.onClick.AddListener(() => QuestManager.instance.OpenDetailedQuest(_questId));
         if (inProgress)
         {
             _objectives.text = objectives;
@@ -30,9 +36,12 @@ public class QuestInLog : MonoBehaviour
         _progress.gameObject.SetActive(false);
     }
 
-    public void SetQuestInLog(bool inProgress, string title, string objectives, string progress)
+    public void SetQuestInLog(int questId, bool inProgress, string title, string objectives, string progress)
     {
         _title.text = title + (inProgress ? " (In Progress): " : " (Finished): ");
+        _questId = questId;
+        _titleButton.onClick.RemoveAllListeners();
+        _titleButton.onClick.AddListener(() => QuestManager.instance.OpenDetailedQuest(_questId));
         if (inProgress)
         {
             _objectives.text = objectives;

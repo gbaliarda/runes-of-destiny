@@ -193,6 +193,7 @@ public class Player : Character
     private void OnOpenInventory(bool isOpen)
     {
         _inventory.SetActive(isOpen);
+        if (!isOpen) ItemTooltipManager.instance.HideTooltip();
     }
 
     public void ApplyItem(DraggableItem item)

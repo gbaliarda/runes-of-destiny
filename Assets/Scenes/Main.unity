@@ -28795,6 +28795,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f9263dd9f475b44bb4ed51893c56dad, type: 3}
+--- !u!114 &962284370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4241951512883780776, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
+  m_PrefabInstance: {fileID: 1246800035}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d15690f44e275b41949e101b3977455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &962520361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4252784401376168, guid: 99f11c17958200049a06ee08e19e393e, type: 3}
@@ -34711,7 +34722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1210144076
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35931,7 +35942,7 @@ PrefabInstance:
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 962284370}
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: _runeContainer
       value: 
@@ -49918,7 +49929,7 @@ PrefabInstance:
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1652230201}
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: _runeContainer
       value: 
@@ -49933,6 +49944,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 847096221364404784, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
   m_PrefabInstance: {fileID: 1652230199}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652230201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4241951512883780776, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
+  m_PrefabInstance: {fileID: 1652230199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d15690f44e275b41949e101b3977455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1653608751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4702229198241056, guid: 0f9263dd9f475b44bb4ed51893c56dad, type: 3}
@@ -68366,7 +68388,7 @@ PrefabInstance:
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3763866706858907652}
     - target: {fileID: 5834175670325522883, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
       propertyPath: _runeContainer
       value: 
@@ -68381,6 +68403,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 847096221364404784, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
   m_PrefabInstance: {fileID: 3763866706858907650}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3763866706858907652 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4241951512883780776, guid: 4cdf4ad86852c9045b85fc908d75e9cb, type: 3}
+  m_PrefabInstance: {fileID: 3763866706858907650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d15690f44e275b41949e101b3977455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4245808203389065431
 PrefabInstance:
   m_ObjectHideFlags: 0

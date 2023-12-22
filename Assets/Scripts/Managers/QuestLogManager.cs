@@ -43,6 +43,7 @@ public class QuestLogManager : MonoBehaviour
         if (questData == null) return;
 
         GameObject questInLog = _quests.GetValueOrDefault(questData);
+        if (questInLog == null) return;
         questInLog.GetComponent<QuestInLog>()?.SetProgress(questData.Progress + "/" + questData.KillCount);
     }
 
@@ -52,6 +53,8 @@ public class QuestLogManager : MonoBehaviour
         if (questData == null) return;
 
         GameObject questInLog = _quests.GetValueOrDefault(questData);
+        if (questInLog == null) return;
+
         questInLog.GetComponent<QuestInLog>()?.SetQuestInLog(questId, false, questData.Title, questData.Objective);
     }
 
